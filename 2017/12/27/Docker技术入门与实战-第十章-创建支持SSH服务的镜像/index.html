@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    <title>Docker技术入门与实战-第十章 创建支持SSH服务的镜像 | Quincey | mind in mind</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="Docker">
+    <meta name="description" content="进入容器可以在Host主机上使用attach、exec等命令 通过SSH服务能解决远程管理容器的问题 两种创建容器的方法： docker commit 基于Dockerfile创建    10.1 基于commit命令创建 安装openssh-server 修改root用户密码 辑配置文件/etc/ssh/sshd_config，允许以 root 用户通过 ssh 登录：  1234sudo v">
+<meta name="keywords" content="Docker">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Docker技术入门与实战-第十章 创建支持SSH服务的镜像">
+<meta property="og:url" content="http://matlabchina.cn/2017/12/27/Docker技术入门与实战-第十章-创建支持SSH服务的镜像/index.html">
+<meta property="og:site_name" content="Quincey">
+<meta property="og:description" content="进入容器可以在Host主机上使用attach、exec等命令 通过SSH服务能解决远程管理容器的问题 两种创建容器的方法： docker commit 基于Dockerfile创建    10.1 基于commit命令创建 安装openssh-server 修改root用户密码 辑配置文件/etc/ssh/sshd_config，允许以 root 用户通过 ssh 登录：  1234sudo v">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2017-12-27T11:16:56.312Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Docker技术入门与实战-第十章 创建支持SSH服务的镜像">
+<meta name="twitter:description" content="进入容器可以在Host主机上使用attach、exec等命令 通过SSH服务能解决远程管理容器的问题 两种创建容器的方法： docker commit 基于Dockerfile创建    10.1 基于commit命令创建 安装openssh-server 修改root用户密码 辑配置文件/etc/ssh/sshd_config，允许以 root 用户通过 ssh 登录：  1234sudo v">
+    
+        <link rel="alternate" type="application/atom+xml" title="Quincey" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/logo.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">Quincey Svng</h5>
+          <a href="mailto:salsa2010@foxmail.com" title="salsa2010@foxmail.com" class="mail">salsa2010@foxmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                Quincey Svng
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/SuperFireFoxy" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="http://www.weibo.com/salsa2010" target="_blank" >
+                <i class="icon icon-lg icon-weibo"></i>
+                Weibo
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://www.facebook.com/felix.song.79" target="_blank" >
+                <i class="icon icon-lg icon-link"></i>
+                facebook
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">Docker技术入门与实战-第十章 创建支持SSH服务的镜像</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Search">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">Docker技术入门与实战-第十章 创建支持SSH服务的镜像</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2017-12-27T02:32:22.000Z" itemprop="datePublished" class="page-time">
+  2017-12-27
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Docker/">Docker</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#10-1-基于commit命令创建"><span class="post-toc-number">1.</span> <span class="post-toc-text">10.1 基于commit命令创建</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#10-2-使用Dockerfile创建"><span class="post-toc-number">2.</span> <span class="post-toc-text">10.2 使用Dockerfile创建</span></a></li></ol>
+        </nav>
+    </aside>
+    
+<article id="post-Docker技术入门与实战-第十章-创建支持SSH服务的镜像"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">Docker技术入门与实战-第十章 创建支持SSH服务的镜像</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2017-12-27 10:32:22" datetime="2017-12-27T02:32:22.000Z"  itemprop="datePublished">2017-12-27</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Docker/">Docker</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <ul>
+<li>进入容器可以在Host主机上使用<code>attach</code>、<code>exec</code>等命令</li>
+<li>通过SSH服务能解决远程管理容器的问题</li>
+<li>两种创建容器的方法：<ul>
+<li>docker commit</li>
+<li>基于Dockerfile创建</li>
+</ul>
+</li>
+</ul>
+<h2 id="10-1-基于commit命令创建"><a href="#10-1-基于commit命令创建" class="headerlink" title="10.1 基于commit命令创建"></a>10.1 基于commit命令创建</h2><ol>
+<li>安装<code>openssh-server</code></li>
+<li>修改root用户密码</li>
+<li><p>辑配置文件<code>/etc/ssh/sshd_config</code>，允许以 root 用户通过 ssh 登录：</p>
+ <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sudo vi /etc/ssh/sshd_config</span><br><span class="line">找到：PermitRootLogin prohibit-password禁用</span><br><span class="line">添加：PermitRootLogin yes</span><br><span class="line">sudo service ssh restart</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>启动SSH servcie</p>
+</li>
+<li><p>exit，退出容器</p>
+</li>
+<li><p>保存镜像:<code>sudo docker commit newImageName repoName:Tag</code></p>
+<ul>
+<li><code>sudo docker commit sshunbuntu sshd:ubuntu</code></li>
+</ul>
+</li>
+<li><p>使用镜像：<code>sudo docker run -p 10022:22 -d sshd:ubuntu</code> /otherScript.sh</p>
+</li>
+<li>在其他主机登陆docker：<code>sudo ssh root@127.0.0.1 -p 10022</code></li>
+</ol>
+<h2 id="10-2-使用Dockerfile创建"><a href="#10-2-使用Dockerfile创建" class="headerlink" title="10.2 使用Dockerfile创建"></a>10.2 使用Dockerfile创建</h2><ol>
+<li><p>编写Dockerfile</p>
+ <figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#设置基础镜像</span></span><br><span class="line"><span class="keyword">FROM</span> ubuntu:latest</span><br><span class="line"></span><br><span class="line"><span class="comment">#提供作者信息</span></span><br><span class="line"><span class="keyword">MAINTAINER</span> <span class="keyword">from</span> Si by Felix(qing.song@si.com)</span><br><span class="line"></span><br><span class="line"><span class="comment">#安装ssh服务</span></span><br><span class="line"><span class="keyword">RUN</span><span class="bash"> apt-get update</span></span><br><span class="line"><span class="bash">RUN apt-get install -y openssh-server</span></span><br><span class="line"><span class="bash"></span></span><br><span class="line"><span class="bash"><span class="comment">#加载Host主机的ssh公钥，便于ssh登陆</span></span></span><br><span class="line"><span class="bash">RUN mkdir -p /root/.ssh</span></span><br><span class="line"><span class="bash">ADD authorized_keys /root/.ssh/authorized_keys</span></span><br><span class="line"><span class="bash"></span></span><br><span class="line"><span class="bash"><span class="comment">#启动ssh服务</span></span></span><br><span class="line"><span class="bash">RUN service ssh start</span></span><br><span class="line"><span class="bash"></span></span><br><span class="line"><span class="bash"><span class="comment">#暴露22号端口</span></span></span><br><span class="line"><span class="bash">EXPOSE 22</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>创建镜像</p>
+<p> <code>sudo docker build -t sshd:ubuntu</code></p>
+</li>
+<li><p>运行容器</p>
+<p> <code>sudo docker run -d -p 10022:22 sshd:ubuntu</code></p>
+</li>
+</ol>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    Last updated: <time datetime="2017-12-27T11:16:56.312Z" itemprop="dateUpdated">2017-12-27 19:16:56</time>
+</span><br>
+
+
+        
+        No one can guide you, except yourself!     self-link：<a href="/2017/12/27/Docker技术入门与实战-第十章-创建支持SSH服务的镜像/" target="_blank" rel="external">http://matlabchina.cn/2017/12/27/Docker技术入门与实战-第十章-创建支持SSH服务的镜像/</a>
+        
+    </div>
+    <footer>
+        <a href="http://matlabchina.cn">
+            <img src="/img/logo.jpg" alt="Quincey Svng">
+            Quincey Svng
+        </a>
+    </footer>
+</blockquote>
+
+        
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Docker/">Docker</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://matlabchina.cn/2017/12/27/Docker技术入门与实战-第十章-创建支持SSH服务的镜像/&title=《Docker技术入门与实战-第十章 创建支持SSH服务的镜像》 — Quincey&pic=http://matlabchina.cn/img/logo.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://matlabchina.cn/2017/12/27/Docker技术入门与实战-第十章-创建支持SSH服务的镜像/&title=《Docker技术入门与实战-第十章 创建支持SSH服务的镜像》 — Quincey&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://matlabchina.cn/2017/12/27/Docker技术入门与实战-第十章-创建支持SSH服务的镜像/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Docker技术入门与实战-第十章 创建支持SSH服务的镜像》 — Quincey&url=http://matlabchina.cn/2017/12/27/Docker技术入门与实战-第十章-创建支持SSH服务的镜像/&via=http://matlabchina.cn" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://matlabchina.cn/2017/12/27/Docker技术入门与实战-第十章-创建支持SSH服务的镜像/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2017/12/27/Docker技术入门与实战-第十一章-Web服务器应用/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">Docker技术入门与实战-第十一章 Web服务器应用</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2017/12/27/Docker技术入门与实战-第九章-操作系统/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">Docker技术入门与实战-第九章 操作系统</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+<section class="comments" id="comments">
+    <div id="gitment_thread"></div>
+    <link rel="stylesheet" href="//unpkg.com/gitment/style/default.css">
+    <script src="//unpkg.com/gitment/dist/gitment.browser.js"></script>
+    <script>
+        var gitment = new Gitment({
+            owner: 'SuperFireFoxy',
+            repo: 'superfirefoxy.github.io',
+            oauth: {
+                client_id: 'f79ac80faa3d2c58bf61',
+                client_secret: '655a9b1df478169a0c1f83cc4cc6b537873db4e3',
+            },
+        })
+        gitment.render('comments')
+    </script>
+</section>
+
+
+
+
+
+
+
+</article>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>This blog is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>Quincey Svng &copy; 2017 - 2018</span>
+            <span>
+                
+                <a href="http://www.miitbeian.gov.cn/" target="_blank">蜀ICP备16009264号-1</a><br>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://matlabchina.cn/2017/12/27/Docker技术入门与实战-第十章-创建支持SSH服务的镜像/&title=《Docker技术入门与实战-第十章 创建支持SSH服务的镜像》 — Quincey&pic=http://matlabchina.cn/img/logo.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://matlabchina.cn/2017/12/27/Docker技术入门与实战-第十章-创建支持SSH服务的镜像/&title=《Docker技术入门与实战-第十章 创建支持SSH服务的镜像》 — Quincey&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://matlabchina.cn/2017/12/27/Docker技术入门与实战-第十章-创建支持SSH服务的镜像/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Docker技术入门与实战-第十章 创建支持SSH服务的镜像》 — Quincey&url=http://matlabchina.cn/2017/12/27/Docker技术入门与实战-第十章-创建支持SSH服务的镜像/&via=http://matlabchina.cn" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://matlabchina.cn/2017/12/27/Docker技术入门与实战-第十章-创建支持SSH服务的镜像/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAPYAAAD2CAAAAADAeSUUAAADIUlEQVR42u3aQXLjMAwEwPz/097rHmJlBrCrLLp1ciWKxKYPCDH4+Ymvx3/X7Lftk6+fmd+zurCxsbFvwn5cXs/uSWCz+5/9bfK0xIKNjY19KjtZxPWjnz0tAVw/J3l+bsHGxsbGbktUXnLyLcg3HRsbGxt7U+QSWPvz/TqxsbGxT2XnhWF2Z7KUzVve2EvDxsbG/nh2nop+/ue35NvY2NjYH8x+lFdbPPKRnbadtFJgY2NjH8TOC0A71rMJZWeRc75+bGxs7O9hz1pLs7KXvz25P4mfsbGxsc9gt8eGTWHLjxPt0M8qD8HGxsa+OTsPWWdHgllpzAtk27TCxsbGPo89K1ebz3krKhn0yTfil1QEGxsb+wj2pj3ULi6PdWeMdvuwsbGxT2K3C5odANp4oB3oWX3n2NjY2Aex3xHlttFC3pZqtwkbGxv7PHbUfBlFvPvUIh/rqYNhbGxs7OPYSRybD8EkpSh/4+zLKIIBbGxs7Juz8xe30W/+27xtdL2hm+3GxsbGvi97VkjyojVrYLXvaj9jY2Njn8du/+l/7UEiP9jMCiQ2Njb2N7CTpkzbvmkHLttCtbqwsbGxD2XnZSaH5fFDGyGvgg1sbGzsQ9lt62e/iBm1DRuKsxQ2Njb2zdmvGsrZjNe0Z4fZ9mFjY2Ofx24f9NoQd3aMmUW/q4qKjY2N/fHsTYl61XHlHWHzL0/DxsbG/gJ2Uk7aMtPGzO278mgZGxsb+yT2pp3ULqUthAlpNXiEjY2NfRy7fURe2GbDN5txnyj6xcbGxj6OnR8M2iqQbFC+6OSYER2QsLGxsQ9lb4Z48s1qI4E2KoiOOtjY2NiHsvNyNWviz7o6bQycbBY2Njb2GexN0yfH5wVmsylF5IyNjY19ELsdr2lj4FlD6lWFMIp7sbGxsY9gJ0Vrs4ub4Z5ZyYzaW9jY2NjHsWcFJvnJZqBn2CdLNh0bGxv769mbErgvbPm4zx8hATY2NvZXsmdNqPwAswkV3ljAsLGxsT+enZSfPNC9XnrSHto3kv748rCxsbEPYrft+Ly11DaSZlHuPpzAxsbGvi37H9V6DDdTSiGoAAAAAElFTkSuQmCC" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+
+
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = 'woops, lost connnection！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = 'bow, chaka bow boom!';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

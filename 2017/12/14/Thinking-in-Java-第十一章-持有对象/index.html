@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    <title>Thinking in Java 第十一章 持有对象 | Quincey | mind in mind</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="ThinkinJava">
+    <meta name="description" content="11.1 泛型和类型安全的容器 @SuppressWarnings注解：告诉它对被批注的代码元素内部的某些警告保持静默。 @suppressWarnings（&amp;quot;unchecked&amp;quot;）：执行了未检查的转换时的警告，例如当使用集合时没有用泛型 (Generics) 来指定集合保存的类型   通过使用泛型(eg: ArrayList&amp;lt;Apple&amp;gt;)可以在编译器防止将错误类">
+<meta name="keywords" content="ThinkinJava">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Thinking in Java 第十一章 持有对象">
+<meta property="og:url" content="http://matlabchina.cn/2017/12/14/Thinking-in-Java-第十一章-持有对象/index.html">
+<meta property="og:site_name" content="Quincey">
+<meta property="og:description" content="11.1 泛型和类型安全的容器 @SuppressWarnings注解：告诉它对被批注的代码元素内部的某些警告保持静默。 @suppressWarnings（&amp;quot;unchecked&amp;quot;）：执行了未检查的转换时的警告，例如当使用集合时没有用泛型 (Generics) 来指定集合保存的类型   通过使用泛型(eg: ArrayList&amp;lt;Apple&amp;gt;)可以在编译器防止将错误类">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="http://ozv461xxi.bkt.clouddn.com/ThinkInJava-ch10.3-1.PNG">
+<meta property="og:image" content="http://ozv461xxi.bkt.clouddn.com/ThinkInJava-ch10.12-1.PNG">
+<meta property="og:image" content="http://ozv461xxi.bkt.clouddn.com/ThinkInJava-ch10.12-2.PNG">
+<meta property="og:image" content="http://ozv461xxi.bkt.clouddn.com/ThinkInJava-ch10.13-1.PNG">
+<meta property="og:image" content="http://ozv461xxi.bkt.clouddn.com/ThinkInJava-ch10.13-2.PNG">
+<meta property="og:image" content="http://ozv461xxi.bkt.clouddn.com/ThinkInJava-ch10.14-1.PNG">
+<meta property="og:updated_time" content="2017-12-14T13:31:16.859Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Thinking in Java 第十一章 持有对象">
+<meta name="twitter:description" content="11.1 泛型和类型安全的容器 @SuppressWarnings注解：告诉它对被批注的代码元素内部的某些警告保持静默。 @suppressWarnings（&amp;quot;unchecked&amp;quot;）：执行了未检查的转换时的警告，例如当使用集合时没有用泛型 (Generics) 来指定集合保存的类型   通过使用泛型(eg: ArrayList&amp;lt;Apple&amp;gt;)可以在编译器防止将错误类">
+<meta name="twitter:image" content="http://ozv461xxi.bkt.clouddn.com/ThinkInJava-ch10.3-1.PNG">
+    
+        <link rel="alternate" type="application/atom+xml" title="Quincey" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/logo.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">Quincey Svng</h5>
+          <a href="mailto:salsa2010@foxmail.com" title="salsa2010@foxmail.com" class="mail">salsa2010@foxmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                Quincey Svng
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/SuperFireFoxy" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="http://www.weibo.com/salsa2010" target="_blank" >
+                <i class="icon icon-lg icon-weibo"></i>
+                Weibo
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://www.facebook.com/felix.song.79" target="_blank" >
+                <i class="icon icon-lg icon-link"></i>
+                facebook
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">Thinking in Java 第十一章 持有对象</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Search">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">Thinking in Java 第十一章 持有对象</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2017-12-14T07:11:25.000Z" itemprop="datePublished" class="page-time">
+  2017-12-14
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/ThinkinJava/">ThinkinJava</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#11-1-泛型和类型安全的容器"><span class="post-toc-number">1.</span> <span class="post-toc-text">11.1 泛型和类型安全的容器</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#11-2-基本概念"><span class="post-toc-number">2.</span> <span class="post-toc-text">11.2 基本概念</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#11-3-添加一组元素"><span class="post-toc-number">3.</span> <span class="post-toc-text">11.3 添加一组元素</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#11-4-容器的打印"><span class="post-toc-number">4.</span> <span class="post-toc-text">11.4 容器的打印</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#11-5-List"><span class="post-toc-number">5.</span> <span class="post-toc-text">11.5 List</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#11-6-迭代器"><span class="post-toc-number">6.</span> <span class="post-toc-text">11.6 迭代器</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#11-7-LinkedList"><span class="post-toc-number">7.</span> <span class="post-toc-text">11.7 LinkedList</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#11-8-Stack"><span class="post-toc-number">8.</span> <span class="post-toc-text">11.8 Stack</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#11-9-Set"><span class="post-toc-number">9.</span> <span class="post-toc-text">11.9 Set</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#11-10-Map"><span class="post-toc-number">10.</span> <span class="post-toc-text">11.10 Map</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#11-11-Queue"><span class="post-toc-number">11.</span> <span class="post-toc-text">11.11 Queue</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#11-12-Collection和Iterator"><span class="post-toc-number">12.</span> <span class="post-toc-text">11.12 Collection和Iterator</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#11-13-Foreach与迭代器"><span class="post-toc-number">13.</span> <span class="post-toc-text">11.13 Foreach与迭代器</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#11-14-总结"><span class="post-toc-number">14.</span> <span class="post-toc-text">11.14 总结</span></a></li></ol>
+        </nav>
+    </aside>
+    
+<article id="post-Thinking-in-Java-第十一章-持有对象"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">Thinking in Java 第十一章 持有对象</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2017-12-14 15:11:25" datetime="2017-12-14T07:11:25.000Z"  itemprop="datePublished">2017-12-14</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/ThinkinJava/">ThinkinJava</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h2 id="11-1-泛型和类型安全的容器"><a href="#11-1-泛型和类型安全的容器" class="headerlink" title="11.1 泛型和类型安全的容器"></a>11.1 泛型和类型安全的容器</h2><ol>
+<li><code>@SuppressWarnings</code>注解：告诉它对被批注的代码元素内部的某些警告保持静默。<ul>
+<li><code>@suppressWarnings（&quot;unchecked&quot;）</code>：执行了未检查的转换时的警告，例如当使用集合时没有用泛型 (Generics) 来指定集合保存的类型</li>
+</ul>
+</li>
+<li>通过使用泛型(eg: <code>ArrayList&lt;Apple&gt;</code>)可以在<code>编译器</code>防止将错误类型的对象放置到容器中。如果不指明<code>Apple</code>，容器中所有的对象都将被向上转型为<code>Object</code></li>
+</ol>
+<h2 id="11-2-基本概念"><a href="#11-2-基本概念" class="headerlink" title="11.2 基本概念"></a>11.2 基本概念</h2><ol>
+<li><p>你应该创建一个具体的类的对象，将其转型为对应的接口，然后再其余的代码中都使用接口。</p>
+ <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">List&lt;Apple&gt; apples = <span class="keyword">new</span> ArrayList&lt;Apple&gt;();</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h2 id="11-3-添加一组元素"><a href="#11-3-添加一组元素" class="headerlink" title="11.3 添加一组元素"></a>11.3 添加一组元素</h2><ol>
+<li><p><code>Arrays.asList()</code>方法接受一个<code>数组</code>或是<code>逗号分隔的元素列表（可变参数列表）</code>，并将其转换成一个<code>伪List</code></p>
+<ul>
+<li><code>Arrays.asList()</code>输出一个<code>伪List</code>，因为在底层仍然是一个数组，因此不能调整其尺寸</li>
+<li><p><code>Arrays.asList()</code>方法的输出的<code>List</code>是编译器认为的最理想的类型，但是这种非人为的假设有时会有非预期的<code>List</code>类型</p>
+<p>  <img src="http://ozv461xxi.bkt.clouddn.com/ThinkInJava-ch10.3-1.PNG" alt="ch10.3-1"></p>
+<ul>
+<li>创建了<code>snow2</code>时，<code>Arrays.asList()</code>中只有<code>Powder</code>类型，因此它会创建<code>List&lt;Powder&gt;</code>而不是<code>List&lt;Snow&gt;</code></li>
+<li>在<code>snow4</code>的操作中，<code>Arrays.asList()</code>中间插入了一个<code>显式类型参数说明</code>(<code>Arrays.&lt;Snow&gt;asList()</code>)，以告诉编译器产生一个<code>List&lt;Snow&gt;</code>的类型</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><code>Collections.addAll</code>（静态方法）接受一个<code>Collection</code>对象，以及一个数组或一个用逗号分隔的列表，将元素加入<code>Collection</code>对象<ul>
+<li><code>Collection.addAll</code>（对象成员函数）之接受另一个<code>Collection</code>对象</li>
+</ul>
+</li>
+<li><code>Collection</code>的构造器可以接受另一个<code>Collection</code>作为入参，来构造另一个<code>Collection</code>对象 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Collection(Arrays.asList(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>))</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h2 id="11-4-容器的打印"><a href="#11-4-容器的打印" class="headerlink" title="11.4 容器的打印"></a>11.4 容器的打印</h2><ol>
+<li><p>打印函数会自动调用对象的<code>toString()</code>方法进行打印</p>
+</li>
+<li><p><code>HashSet</code>、<code>HashMap</code>:使用了最快的元素查询的方法</p>
+<p> <code>LinkedHashSet</code>、<code>LinkedHashMap</code>既保留了插入顺序存储，还保留了Hash的查询速度</p>
+<p> <code>TreeSet</code>按照值的升序来存储，<code>TreeMap</code>按照键的升序来存储</p>
+</li>
+</ol>
+<h2 id="11-5-List"><a href="#11-5-List" class="headerlink" title="11.5 List"></a>11.5 List</h2><ol>
+<li><p>两种类型的List</p>
+<ul>
+<li><code>ArrayList</code>: 随机访问速度快，插入和删除元素慢</li>
+<li><code>LinkedList</code>：随机访问慢，随机插入和删除快</li>
+</ul>
+</li>
+<li>成员函数：<ul>
+<li><code>List.subList()</code>:生成的子List中的元素实质上还是原来<code>List</code>中对象的引用</li>
+<li><code>List.addAll(int index，Collection col)</code>：重载了一个在<code>index</code>位置插入<code>Collection</code>的方法，而不仅仅是Collection.addAll()方法在表尾插入的方法</li>
+<li><code>Object List.toArray()</code>：返回的是一个Object数组，<code>list.&lt;Integer&gt;toArray()</code>可以显示的指定返回类型</li>
+<li><code>List.remove()</code>、<code>List.contains()</code>方法依赖于<code>List</code>中的<code>equals()</code>方法的实现</li>
+</ul>
+</li>
+</ol>
+<h2 id="11-6-迭代器"><a href="#11-6-迭代器" class="headerlink" title="11.6 迭代器"></a>11.6 迭代器</h2><ol>
+<li><p><code>Iterator</code>只能单向移动，如果只是单向向前遍历，<code>foreach</code>语法更好</p>
+<p> <strong><code>Iterator</code>还可以删除有<code>next()</code>产生的最后一个元素</strong>，利用该方法可以在遍历过程中动态的删除，foreach语法不行</p>
+</li>
+<li><p><code>ListIterator</code>：</p>
+<ul>
+<li>可以<strong>双向移动</strong></li>
+<li>可以产生相对于迭代器在列表中指向的当前位置的<strong>前一个和后一个元素的索引</strong></li>
+<li>可以使用<code>set()</code>方法<strong>替换它访问过的最后一个元素</strong></li>
+<li><code>listIterator(n)</code>方法可以创建一个一开始就指向列表索引为n的元素处的<code>ListIterator</code></li>
+</ul>
+</li>
+</ol>
+<h2 id="11-7-LinkedList"><a href="#11-7-LinkedList" class="headerlink" title="11.7 LinkedList"></a>11.7 LinkedList</h2><ol>
+<li><code>LinkedList</code>可以方便的实现<code>栈</code>、<code>队列</code>或<code>`双端队列</code></li>
+</ol>
+<h2 id="11-8-Stack"><a href="#11-8-Stack" class="headerlink" title="11.8 Stack"></a>11.8 Stack</h2><ol>
+<li><code>Stack</code>是<code>LIFO</code>的容器</li>
+<li><p><code>LinkedList</code>已经具有了能够实现<code>Stack</code>所有功能的方法，因此可以直接使用LinkedList作为<code>Stack</code>使用</p>
+<ul>
+<li><code>java.util</code>中的<code>Stack</code>使用了继承<code>LinkedList</code>的实现方式，但是<code>LinkedList</code>的功能是大于<code>Stack</code>的，所以会是<code>Stack</code>具有<code>LinkedList</code>中的所有方法</li>
+<li>采用<code>Stack</code>组合<code>LinkedList</code>对象的方式更合理</li>
+</ul>
+</li>
+</ol>
+<h2 id="11-9-Set"><a href="#11-9-Set" class="headerlink" title="11.9 Set"></a>11.9 Set</h2><ol>
+<li><code>Set</code>与<code>Collection</code>具有完全一样的接口</li>
+<li><p>存储结构</p>
+<p> <code>TreeSet</code>:红-黑树结构<br> <code>HashSet</code>:散列函数<br> <code>LinkedHashSet</code>:<strong>查询使用散列，插入时使用了链表</strong></p>
+</li>
+<li><p><code>TreeSet</code>排序规则</p>
+<p> 在生成<code>TreeSet</code>对象时，可以在传入排序规则参数</p>
+ <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">new</span> TreeSet&lt;String&gt;(String.CASE_INSENTIVE_ORDER);</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h2 id="11-10-Map"><a href="#11-10-Map" class="headerlink" title="11.10 Map"></a>11.10 Map</h2><ol>
+<li><p>Java之<code>HashMap.values()</code>方法误用</p>
+ <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> collections;</span><br><span class="line"><span class="keyword">import</span> java.util.HashMap;</span><br><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"><span class="keyword">import</span> java.util.Map;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test</span> </span>&#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">    * <span class="doctag">@param</span> args</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Map&lt;String,String&gt; map = <span class="keyword">new</span> HashMap&lt;String,String&gt;();</span><br><span class="line">        map.put(<span class="string">"A"</span>, <span class="string">"A"</span>);</span><br><span class="line">        map.put(<span class="string">"B"</span>, <span class="string">"B"</span>);</span><br><span class="line">        map.put(<span class="string">"C"</span>, <span class="string">"C"</span>);</span><br><span class="line">        List&lt;String&gt; valuesList = (List&lt;String&gt;) map.values();</span><br><span class="line">        <span class="keyword">for</span>(String str:valuesList)&#123;</span><br><span class="line">            System.out.println(str);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>运行时候抛出异常，异常信息如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Exception in thread <span class="string">"main"</span> java.lang.ClassCastException: java.util.HashMap$Values cannot be cast to java.util.List</span><br><span class="line">at collections.Test.main(Test.java:<span class="number">20</span>)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>原因：</p>
+<p>首先找到了values()方法所在的源码，信息如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> Collection&lt;V&gt; <span class="title">values</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    Collection&lt;V&gt; vs = values;</span><br><span class="line">    <span class="keyword">return</span> (vs != <span class="keyword">null</span> ? vs : (values = <span class="keyword">new</span> Values()));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>原来values()方法只是返回了一个<strong>Collection集合</strong>，可是如程序中的用法所示，在<strong>向下转型的时候出现了类型转换错误</strong>。那我们应该怎么才能获取自己想要的结构呢？</p>
+<p>解决方案：<br>在ArrayList中，有一个构造函数</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">ArrayList</span><span class="params">(Collection&lt;? extends E&gt; c)</span> </span>&#123;</span><br><span class="line">    elementData = c.toArray();</span><br><span class="line">    size = elementData.length;</span><br><span class="line">    <span class="comment">// c.toArray might (incorrectly) not return Object[] (see 6260652)</span></span><br><span class="line">    <span class="keyword">if</span> (elementData.getClass() != Object[].class)</span><br><span class="line">        elementData = Arrays.copyOf(elementData, size, Object[].class);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>可以接受一个集合类型的参数，然后返回一个list；这样就达到了预期目的。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">new</span> ArrayList&lt;String&gt;(map.values());</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ol>
+<h2 id="11-11-Queue"><a href="#11-11-Queue" class="headerlink" title="11.11 Queue"></a>11.11 Queue</h2><ol>
+<li><p><code>Queue</code>是一种典型的<code>FIFO</code>的容器</p>
+<ul>
+<li>队列通常被当作一种可靠的将对象从程序的某个区域传输到另一个区域的途径。<strong>队列在并发编程中特别重要，因为它可以安全的将对象从一个任务传输给另一个任务。</strong></li>
+</ul>
+</li>
+<li><p><code>PriorityQueue</code></p>
+<ul>
+<li>普通的<code>Queue</code>的<code>FIFO</code>是指下一个出队列的元素是等待时间最长的元素</li>
+<li><code>PriorityQueue</code>在调用<code>offer()</code>方法，插入一个元素时，这个对象首先会使用插入排序，安装自定义（<code>Comparator对象</code>）或者对象默认的排序规则进行插入排序。也就是说<strong>下一个出队列的元素应该是优先级最高的元素。</strong></li>
+</ul>
+</li>
+</ol>
+<h2 id="11-12-Collection和Iterator"><a href="#11-12-Collection和Iterator" class="headerlink" title="11.12 Collection和Iterator"></a>11.12 Collection和Iterator</h2><ol>
+<li><p>C++中的容器类其实并没有一个类似于<code>Collection</code>的类的公共基类，容器之间的所有共性都是通过迭代器实现的。</p>
+<ul>
+<li>java中，把<code>Collection</code>的公共基类和迭代器两个方法绑定在了一起来表示容器之间的共性，因为实现Collection就意味着需要提供<code>iterator()</code>方法</li>
+</ul>
+</li>
+<li><p><code>java.util.AbstractCollection</code>类提供了<code>Collection</code>的默认实现，可以继承该类，避免重复实现通用的方法</p>
+</li>
+<li><p><code>Collection</code>接口和<code>Iterator</code>都可以将display()方法与底层容器的特定实现解耦</p>
+<p> <img src="http://ozv461xxi.bkt.clouddn.com/ThinkInJava-ch10.12-1.PNG" alt="ch10.12-1"></p>
+<ul>
+<li>当你要给一个类实现<code>Collection</code>类的接口时可能非常困难，那么实现<code>Iterator()</code>方法以返回一个<code>Iterator</code>对象将容易得多。</li>
+<li>尽管可以通过继承<code>AbstractCollection</code>类，但是还是要实现<code>iterator()</code>和<code>size()</code>方法，因为这两个方法是<code>abstract</code>的</li>
+<li><p>如果你的类已经继承了一个类，那么久不能再继承<code>AbstractCollection</code>类了，那么此时选择实现<code>Collection</code>类将会更容易一些</p>
+<p><img src="http://ozv461xxi.bkt.clouddn.com/ThinkInJava-ch10.12-2.PNG" alt="ch10.12-1"></p>
+</li>
+<li><p>生成Iterator是将队列与消费队列的方法连接在一起耦合度最小的方式，并且相比于实现<code>Collection</code>相比，它在序列类时约束也要少得多</p>
+</li>
+</ul>
+</li>
+</ol>
+<h2 id="11-13-Foreach与迭代器"><a href="#11-13-Foreach与迭代器" class="headerlink" title="11.13 Foreach与迭代器"></a>11.13 Foreach与迭代器</h2><ol>
+<li><p>所有实现了<code>Iterable</code>接口的类，都实现了一个能产生<code>Iterator</code>对象的方法，并且<code>Iterable</code>接口能被<code>foreach</code>用来在序列中移动</p>
+<p> <code>foreach</code>语句可以用于数组或其他任何<code>Iterable</code>,但并不意味着数组肯定也是一个<code>Iterable</code>,而任何自动包装都不会自动发生</p>
+</li>
+<li><p>适配器方法惯用法</p>
+<ul>
+<li><p>当你想在<code>foreach</code>语句中实现对序列容器逆序迭代时，你可以通过实现一个能够产生Iterable对象的方法，然后在<code>hasnext()</code>、<code>next()</code>和<code>isEmpty()</code>方法中实现逆序</p>
+<p><img src="http://ozv461xxi.bkt.clouddn.com/ThinkInJava-ch10.13-1.PNG" alt="ch11.13-1"></p>
+</li>
+<li><p><code>MultiIterableClass</code>就是一个适配器类，继承了一个可迭代的基类，然后再适配器类里写了两个能产生适配目标类型的适配方法</p>
+<p><img src="http://ozv461xxi.bkt.clouddn.com/ThinkInJava-ch10.13-2.PNG" alt="ch11.13-1"></p>
+</li>
+<li><p>使用Arrays.asList()方法生成的List对象在其使用Coolections.shuffle()方法时，是<strong>直接对其底层的数组进行操作的</strong>；而如果是一个直接构造的ArrayList对象，使用Coolections.shuffle()方法时，<strong>只是将其引用打乱，而不是直接操作它的对象</strong></p>
+</li>
+</ul>
+</li>
+</ol>
+<h2 id="11-14-总结"><a href="#11-14-总结" class="headerlink" title="11.14 总结"></a>11.14 总结</h2><ol>
+<li><p>新程序中不应该过多的使用过时的Vector、HashTable、Stack</p>
+<ul>
+<li><a href="https://www.cnblogs.com/chenpi/p/5258450.html" target="_blank" rel="noopener">Vector和Stack(已过时，不建议使用)</a></li>
+</ul>
+</li>
+<li><p>Java容器的简图</p>
+<p> <img src="http://ozv461xxi.bkt.clouddn.com/ThinkInJava-ch10.14-1.PNG" alt="ch11.14-1"></p>
+</li>
+</ol>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    Last updated: <time datetime="2017-12-14T13:31:16.859Z" itemprop="dateUpdated">2017-12-14 21:31:16</time>
+</span><br>
+
+
+        
+        No one can guide you, except yourself!     self-link：<a href="/2017/12/14/Thinking-in-Java-第十一章-持有对象/" target="_blank" rel="external">http://matlabchina.cn/2017/12/14/Thinking-in-Java-第十一章-持有对象/</a>
+        
+    </div>
+    <footer>
+        <a href="http://matlabchina.cn">
+            <img src="/img/logo.jpg" alt="Quincey Svng">
+            Quincey Svng
+        </a>
+    </footer>
+</blockquote>
+
+        
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ThinkinJava/">ThinkinJava</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://matlabchina.cn/2017/12/14/Thinking-in-Java-第十一章-持有对象/&title=《Thinking in Java 第十一章 持有对象》 — Quincey&pic=http://matlabchina.cn/img/logo.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://matlabchina.cn/2017/12/14/Thinking-in-Java-第十一章-持有对象/&title=《Thinking in Java 第十一章 持有对象》 — Quincey&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://matlabchina.cn/2017/12/14/Thinking-in-Java-第十一章-持有对象/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Thinking in Java 第十一章 持有对象》 — Quincey&url=http://matlabchina.cn/2017/12/14/Thinking-in-Java-第十一章-持有对象/&via=http://matlabchina.cn" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://matlabchina.cn/2017/12/14/Thinking-in-Java-第十一章-持有对象/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2017/12/15/Thinking-in-Java-第十二章-通过异常处理错误/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">Thinking in Java 第十二章 通过异常处理错误</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2017/12/13/Thinking-in-Java-第十章-内部类/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">Thinking in Java 第十章 内部类</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+<section class="comments" id="comments">
+    <div id="gitment_thread"></div>
+    <link rel="stylesheet" href="//unpkg.com/gitment/style/default.css">
+    <script src="//unpkg.com/gitment/dist/gitment.browser.js"></script>
+    <script>
+        var gitment = new Gitment({
+            owner: 'SuperFireFoxy',
+            repo: 'superfirefoxy.github.io',
+            oauth: {
+                client_id: 'f79ac80faa3d2c58bf61',
+                client_secret: '655a9b1df478169a0c1f83cc4cc6b537873db4e3',
+            },
+        })
+        gitment.render('comments')
+    </script>
+</section>
+
+
+
+
+
+
+
+</article>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>This blog is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>Quincey Svng &copy; 2017 - 2018</span>
+            <span>
+                
+                <a href="http://www.miitbeian.gov.cn/" target="_blank">蜀ICP备16009264号-1</a><br>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://matlabchina.cn/2017/12/14/Thinking-in-Java-第十一章-持有对象/&title=《Thinking in Java 第十一章 持有对象》 — Quincey&pic=http://matlabchina.cn/img/logo.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://matlabchina.cn/2017/12/14/Thinking-in-Java-第十一章-持有对象/&title=《Thinking in Java 第十一章 持有对象》 — Quincey&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://matlabchina.cn/2017/12/14/Thinking-in-Java-第十一章-持有对象/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Thinking in Java 第十一章 持有对象》 — Quincey&url=http://matlabchina.cn/2017/12/14/Thinking-in-Java-第十一章-持有对象/&via=http://matlabchina.cn" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://matlabchina.cn/2017/12/14/Thinking-in-Java-第十一章-持有对象/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACpElEQVR42u3aQW7DMAwEwP7/0+m1QNFkVxSDFBidgtaxNT5IypJfX/F4/Bj59X99/n2f539pn14PPDw8vMHUf4/kmudT+evK57DJfPDw8PDew8sX92Rak+0kv/PzOePh4eF9Di+h5t9Ktg08PDy8/85rw4j2ngkJDw8P7xN4yY//W0lpwm4DjgtZCx4eHl7Mmxe03v95pb6Hh4eHN66qz4+27XaSbBXFbPHw8PAWePmCmxyy80aryVG7LqHh4eHhXeW1xac2sJiU1i48Fw8PD2+Nt7H032pBSCLaF/k0Hh4e3lXeRhGrLWW1L6tt28LDw8O7yzsrL7W8swN6smEU3WR4eHh4a7x5ASyZ9Py/0WaGh4eHt8xLtoc8SG0jj7Nt6cV98PDw8NZ4+dKfLNbJ8n3WCpAc5aPWATw8PLwBLw8mijw4DnbbYtuoZQEPDw/vEu+sJN+GsGfTnRy+8fDw8PZ4yTaQl6OSKbaFtPyVFfU6PDw8vAHvsTDabaAtiRWvAw8PD2+BN2mryo/F7V/ycCT/GYCHh4d3i5eHp+1Re37SP3sdeHh4eNu8OreIQ9687WC+SRTBBB4eHt6Yl38tb7e6e7dRpIuHh4e3wLtVGMsP4vMDen6wxsPDw9vjJQvuWcCaTz1/ZW2rFh4eHt77eTljstDvPRcPDw9vmzcpOJ21C5xFFcnT8fDw8N7Py4/CbTHsbDs52zzw8PDw7vIe5cgfk8PapoTiu3h4eHgLvLbO3ga+OTsvmB02CuDh4eFd5eWxQhsxzFus8tD2RYyLh4eHt8A7qxy119yNIaJ4Ag8PD+8DePPWgcnpt346Hh4e3sfzJuHFpE2hqI/h4eHhXeK17VNtMSyPGIqgId8Y8PDw8K7yzqbbFszaI/hbBx4eHl46vgEsvMU6JAjBoQAAAABJRU5ErkJggg==" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+
+
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = 'woops, lost connnection！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = 'bow, chaka bow boom!';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

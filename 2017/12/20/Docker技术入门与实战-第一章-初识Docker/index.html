@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    <title>Docker技术入门与实战-第一章 初识Docker | Quincey | mind in mind</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="Docker">
+    <meta name="description" content="1.1 什么是Docker 虚拟化实现方式： 硬件模拟 利用操作系统本身已有的机制和特性（Docker实现方式）   Docker主要目标 “Build, Ship and Run Any App, Anywhere”(一次封装，到处运行) 对应用组件的封装(Packaging)、分发(Distribution)、部署(Deployment)、运行(Runtime)等生命周期进行管理   Linu">
+<meta name="keywords" content="Docker">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Docker技术入门与实战-第一章 初识Docker">
+<meta property="og:url" content="http://matlabchina.cn/2017/12/20/Docker技术入门与实战-第一章-初识Docker/index.html">
+<meta property="og:site_name" content="Quincey">
+<meta property="og:description" content="1.1 什么是Docker 虚拟化实现方式： 硬件模拟 利用操作系统本身已有的机制和特性（Docker实现方式）   Docker主要目标 “Build, Ship and Run Any App, Anywhere”(一次封装，到处运行) 对应用组件的封装(Packaging)、分发(Distribution)、部署(Deployment)、运行(Runtime)等生命周期进行管理   Linu">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="http://cdn.docker.matlabchina.cn/Docker-ch1.2-1.PNG">
+<meta property="og:image" content="http://cdn.docker.matlabchina.cn/Docker-ch1.2-2.PNG">
+<meta property="og:updated_time" content="2017-12-20T12:54:05.144Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Docker技术入门与实战-第一章 初识Docker">
+<meta name="twitter:description" content="1.1 什么是Docker 虚拟化实现方式： 硬件模拟 利用操作系统本身已有的机制和特性（Docker实现方式）   Docker主要目标 “Build, Ship and Run Any App, Anywhere”(一次封装，到处运行) 对应用组件的封装(Packaging)、分发(Distribution)、部署(Deployment)、运行(Runtime)等生命周期进行管理   Linu">
+<meta name="twitter:image" content="http://cdn.docker.matlabchina.cn/Docker-ch1.2-1.PNG">
+    
+        <link rel="alternate" type="application/atom+xml" title="Quincey" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/logo.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">Quincey Svng</h5>
+          <a href="mailto:salsa2010@foxmail.com" title="salsa2010@foxmail.com" class="mail">salsa2010@foxmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                Quincey Svng
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/SuperFireFoxy" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="http://www.weibo.com/salsa2010" target="_blank" >
+                <i class="icon icon-lg icon-weibo"></i>
+                Weibo
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://www.facebook.com/felix.song.79" target="_blank" >
+                <i class="icon icon-lg icon-link"></i>
+                facebook
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">Docker技术入门与实战-第一章 初识Docker</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Search">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">Docker技术入门与实战-第一章 初识Docker</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2017-12-20T12:05:11.000Z" itemprop="datePublished" class="page-time">
+  2017-12-20
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Docker/">Docker</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#1-1-什么是Docker"><span class="post-toc-number">1.</span> <span class="post-toc-text">1.1 什么是Docker</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#1-2-为什么要使用Docker"><span class="post-toc-number">2.</span> <span class="post-toc-text">1.2 为什么要使用Docker</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#1-3-虚拟化与Docker"><span class="post-toc-number">3.</span> <span class="post-toc-text">1.3 虚拟化与Docker</span></a></li></ol>
+        </nav>
+    </aside>
+    
+<article id="post-Docker技术入门与实战-第一章-初识Docker"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">Docker技术入门与实战-第一章 初识Docker</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2017-12-20 20:05:11" datetime="2017-12-20T12:05:11.000Z"  itemprop="datePublished">2017-12-20</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Docker/">Docker</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h2 id="1-1-什么是Docker"><a href="#1-1-什么是Docker" class="headerlink" title="1.1 什么是Docker"></a>1.1 什么是Docker</h2><ol>
+<li>虚拟化实现方式：<ul>
+<li>硬件模拟</li>
+<li>利用操作系统本身已有的机制和特性（Docker实现方式）</li>
+</ul>
+</li>
+<li>Docker主要目标<ul>
+<li>“Build, Ship and Run Any App, Anywhere”(一次封装，到处运行)</li>
+<li>对应用组件的封装(Packaging)、分发(Distribution)、部署(Deployment)、运行(Runtime)等生命周期进行管理</li>
+</ul>
+</li>
+<li>Linux容器技术<ul>
+<li>Docker引擎的基础是Linux容器(Linux Containers, LXC)技术</li>
+<li>LXC已被集成到主流Linux内核</li>
+<li><strong>与虚拟化相比，容器既不需要指令级模拟，也不需要即使编译。容器可以在核心CPU上本地运行，而不需要任何专门的解释机制</strong></li>
+</ul>
+</li>
+<li>从Linux容器到Docker<ul>
+<li>在LXC的基础之上，Docker进一步的优化了容器的使用体验，提供了各种容器的管理工具，而无需用户关注底层的操作</li>
+</ul>
+</li>
+</ol>
+<h2 id="1-2-为什么要使用Docker"><a href="#1-2-为什么要使用Docker" class="headerlink" title="1.2 为什么要使用Docker"></a>1.2 为什么要使用Docker</h2><ol>
+<li>Docker容器虚拟化的好处<ul>
+<li>通过容器打包应用，意味着迁移只需要在新的服务器上启动需要的容器就可以了，大大节省了部署的风险和时间</li>
+</ul>
+</li>
+<li>Docker在开发和运维中的优势<ul>
+<li>更快速的交付和部署</li>
+<li>更高效的资源利用。Docker不需要二位的虚拟化管理程序（Virtual Machine Manager，VMM 以及Hyperbisor）支持，<strong>它是内核级别的虚拟化</strong></li>
+<li>更轻松的迁移和扩展。Docker容器机会可以在任何平台上运行</li>
+<li>更简单的更新管理。使用Dockerfile，只需要小小的配置修改，就可以代替以往大量的更新工作</li>
+</ul>
+</li>
+<li><p>Docker与虚拟机的比较</p>
+<ul>
+<li>Docker容器很快：启动和停止可以秒级实现</li>
+<li>Docker容器对系统资源需求很少，一个主机可以同时运行上千个Docker容器</li>
+<li>Docker通过类似Git的操作来方便用户获取、分支和更新应用镜像</li>
+<li><p>Docker通过Dockerfile配置文件来支持灵活的自动化创建和部署机制，提高工作效率</p>
+<p><img src="http://cdn.docker.matlabchina.cn/Docker-ch1.2-1.PNG" alt="ch1.2-1"></p>
+<h2 id="1-3-虚拟化与Docker"><a href="#1-3-虚拟化与Docker" class="headerlink" title="1.3 虚拟化与Docker"></a>1.3 虚拟化与Docker</h2></li>
+</ul>
+</li>
+<li><p>虚拟化的核心就是对资源进行抽象</p>
+</li>
+<li>软件虚拟化<ul>
+<li>应用虚拟化：类似于软件模拟器和wine这样的软件</li>
+<li>平台虚拟化：<ul>
+<li>完全虚拟化：虚拟机模拟完整的底层硬件环境和指令特权的执行过程，客户操作系统无需进行修改；例如：VMware Workstation、Virtual Box等</li>
+<li>硬件辅助虚拟化：利用硬件(主要是CPU)来处理特殊的指令来实现完全虚拟化的功能。例如：Intel-VT和AMD-V</li>
+<li>部分虚拟化：只针对部分的硬件资源进行虚拟化</li>
+<li>超虚拟化：部分硬件接口以软件的形式提供给客户机操作系统</li>
+<li>操作系统级虚拟化：<strong>内核通过创建多个虚拟的操作系统实例（内核和库）来隔离不同的进程</strong>，容器就是这样。<br><img src="http://cdn.docker.matlabchina.cn/Docker-ch1.2-2.PNG" alt="ch1.3-1"></li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    Last updated: <time datetime="2017-12-20T12:54:05.144Z" itemprop="dateUpdated">2017-12-20 20:54:05</time>
+</span><br>
+
+
+        
+        No one can guide you, except yourself!     self-link：<a href="/2017/12/20/Docker技术入门与实战-第一章-初识Docker/" target="_blank" rel="external">http://matlabchina.cn/2017/12/20/Docker技术入门与实战-第一章-初识Docker/</a>
+        
+    </div>
+    <footer>
+        <a href="http://matlabchina.cn">
+            <img src="/img/logo.jpg" alt="Quincey Svng">
+            Quincey Svng
+        </a>
+    </footer>
+</blockquote>
+
+        
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Docker/">Docker</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://matlabchina.cn/2017/12/20/Docker技术入门与实战-第一章-初识Docker/&title=《Docker技术入门与实战-第一章 初识Docker》 — Quincey&pic=http://matlabchina.cn/img/logo.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://matlabchina.cn/2017/12/20/Docker技术入门与实战-第一章-初识Docker/&title=《Docker技术入门与实战-第一章 初识Docker》 — Quincey&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://matlabchina.cn/2017/12/20/Docker技术入门与实战-第一章-初识Docker/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Docker技术入门与实战-第一章 初识Docker》 — Quincey&url=http://matlabchina.cn/2017/12/20/Docker技术入门与实战-第一章-初识Docker/&via=http://matlabchina.cn" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://matlabchina.cn/2017/12/20/Docker技术入门与实战-第一章-初识Docker/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2017/12/20/Docker技术入门与实战-第二章-Docker的核心概念和安装/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">Docker技术入门与实战-第二章 Docker的核心概念和安装</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2017/12/19/Thinking-in-Java-第十四章-类型信息/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">Thinking in Java 第十四章 类型信息</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+<section class="comments" id="comments">
+    <div id="gitment_thread"></div>
+    <link rel="stylesheet" href="//unpkg.com/gitment/style/default.css">
+    <script src="//unpkg.com/gitment/dist/gitment.browser.js"></script>
+    <script>
+        var gitment = new Gitment({
+            owner: 'SuperFireFoxy',
+            repo: 'superfirefoxy.github.io',
+            oauth: {
+                client_id: 'f79ac80faa3d2c58bf61',
+                client_secret: '655a9b1df478169a0c1f83cc4cc6b537873db4e3',
+            },
+        })
+        gitment.render('comments')
+    </script>
+</section>
+
+
+
+
+
+
+
+</article>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>This blog is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>Quincey Svng &copy; 2017 - 2018</span>
+            <span>
+                
+                <a href="http://www.miitbeian.gov.cn/" target="_blank">蜀ICP备16009264号-1</a><br>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://matlabchina.cn/2017/12/20/Docker技术入门与实战-第一章-初识Docker/&title=《Docker技术入门与实战-第一章 初识Docker》 — Quincey&pic=http://matlabchina.cn/img/logo.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://matlabchina.cn/2017/12/20/Docker技术入门与实战-第一章-初识Docker/&title=《Docker技术入门与实战-第一章 初识Docker》 — Quincey&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://matlabchina.cn/2017/12/20/Docker技术入门与实战-第一章-初识Docker/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Docker技术入门与实战-第一章 初识Docker》 — Quincey&url=http://matlabchina.cn/2017/12/20/Docker技术入门与实战-第一章-初识Docker/&via=http://matlabchina.cn" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://matlabchina.cn/2017/12/20/Docker技术入门与实战-第一章-初识Docker/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACtElEQVR42u3aQY7bMAwF0Nz/0lOgqxZFlE9SdLN4WhmZsaznACJD8fWKx8/vkX/y71+T+f8cyRquDTw8PLzW0t+N89TJXcnIV5ivGQ8PD2+bd96Iz9fJ48/hJH99+Zrx8PDwvoGXbMTnz3tbf56y4+Hh4X0bLy8fJBv9reCEh4eH9794G2WF/H+qafRKrQUPDw+vXzV9TQoTz1wvnu/h4eHhDU7VJwWIJMDkr6+5Qjw8PLwFXnIENQkVk9aE6qss9B3g4eHhDXi9x/RaBHpl4mp54q9rPDw8vAXepEEqDyfVNLp6wPbhteLh4eFd5U1S4btlhUkDVtQTgYeHh3eJ1wsMSQmjlxD3ChYf1oOHh4e3xsuroL2F5hv6OU1PwsnbxBoPDw/vEu+8refpdTUhrm76veMxPDw8vLu83kY/P8rqBYbyvXh4eHgLvN5t8+JvszssTtk//GLAw8PDG/Mm090aeckjCVF4eHh427zqJp4XbScNBNVGhEJPGR4eHt6Al6eweXEhb0q4VdjFw8PDe57XQ/ZmmDRdVX8A4OHh4T3Dyzfo6rHWrVdTeBYeHh7eAm8+UV6e6JUqesl09H3i4eHhta7nAaCaNOcBqXd4hoeHh/cML4FNirzVxL3aHPA28ODh4eEt8CY3z9uw8vAwScfx8PDw9ni9hHheAj4Hm16b17V8Hw8PDy+erpfansvB1YJvNSx9CAl4eHh4C7y8FeC83U8W12wION+Fh4eHd5X3Uxw56bzEatLcTOXx8PDwFni9DXcCnoeZ6l14eHh4G7y8KJCUdJslg+AbaB7F4eHh4a3xeidHeTrbS9YnjQh4eHh438PrlRV6c5Yx+XR4eHh4j/B6R1nV0HKr7IuHh4e3zcvLCvknvQaF+evDw8PD2+ZNDsDmzQfz0vCkhIGHh4dX5P0Cl1lf9PF9/K8AAAAASUVORK5CYII=" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+
+
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = 'woops, lost connnection！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = 'bow, chaka bow boom!';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

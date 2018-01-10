@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    <title>Thinking in Java 第七章 复用类 | Quincey | mind in mind</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="ThinkinJava">
+    <meta name="description" content="复用：由现有类的对象所组成，该方法只复用了nc现有程序代码的功能，而非它的形式 继承：按照现有类创建新类。它无需改变现有类的形式，采用现有类的形式并在其中添加新代码  7.1 组合语法 组合中各个非基本类型的引用需要初始化，其初始化的位置可以为：  在定义对象的时候就初始化，这样会使该类的每个对象中的该引用都有一个默认的值 在类构造器中 在使用这些对象之前初始化，即“惰性初始化” 使用实例进行初">
+<meta name="keywords" content="ThinkinJava">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Thinking in Java 第七章 复用类">
+<meta property="og:url" content="http://matlabchina.cn/2017/12/05/Thinking-in-Java-第七章-复用类/index.html">
+<meta property="og:site_name" content="Quincey">
+<meta property="og:description" content="复用：由现有类的对象所组成，该方法只复用了nc现有程序代码的功能，而非它的形式 继承：按照现有类创建新类。它无需改变现有类的形式，采用现有类的形式并在其中添加新代码  7.1 组合语法 组合中各个非基本类型的引用需要初始化，其初始化的位置可以为：  在定义对象的时候就初始化，这样会使该类的每个对象中的该引用都有一个默认的值 在类构造器中 在使用这些对象之前初始化，即“惰性初始化” 使用实例进行初">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="http://ozv461xxi.bkt.clouddn.com/ThingkingInJava_ch7.5.PNG">
+<meta property="og:image" content="http://ozv461xxi.bkt.clouddn.com/ThingkingInJava_ch7.7.PNG">
+<meta property="og:image" content="http://ozv461xxi.bkt.clouddn.com/ThingkingInJava_ch7.7.3.PNG">
+<meta property="og:updated_time" content="2017-12-13T01:50:07.028Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Thinking in Java 第七章 复用类">
+<meta name="twitter:description" content="复用：由现有类的对象所组成，该方法只复用了nc现有程序代码的功能，而非它的形式 继承：按照现有类创建新类。它无需改变现有类的形式，采用现有类的形式并在其中添加新代码  7.1 组合语法 组合中各个非基本类型的引用需要初始化，其初始化的位置可以为：  在定义对象的时候就初始化，这样会使该类的每个对象中的该引用都有一个默认的值 在类构造器中 在使用这些对象之前初始化，即“惰性初始化” 使用实例进行初">
+<meta name="twitter:image" content="http://ozv461xxi.bkt.clouddn.com/ThingkingInJava_ch7.5.PNG">
+    
+        <link rel="alternate" type="application/atom+xml" title="Quincey" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/logo.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">Quincey Svng</h5>
+          <a href="mailto:salsa2010@foxmail.com" title="salsa2010@foxmail.com" class="mail">salsa2010@foxmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                Quincey Svng
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/SuperFireFoxy" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="http://www.weibo.com/salsa2010" target="_blank" >
+                <i class="icon icon-lg icon-weibo"></i>
+                Weibo
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://www.facebook.com/felix.song.79" target="_blank" >
+                <i class="icon icon-lg icon-link"></i>
+                facebook
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">Thinking in Java 第七章 复用类</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Search">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">Thinking in Java 第七章 复用类</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2017-12-05T13:11:52.000Z" itemprop="datePublished" class="page-time">
+  2017-12-05
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/ThinkinJava/">ThinkinJava</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#7-1-组合语法"><span class="post-toc-number">1.</span> <span class="post-toc-text">7.1 组合语法</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#7-2-继承语法"><span class="post-toc-number">2.</span> <span class="post-toc-text">7.2 继承语法</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#7-3-代理"><span class="post-toc-number">3.</span> <span class="post-toc-text">7.3 代理</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#7-4-结合使用组合和继承"><span class="post-toc-number">4.</span> <span class="post-toc-text">7.4 结合使用组合和继承</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#7-5-在组合和继承之间选择"><span class="post-toc-number">5.</span> <span class="post-toc-text">7.5 在组合和继承之间选择</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#7-6-protected关键字"><span class="post-toc-number">6.</span> <span class="post-toc-text">7.6 protected关键字</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#7-7-向上转型"><span class="post-toc-number">7.</span> <span class="post-toc-text">7.7 向上转型</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#7-8-final关键字"><span class="post-toc-number">8.</span> <span class="post-toc-text">7.8 final关键字</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#7-9-初始化及类的加载"><span class="post-toc-number">9.</span> <span class="post-toc-text">7.9 初始化及类的加载</span></a></li></ol>
+        </nav>
+    </aside>
+    
+<article id="post-Thinking-in-Java-第七章-复用类"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">Thinking in Java 第七章 复用类</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2017-12-05 21:11:52" datetime="2017-12-05T13:11:52.000Z"  itemprop="datePublished">2017-12-05</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/ThinkinJava/">ThinkinJava</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <ul>
+<li>复用：由现有类的对象所组成，该方法只复用了nc现有程序代码的功能，而非它的形式</li>
+<li>继承：按照现有类创建新类。它无需改变现有类的形式，采用现有类的形式并在其中添加新代码</li>
+</ul>
+<h2 id="7-1-组合语法"><a href="#7-1-组合语法" class="headerlink" title="7.1 组合语法"></a>7.1 组合语法</h2><ol>
+<li><p>组合中各个非基本类型的引用需要初始化，其初始化的位置可以为：</p>
+<ul>
+<li>在定义对象的时候就初始化，这样会使该类的每个对象中的该引用都有一个默认的值</li>
+<li>在类构造器中</li>
+<li>在使用这些对象之前初始化，即“惰性初始化”</li>
+<li><p>使用实例进行初始化</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">@startuml</span><br><span class="line">class Wing &#123;</span><br><span class="line">&#125;</span><br><span class="line">class Bird &#123;</span><br><span class="line">-Wing:wing</span><br><span class="line">+method3()</span><br><span class="line">+method4()</span><br><span class="line">&#125;</span><br><span class="line">Bird *-- Wing:Composition</span><br><span class="line">@enduml</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ol>
+<h2 id="7-2-继承语法"><a href="#7-2-继承语法" class="headerlink" title="7.2 继承语法"></a>7.2 继承语法</h2><ol>
+<li><p>Java用super关键字表示基类的意思，super.func()表示调用基类中的func()</p>
+</li>
+<li><p>Java会在子类的构造器中自动插入对基类构造器的调用</p>
+</li>
+<li><p>子类对象在构造时，是从基类开始构造</p>
+</li>
+<li><p>如果基类没有默认构造器（不带参构造器），或者想调用一个带参数构造器，就必须用关键字super显式的调用基类构造器，<strong>其调用基类构造器的语句必须位于构造器的第一行。</strong></p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">@startuml</span><br><span class="line">class Base &#123;</span><br><span class="line">-field1</span><br><span class="line">-field2</span><br><span class="line">+method1()</span><br><span class="line">+method2()</span><br><span class="line">&#125;</span><br><span class="line">class Child &#123;</span><br><span class="line">-field3</span><br><span class="line">-field4</span><br><span class="line">+method3()</span><br><span class="line">+method4()</span><br><span class="line">&#125;</span><br><span class="line">Base &lt;|-- Child:Extension</span><br><span class="line">@enduml</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h2 id="7-3-代理"><a href="#7-3-代理" class="headerlink" title="7.3 代理"></a>7.3 代理</h2><ol>
+<li>java并没有提供对代理的直接支持，它介于组合与继承之间<blockquote>
+<p>将一个成员对象的引用放在一个另一个新类中（组合），并在这个新类中将成员对象的方法暴露出来（就像继承）</p>
+</blockquote>
+</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">@startuml</span><br><span class="line">class SpaceshipControl &#123;</span><br><span class="line">    + up()</span><br><span class="line">    + down()</span><br><span class="line">&#125;</span><br><span class="line">class Spaceship &#123;</span><br><span class="line">    -SpaceshipControl:ssc</span><br><span class="line">    +up()&#123;ssc.up()&#125;</span><br><span class="line">    +down()&#123;ssc.down()&#125;</span><br><span class="line">&#125;</span><br><span class="line">Spaceship *-- SpaceshipControl:Agent</span><br><span class="line">@enduml</span><br></pre></td></tr></table></figure>
+<ol>
+<li>使用代理时还可以选择只暴露成员对象中的某些方法，而不一定是全部的方法。</li>
+</ol>
+<h2 id="7-4-结合使用组合和继承"><a href="#7-4-结合使用组合和继承" class="headerlink" title="7.4 结合使用组合和继承"></a>7.4 结合使用组合和继承</h2><ol>
+<li><p>无论try块怎样退出，保护区后的finally子句中代码一定会执行的e</p>
+</li>
+<li><p>基类和子类的初始化顺序是：先基类后子类</p>
+<p> 而析构正好与之相反：先析构子类，再析构父类。<br> 原因：防止某个子对象依赖于另一个对象的情形发生</p>
+</li>
+<li><p>名称屏蔽</p>
+</li>
+</ol>
+<ul>
+<li><p>如果Java的基类中有n个重载的方法，在其子类中还可以继续重载该方法（即参数列表不一样），而这在C++中，在子类中，基类的同名函数将会被屏蔽</p>
+</li>
+<li><p>@Override 必须要求覆写的方法具有相同的特征签名，由此可以防止意外的重载</p>
+</li>
+</ul>
+<h2 id="7-5-在组合和继承之间选择"><a href="#7-5-在组合和继承之间选择" class="headerlink" title="7.5 在组合和继承之间选择"></a>7.5 在组合和继承之间选择</h2><ol>
+<li><p>组合：</p>
+<ul>
+<li>用于在新类中<strong>使用现有类的功能</strong>而<strong>非它的接口</strong></li>
+<li><p>通常在组合时，会把被组合的现有类声明为private（因为需要屏蔽底层实现），但是有的时候，组合中的现有类对象也是问题分析的以部分（而不仅仅是底层设计的一部分），将其声明为public有助于客户端程序员理解怎么样去使用类。但这都是特例。</p>
+<p><img src="http://ozv461xxi.bkt.clouddn.com/ThingkingInJava_ch7.5.PNG" alt="ch7.5"></p>
+</li>
+</ul>
+</li>
+<li><p>继承</p>
+<ul>
+<li>在一个通用类的基础上，为了某种特殊需求而将其特殊化</li>
+</ul>
+</li>
+<li><p>继承就是“is-a”关系，组合就是“has a”关系</p>
+</li>
+</ol>
+<h2 id="7-6-protected关键字"><a href="#7-6-protected关键字" class="headerlink" title="7.6 protected关键字"></a>7.6 protected关键字</h2><ol>
+<li><p>基类的protected域可以在子类中访问，但在基类，子类的对象中都不可以访问</p>
+</li>
+<li><p>尽管可以创建protected域，但是还是最好将域保持为private，你<strong>应当一直保留“更改底层实现”的权利。然后通过protected方法来控制类的继承者的访问权限</strong></p>
+</li>
+</ol>
+<h2 id="7-7-向上转型"><a href="#7-7-向上转型" class="headerlink" title="7.7 向上转型"></a>7.7 向上转型</h2><ol>
+<li><p>“为新类提供新的方法”并不是基础技术中最重要的作用，<strong>其最重要的作用是用来表现心累和基类之间的关系。这种关系可以描述为“新类型是现有类的一种类型”</strong>，因此，向上转型是从一个比较专用的类型向通用类型转换，所以总是安全的。</p>
+</li>
+<li><p>再论组合和继承</p>
+<p> 到底使用组合还是继承，一个最清晰的判断方法就是：问问自己是否需要从新类型向基类进行向上转型。如果必须向上转型，则继承是必要的</p>
+</li>
+</ol>
+<h2 id="7-8-final关键字"><a href="#7-8-final关键字" class="headerlink" title="7.8 final关键字"></a>7.8 final关键字</h2><ol>
+<li><p>使用final意味着“这是无法改变的”。不想做改变可能出于两种原因：<strong>设计</strong>或<strong>效率</strong></p>
+</li>
+<li><p>final数据：</p>
+<p> 目的：</p>
+<ul>
+<li>一个永不改变的编译时常量<ul>
+<li>一个既是static又是final的域就是一个编译器常量</li>
+</ul>
+</li>
+<li><p>一个在运行时才被初始化，而一旦初始化后就不再改变</p>
+<p>作用：</p>
+</li>
+<li>final对基本数据类型使用时，final使得其变量数值恒定不变</li>
+<li><p><strong>final对对象使用时，只能使引用为恒定不变的，但是被引用所对应的对象内部仍然是可以被改变的。即：指针常量</strong></p>
+<p><img src="http://ozv461xxi.bkt.clouddn.com/ThingkingInJava_ch7.7.PNG" alt="ch7.8"></p>
+<p>空白final：</p>
+</li>
+<li>空白final是指被声明为final，但又未给其初值的域。但是无论什么情况，编译器都要确保该空白final变量在被使用前已经被初始化</li>
+<li><p>这种“确保”是通过在域的定义处或者每个构造器中使用表达式对其赋值的</p>
+<p>final参数：<br>函数中的参数被声明为final时，在函数内部只可以读，不可以改变其值（引用）。<strong>这一特性主要用来向匿名内部类传递数据？？？？</strong></p>
+</li>
+</ul>
+</li>
+<li><p>final方法</p>
+<p> 目的：</p>
+<ul>
+<li>把方法锁定，以防止继承类修改它的含义</li>
+<li><p>确保final方法在继承类中行为不变，并且<strong>不会被覆盖</strong></p>
+<p>作用：</p>
+</li>
+<li>过去，java会将final方法编译优化为内嵌代码，这可能带来代码膨胀的问题；但是现在编译器会自动检查代码是否需要内嵌，所以使用final方法将没有意义</li>
+<li>所有private方法都隐式的指定为final，<strong>无法取用private方法，所以也就无法在子类中覆盖它</strong></li>
+<li><p><strong>覆盖只对基类的接口部分（public &amp; protected）有作用；所以在基类和子类中写同样的private函数，其实并不是覆盖，只是单纯的同名的函数而已</strong></p>
+<p><img src="http://ozv461xxi.bkt.clouddn.com/ThingkingInJava_ch7.7.3.PNG" alt="ch7.8.3"></p>
+</li>
+</ul>
+</li>
+<li><p>final类</p>
+<ul>
+<li>当类定义为final时，该类就不可以继承</li>
+</ul>
+</li>
+<li>关于final的忠告<ul>
+<li>将某个域设置为final，即表明其将不能被覆盖或继承。但这种对使用者对类的使用方式的预见是及其困难的。因此，何时用final这一问题，涉及到程序员无法正确猜测优化应当发生在何处的问题。</li>
+</ul>
+</li>
+</ol>
+<h2 id="7-9-初始化及类的加载"><a href="#7-9-初始化及类的加载" class="headerlink" title="7.9 初始化及类的加载"></a>7.9 初始化及类的加载</h2><ol>
+<li>在C++中，如果一个static的变量初始化需要依赖另一个static变量时，就可能出现问题，因为此时另一个static变量可能还未初始化</li>
+<li>java就不会出现该问题。<ul>
+<li>因为java中所有的事物都是对象，每个类的编译代码都在一个独立的文件中，该文件只在需要使用程序代码时才会被加载。</li>
+<li>类的代码在初次使用时才加载。通常是指加载发生于创建类的第一个对象之时；当访问static域或static方法时，也会发生加载</li>
+</ul>
+</li>
+<li>类在加载和初始化时，基本对象被默认为0，对象引用设为null，这是通过将对象内存设为二进制的零值而一举产生的。</li>
+<li><p>继承与初始化</p>
+<ul>
+<li>父类static域（方法）–&gt;子类static域（方法）–&gt;父类构造器–&gt;子类构造器</li>
+</ul>
+</li>
+</ol>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    Last updated: <time datetime="2017-12-13T01:50:07.028Z" itemprop="dateUpdated">2017-12-13 09:50:07</time>
+</span><br>
+
+
+        
+        No one can guide you, except yourself!     self-link：<a href="/2017/12/05/Thinking-in-Java-第七章-复用类/" target="_blank" rel="external">http://matlabchina.cn/2017/12/05/Thinking-in-Java-第七章-复用类/</a>
+        
+    </div>
+    <footer>
+        <a href="http://matlabchina.cn">
+            <img src="/img/logo.jpg" alt="Quincey Svng">
+            Quincey Svng
+        </a>
+    </footer>
+</blockquote>
+
+        
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ThinkinJava/">ThinkinJava</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://matlabchina.cn/2017/12/05/Thinking-in-Java-第七章-复用类/&title=《Thinking in Java 第七章 复用类》 — Quincey&pic=http://matlabchina.cn/img/logo.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://matlabchina.cn/2017/12/05/Thinking-in-Java-第七章-复用类/&title=《Thinking in Java 第七章 复用类》 — Quincey&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://matlabchina.cn/2017/12/05/Thinking-in-Java-第七章-复用类/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Thinking in Java 第七章 复用类》 — Quincey&url=http://matlabchina.cn/2017/12/05/Thinking-in-Java-第七章-复用类/&via=http://matlabchina.cn" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://matlabchina.cn/2017/12/05/Thinking-in-Java-第七章-复用类/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2017/12/11/Thinking-in-Java-第八章-多态/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">Thinking in Java 第八章 多态</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2017/12/04/神经网络和深度学习-第二章-神经网络基础/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">神经网络和深度学习-第二章 神经网络基础</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+<section class="comments" id="comments">
+    <div id="gitment_thread"></div>
+    <link rel="stylesheet" href="//unpkg.com/gitment/style/default.css">
+    <script src="//unpkg.com/gitment/dist/gitment.browser.js"></script>
+    <script>
+        var gitment = new Gitment({
+            owner: 'SuperFireFoxy',
+            repo: 'superfirefoxy.github.io',
+            oauth: {
+                client_id: 'f79ac80faa3d2c58bf61',
+                client_secret: '655a9b1df478169a0c1f83cc4cc6b537873db4e3',
+            },
+        })
+        gitment.render('comments')
+    </script>
+</section>
+
+
+
+
+
+
+
+</article>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>This blog is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>Quincey Svng &copy; 2017 - 2018</span>
+            <span>
+                
+                <a href="http://www.miitbeian.gov.cn/" target="_blank">蜀ICP备16009264号-1</a><br>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://matlabchina.cn/2017/12/05/Thinking-in-Java-第七章-复用类/&title=《Thinking in Java 第七章 复用类》 — Quincey&pic=http://matlabchina.cn/img/logo.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://matlabchina.cn/2017/12/05/Thinking-in-Java-第七章-复用类/&title=《Thinking in Java 第七章 复用类》 — Quincey&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://matlabchina.cn/2017/12/05/Thinking-in-Java-第七章-复用类/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Thinking in Java 第七章 复用类》 — Quincey&url=http://matlabchina.cn/2017/12/05/Thinking-in-Java-第七章-复用类/&via=http://matlabchina.cn" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://matlabchina.cn/2017/12/05/Thinking-in-Java-第七章-复用类/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACqElEQVR42u3aMW7DMBAEQP//006TJjCs7B5JxQFGlRHLooYFeVne4xFfz5fr9dt3d7672hGTXw0vPDw8vOVXf33cu79c83ZNTTuJeHh4ePfw3q2o1/dcPyeZpvz+5H3w8PDwPpnXFs3Jqyej4OHh4f1HXhIQtH9vSXh4eHifwGuDgPzzdTGdBx/HsxY8PDy8+dnTo90k7v985HwPDw8Pb/lUPV9w86C2Ldln7/n9Wzw8PLwDvFlA0B5u7QpwZ++Jh4eHt5fXNlHNWgHyGLfdDH4ZBQ8PD+8YL1+mZy1ZeaQ7a/xayqfx8PDwSt6sdL6+cxcjD0GKshsPDw9vmdcu6EXCMWrbWinNi24yPDw8vGVeErPuPZdvnz8LLPDw8PBO8PIH5cX0ue2hbTjAw8PDO81LAoUcNgsXku1nKZLAw8PDW+bNyui8nE2mYz2uLToj8PDw8Dbx8jAij1nb8KJNX6PjNDw8PLxbeHcu4nmJPDyiw8PDw7uFtxIf5FMz2wzq6cDDw8M7xsuX7KTtqQ0mZltIdDiHh4eHdzsvX6zbyGC20NdFPx4eHt5hXnucPyuyZ6XzMErGw8PDO8ZrF9yVjSFvTdgQ6eLh4eEd4F0POSuLd4UOyXQn3+Lh4eGd4M2K4JWFvl232w0JDw8P7zQvbxHYRW0Puorotq3i8fDw8BZ4bRxwPXA7cbOxkg0DDw8P7x5eu8S3m8FsrOGBHB4eHt5W3rO81ovglUOyfDp+NF3h4eHhbeW1jVazpXz9uCtvvRpeeHh4eCVvZTPIl+mViDZ/Gh4eHt6dvPbIakOfQtnO1T4BDw8P7zN5ebGbbzl5s1c0lXh4eHgfw5sFFrNpytnbSmo8PDy8TTnnX33bvj8eHh7eaV79733Z0bRhcT9xpoeHh4c34X0BCFhBBfOUglEAAAAASUVORK5CYII=" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+
+
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = 'woops, lost connnection！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = 'bow, chaka bow boom!';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

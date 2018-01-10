@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    <title>Thinking in java 第九章 接口 | Quincey | mind in mind</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="ThinkinJava">
+    <meta name="description" content="接口和内部类为我们提供了一种将接口和实现分离的更加结构化的方法 抽象类是接口与类之间的中庸之道  9.1 抽象类和抽象方法 抽象类：包含抽象方法的类就是抽象类 如果继承一个抽象类，那么在子类中必须要实现所有的抽象方法。否则，该类仍然是一个抽象类 抽象类不能被实例化  9.2 接口 Interface产生一个完全抽象的类，不允许有任何具体方法的实现 Interface类的默认属性 接口中的所有域都">
+<meta name="keywords" content="ThinkinJava">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Thinking in java 第九章 接口">
+<meta property="og:url" content="http://matlabchina.cn/2017/12/12/Thinking-in-java-第九章-接口/index.html">
+<meta property="og:site_name" content="Quincey">
+<meta property="og:description" content="接口和内部类为我们提供了一种将接口和实现分离的更加结构化的方法 抽象类是接口与类之间的中庸之道  9.1 抽象类和抽象方法 抽象类：包含抽象方法的类就是抽象类 如果继承一个抽象类，那么在子类中必须要实现所有的抽象方法。否则，该类仍然是一个抽象类 抽象类不能被实例化  9.2 接口 Interface产生一个完全抽象的类，不允许有任何具体方法的实现 Interface类的默认属性 接口中的所有域都">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="http://ozv461xxi.bkt.clouddn.com/ThinkInJava-ch9.4-1.PNG">
+<meta property="og:image" content="http://ozv461xxi.bkt.clouddn.com/ThinkInJava-ch9.5-1.PNG">
+<meta property="og:image" content="http://ozv461xxi.bkt.clouddn.com/ThinkInJava-ch9.5-2.PNG">
+<meta property="og:image" content="http://ozv461xxi.bkt.clouddn.com/ThinkInJava-ch9.7-1.PNG">
+<meta property="og:image" content="http://ozv461xxi.bkt.clouddn.com/ThinkInJava-ch9.8-1.PNG">
+<meta property="og:image" content="http://ozv461xxi.bkt.clouddn.com/ThinkInJava-ch9.8-2.PNG">
+<meta property="og:updated_time" content="2017-12-12T13:59:34.782Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Thinking in java 第九章 接口">
+<meta name="twitter:description" content="接口和内部类为我们提供了一种将接口和实现分离的更加结构化的方法 抽象类是接口与类之间的中庸之道  9.1 抽象类和抽象方法 抽象类：包含抽象方法的类就是抽象类 如果继承一个抽象类，那么在子类中必须要实现所有的抽象方法。否则，该类仍然是一个抽象类 抽象类不能被实例化  9.2 接口 Interface产生一个完全抽象的类，不允许有任何具体方法的实现 Interface类的默认属性 接口中的所有域都">
+<meta name="twitter:image" content="http://ozv461xxi.bkt.clouddn.com/ThinkInJava-ch9.4-1.PNG">
+    
+        <link rel="alternate" type="application/atom+xml" title="Quincey" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/logo.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">Quincey Svng</h5>
+          <a href="mailto:salsa2010@foxmail.com" title="salsa2010@foxmail.com" class="mail">salsa2010@foxmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                Quincey Svng
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/SuperFireFoxy" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="http://www.weibo.com/salsa2010" target="_blank" >
+                <i class="icon icon-lg icon-weibo"></i>
+                Weibo
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://www.facebook.com/felix.song.79" target="_blank" >
+                <i class="icon icon-lg icon-link"></i>
+                facebook
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">Thinking in java 第九章 接口</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Search">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">Thinking in java 第九章 接口</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2017-12-12T10:07:54.000Z" itemprop="datePublished" class="page-time">
+  2017-12-12
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/ThinkinJava/">ThinkinJava</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#9-1-抽象类和抽象方法"><span class="post-toc-number">1.</span> <span class="post-toc-text">9.1 抽象类和抽象方法</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#9-2-接口"><span class="post-toc-number">2.</span> <span class="post-toc-text">9.2 接口</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#9-3-完全解耦"><span class="post-toc-number">3.</span> <span class="post-toc-text">9.3 完全解耦</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#9-4-Java中的多重继承"><span class="post-toc-number">4.</span> <span class="post-toc-text">9.4 Java中的多重继承</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#9-5-通过继承来扩展接口"><span class="post-toc-number">5.</span> <span class="post-toc-text">9.5 通过继承来扩展接口</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#9-6-适配接口"><span class="post-toc-number">6.</span> <span class="post-toc-text">9.6 适配接口</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#9-7-接口中的域"><span class="post-toc-number">7.</span> <span class="post-toc-text">9.7 接口中的域</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#9-8-嵌套接口"><span class="post-toc-number">8.</span> <span class="post-toc-text">9.8 嵌套接口</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#9-9-接口与工厂"><span class="post-toc-number">9.</span> <span class="post-toc-text">9.9 接口与工厂</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#9-10-总结"><span class="post-toc-number">10.</span> <span class="post-toc-text">9.10 总结</span></a></li></ol>
+        </nav>
+    </aside>
+    
+<article id="post-Thinking-in-java-第九章-接口"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">Thinking in java 第九章 接口</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2017-12-12 18:07:54" datetime="2017-12-12T10:07:54.000Z"  itemprop="datePublished">2017-12-12</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/ThinkinJava/">ThinkinJava</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <ul>
+<li><strong>接口</strong>和<strong>内部类</strong>为我们提供了一种将<strong>接口和实现分离</strong>的更加结构化的方法</li>
+<li>抽象类是接口与类之间的中庸之道</li>
+</ul>
+<h2 id="9-1-抽象类和抽象方法"><a href="#9-1-抽象类和抽象方法" class="headerlink" title="9.1 抽象类和抽象方法"></a>9.1 抽象类和抽象方法</h2><ol>
+<li>抽象类：包含抽象方法的类就是抽象类</li>
+<li>如果继承一个抽象类，那么在子类中必须要实现所有的抽象方法。否则，该类仍然是一个抽象类</li>
+<li><strong>抽象类不能被实例化</strong></li>
+</ol>
+<h2 id="9-2-接口"><a href="#9-2-接口" class="headerlink" title="9.2 接口"></a>9.2 接口</h2><ol>
+<li><code>Interface</code>产生一个完全抽象的类，不允许有任何具体方法的实现</li>
+<li><code>Interface</code>类的默认属性<ul>
+<li>接口中的所有域都是：static+final</li>
+<li>接口中的所有方法都是：public</li>
+</ul>
+</li>
+<li><code>toString</code>方法是Object类的中的一个方法，所以任何接口类即使不显式的写该方法，也会默认的会被继承的</li>
+</ol>
+<h2 id="9-3-完全解耦"><a href="#9-3-完全解耦" class="headerlink" title="9.3 完全解耦"></a>9.3 完全解耦</h2><ol>
+<li>适配器模式<ul>
+<li>利用组合，将被适配的类对象放入适配器类中，并通过代理方法将其转换为目标类型</li>
+</ul>
+</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">@startuml</span><br><span class="line">interface Target</span><br><span class="line">interface OtherInterface</span><br><span class="line">Target &lt;|-- Adapter : Extension</span><br><span class="line">OtherInterface &lt;|-- Adaptee : Extension</span><br><span class="line">Adapter *-- Adaptee : Composition</span><br><span class="line">Target : request()</span><br><span class="line">Adapter : request()</span><br><span class="line">Adaptee : specialRequest()</span><br><span class="line">@enduml</span><br></pre></td></tr></table></figure>
+<h2 id="9-4-Java中的多重继承"><a href="#9-4-Java中的多重继承" class="headerlink" title="9.4 Java中的多重继承"></a>9.4 Java中的多重继承</h2><ol>
+<li>C++的多重继承可能会带来“菱形问题”，即：在每个基类中，同一个方法都有一个自己的实现版本。而在java中，<strong>你可以避免该问题，因为java在多重继承时，只允许某个基类的接口被其中某一个类（其他基类或者子类）具体实现，除此之外，其他类不能再实现该接口。</strong></li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">@startuml</span><br><span class="line">interface CanFight&#123;</span><br><span class="line">    + fight()</span><br><span class="line">&#125;</span><br><span class="line">interface CanSwim&#123;</span><br><span class="line">    + swim()</span><br><span class="line">&#125;</span><br><span class="line">interface CanFly&#123;</span><br><span class="line">    + fly()</span><br><span class="line">&#125;</span><br><span class="line">class ActionCharacter&#123;</span><br><span class="line">    + fight()</span><br><span class="line">&#125;</span><br><span class="line">class Hero&#123;</span><br><span class="line">    + swim()</span><br><span class="line">    + fly()</span><br><span class="line">&#125;</span><br><span class="line">ActionCharacter &lt;|-- Hero : Extension</span><br><span class="line">CanFight &lt;|-- Hero : Extension</span><br><span class="line">CanSwim &lt;|-- Hero : Extension</span><br><span class="line">CanFly &lt;|-- Hero : Extension</span><br><span class="line">@enduml</span><br></pre></td></tr></table></figure>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="http://ozv461xxi.bkt.clouddn.com/ThinkInJava-ch9.4-1.PNG" alt="ch9.4-1" title="">
+                </div>
+                <div class="image-caption">ch9.4-1</div>
+            </figure>
+<ul>
+<li>可以看到hero类实现了CanSwim, CanFight, CanFly接口，同时继承了ActionCharacter类</li>
+<li>ActionCharacter类中已经实现了fight方法，因此咋爱Hero类中就不用再实现fight方法</li>
+</ul>
+<ol>
+<li><p>使用接口的核心原因：</p>
+<ul>
+<li>为了能够向上转型为多个基类型，由此带来灵活性</li>
+<li>与使用抽象基类一样，接口也可以防止客户端程序员创建该对象，并确保这仅仅是建立一个接口</li>
+</ul>
+</li>
+</ol>
+<h2 id="9-5-通过继承来扩展接口"><a href="#9-5-通过继承来扩展接口" class="headerlink" title="9.5 通过继承来扩展接口"></a>9.5 通过继承来扩展接口</h2><ol>
+<li>通过继承，可以很容易地在接口中添加新的方法声明；<strong>还可以通过继承在新接口中组合多个接口形成新的接口类</strong></li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">interface</span> <span class="title">I3</span> <span class="keyword">extends</span> <span class="title">I1</span>, <span class="title">I2</span></span>;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>通常只能extends一个类，但是可以extends多个接口类</li>
+</ul>
+<ol>
+<li>组合接口时的名字冲突<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="http://ozv461xxi.bkt.clouddn.com/ThinkInJava-ch9.5-1.PNG" alt="ch9.5-1" title="">
+                </div>
+                <div class="image-caption">ch9.5-1</div>
+            </figure>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="http://ozv461xxi.bkt.clouddn.com/ThinkInJava-ch9.5-2.PNG" alt="ch9.5-2" title="">
+                </div>
+                <div class="image-caption">ch9.5-2</div>
+            </figure>
+</li>
+</ol>
+<ul>
+<li>当重载、覆盖、实现混在一起时，重载方法仅通过返回值类型是区分不开的。所以，打算组合的不同接口中使用了相同的方法名通常会造成代码可读性混乱。</li>
+</ul>
+<h2 id="9-6-适配接口"><a href="#9-6-适配接口" class="headerlink" title="9.6 适配接口"></a>9.6 适配接口</h2><ol>
+<li><p>策略设计模式：</p>
+<ul>
+<li>编写一个方法时，该方法的入参不用具体类，而是写一个接口类型；由此就实现了“<strong>你可以用任何你想要的对象来调用我的方法，只要你遵循我的接口</strong>”</li>
+<li>而任何类都可以通过<code>适配器模式</code>将其转换为方法调用的入参类型，所以使用接口类型作为入参，灵活性很高</li>
+</ul>
+</li>
+</ol>
+<h2 id="9-7-接口中的域"><a href="#9-7-接口中的域" class="headerlink" title="9.7 接口中的域"></a>9.7 接口中的域</h2><ol>
+<li>接口中的成员变量默认都是static和final的属性，且接口中所以的域都是public的，所以可以利用interface作为常量组工具</li>
+<li>接口中域（final static）必须要定义时初始化，且可以利用非常量表达式对其进行初始化。</li>
+</ol>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="http://ozv461xxi.bkt.clouddn.com/ThinkInJava-ch9.7-1.PNG" alt="ch9.7-1" title="">
+                </div>
+                <div class="image-caption">ch9.7-1</div>
+            </figure>
+<h2 id="9-8-嵌套接口"><a href="#9-8-嵌套接口" class="headerlink" title="9.8 嵌套接口"></a>9.8 嵌套接口</h2><ol>
+<li><p>接口类可以被嵌套在<strong>普通类</strong>和<strong>接口类</strong>里面</p>
+<ul>
+<li>在<code>class</code>内部，嵌套的<code>interface</code>可以声明为<code>private</code></li>
+<li><p>在<code>interface</code>内部，嵌套的<code>interface</code>只能声明为<code>public</code></p>
+</li>
+<li><p><code>private</code>的嵌套接口：</p>
+<ul>
+<li>能在内部实现该<code>private</code>接口的一个<code>private</code>内部类，也能被实现<code>private</code>接口的一个<code>public</code>的内部类</li>
+<li>在内部类中利用<code>public</code>方法返回一个<code>private</code>接口的引用时，他的返回值不能直接给其他内部对象的引用。只能将返回值交给有权使用它的外部对象</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<p><img src="http://ozv461xxi.bkt.clouddn.com/ThinkInJava-ch9.8-1.PNG" alt="ch9.8-1"><br><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="http://ozv461xxi.bkt.clouddn.com/ThinkInJava-ch9.8-2.PNG" alt="ch9.8-2" title="">
+                </div>
+                <div class="image-caption">ch9.8-2</div>
+            </figure></p>
+<h2 id="9-9-接口与工厂"><a href="#9-9-接口与工厂" class="headerlink" title="9.9 接口与工厂"></a>9.9 接口与工厂</h2><ol>
+<li>工厂模式</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">@startuml</span><br><span class="line">interface Service</span><br><span class="line">interface Factory&#123;</span><br><span class="line">    - Service</span><br><span class="line">&#125;</span><br><span class="line">class ServiceA</span><br><span class="line">class ServiceB</span><br><span class="line">class FactoryA&#123;</span><br><span class="line">    + ServiceA:createServiceA()</span><br><span class="line">&#125;</span><br><span class="line">class FactoryB&#123;</span><br><span class="line">    + ServiceB:createServiceB()</span><br><span class="line">&#125;</span><br><span class="line">Service &lt;|-- ServiceA : Extension</span><br><span class="line">Service &lt;|-- ServiceB : Extension</span><br><span class="line"></span><br><span class="line">Factory &lt;|-- FactoryA : Extension</span><br><span class="line">Factory &lt;|-- FactoryB : Extension</span><br><span class="line"></span><br><span class="line">@enduml</span><br></pre></td></tr></table></figure>
+<h2 id="9-10-总结"><a href="#9-10-总结" class="headerlink" title="9.10 总结"></a>9.10 总结</h2><ol>
+<li>创建类，几乎在任何时刻，都可以替代为创建一个接口和一个工厂</li>
+<li>不能因为意识到由于以防万一而添加接口，应当从类开始，如果接口的必需性变得非常明确后，就进行重构</li>
+</ol>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    Last updated: <time datetime="2017-12-12T13:59:34.782Z" itemprop="dateUpdated">2017-12-12 21:59:34</time>
+</span><br>
+
+
+        
+        No one can guide you, except yourself!     self-link：<a href="/2017/12/12/Thinking-in-java-第九章-接口/" target="_blank" rel="external">http://matlabchina.cn/2017/12/12/Thinking-in-java-第九章-接口/</a>
+        
+    </div>
+    <footer>
+        <a href="http://matlabchina.cn">
+            <img src="/img/logo.jpg" alt="Quincey Svng">
+            Quincey Svng
+        </a>
+    </footer>
+</blockquote>
+
+        
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ThinkinJava/">ThinkinJava</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://matlabchina.cn/2017/12/12/Thinking-in-java-第九章-接口/&title=《Thinking in java 第九章 接口》 — Quincey&pic=http://matlabchina.cn/img/logo.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://matlabchina.cn/2017/12/12/Thinking-in-java-第九章-接口/&title=《Thinking in java 第九章 接口》 — Quincey&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://matlabchina.cn/2017/12/12/Thinking-in-java-第九章-接口/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Thinking in java 第九章 接口》 — Quincey&url=http://matlabchina.cn/2017/12/12/Thinking-in-java-第九章-接口/&via=http://matlabchina.cn" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://matlabchina.cn/2017/12/12/Thinking-in-java-第九章-接口/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2017/12/13/Thinking-in-Java-第十章-内部类/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">Thinking in Java 第十章 内部类</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2017/12/11/Thinking-in-Java-第八章-多态/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">Thinking in Java 第八章 多态</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+<section class="comments" id="comments">
+    <div id="gitment_thread"></div>
+    <link rel="stylesheet" href="//unpkg.com/gitment/style/default.css">
+    <script src="//unpkg.com/gitment/dist/gitment.browser.js"></script>
+    <script>
+        var gitment = new Gitment({
+            owner: 'SuperFireFoxy',
+            repo: 'superfirefoxy.github.io',
+            oauth: {
+                client_id: 'f79ac80faa3d2c58bf61',
+                client_secret: '655a9b1df478169a0c1f83cc4cc6b537873db4e3',
+            },
+        })
+        gitment.render('comments')
+    </script>
+</section>
+
+
+
+
+
+
+
+</article>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>This blog is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>Quincey Svng &copy; 2017 - 2018</span>
+            <span>
+                
+                <a href="http://www.miitbeian.gov.cn/" target="_blank">蜀ICP备16009264号-1</a><br>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://matlabchina.cn/2017/12/12/Thinking-in-java-第九章-接口/&title=《Thinking in java 第九章 接口》 — Quincey&pic=http://matlabchina.cn/img/logo.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://matlabchina.cn/2017/12/12/Thinking-in-java-第九章-接口/&title=《Thinking in java 第九章 接口》 — Quincey&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://matlabchina.cn/2017/12/12/Thinking-in-java-第九章-接口/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Thinking in java 第九章 接口》 — Quincey&url=http://matlabchina.cn/2017/12/12/Thinking-in-java-第九章-接口/&via=http://matlabchina.cn" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://matlabchina.cn/2017/12/12/Thinking-in-java-第九章-接口/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACvElEQVR42u3asXLjMAwEUP//T+eaK644WbuAmDgzT1XGcTR8LEhkgdcrfr7+ed5/fvWd9799//nVdx578PDw8BZLv3pd/kmyNVfvSdaQrxkPDw/vNO9qWbPDPWHnG9FuJR4eHt5n8tqSd1OO4+Hh4f123mxx+YWRl9R4eHh4P8vLg4Akfm15s+Dj4awFDw8Pb1L3vpKC+BN+PtLfw8PDw1t31d8fuLMhgLx0bptk/3kbHh4e3gFefuC2Zevs+/uhKzw8PLzTvM1YVRsHzFpZm6AEDw8P7xxv05TKl9VGt7OGWTTDhYeHh7fgzUKEfbzbbtBsK/Hw8PC+k5cfwSei2DyqqNtgeHh4eGvepq2Vx6/5dbIZ6rrs7+Hh4eE9ypsNXbVl9+wKmRXxNQwPDw9vxJu1uNqRrFm9P2utXU5G4OHh4a15m8W1R3l+MWyaajejA3h4eHgHePuhqDxHnY1n5eU7Hh4e3jleHjq0AUEbDbeB7A0VDw8P7wDvqZK3HSzI39BGyTdDV3h4eHgP8TYBax5SzL7fxiU3SDw8PLxjvH2bv4Xthwyi6wEPDw/vAK+NX/Nx0nxMod2s9krDw8PD2/DyAzqJX/NIIhkCeCDSxcPDwzvAy8PQ2YhAO5612fSbv8XDw8M7wJs1tGbNrc1lk7wHDw8P7zRvE7PmcWrOaGORuqeHh4eH9xAvKYvbYjoveWeNt6hwx8PDw/sWXhub5sj2WM+L9SKrxsPDw1vwvspnP1A1W3S7HX9/i4eHh3eAlz8te5YJ5Id+DcDDw8N7lPfsONRmjzcleBTj4uHh4T3Kmx3KbVM/34LNzXYzOoCHh4f3o7x2iXnZnV8DNyEFHh4e3gfwkuO+zQf210+RB+Ph4eE9xGvL4nYLkpbVbMuiiwEPDw/vUV79731c1M6C4M3Awaq/h4eHh3f//AF2nDXKfAfUBAAAAABJRU5ErkJggg==" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+
+
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = 'woops, lost connnection！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = 'bow, chaka bow boom!';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

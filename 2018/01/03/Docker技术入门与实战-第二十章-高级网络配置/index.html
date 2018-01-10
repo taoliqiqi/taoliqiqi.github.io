@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    <title>Docker技术入门与实战-第二十章 高级网络配置 | Quincey | mind in mind</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="Docker">
+    <meta name="description" content="20.1 网络启动与配置参数 基本过程：  A. Docker服务启动时会在主机上自动创建一个docker0的虚拟网桥，并从本地未占用的私有网段钟随机分配一个IP给docker0；  例如：典型的172.17.42.1，掩码为255.255.0.0. B. 当创建容器时，会同时创建一个veth pair接口（当数据包发送到一个接口时，另外一个接口也可以收到相同的数据包）。这对接口一端在容器内(et">
+<meta name="keywords" content="Docker">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Docker技术入门与实战-第二十章 高级网络配置">
+<meta property="og:url" content="http://matlabchina.cn/2018/01/03/Docker技术入门与实战-第二十章-高级网络配置/index.html">
+<meta property="og:site_name" content="Quincey">
+<meta property="og:description" content="20.1 网络启动与配置参数 基本过程：  A. Docker服务启动时会在主机上自动创建一个docker0的虚拟网桥，并从本地未占用的私有网段钟随机分配一个IP给docker0；  例如：典型的172.17.42.1，掩码为255.255.0.0. B. 当创建容器时，会同时创建一个veth pair接口（当数据包发送到一个接口时，另外一个接口也可以收到相同的数据包）。这对接口一端在容器内(et">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="http://cdn.docker.matlabchina.cn/Docker-ch20.1-1.PNG">
+<meta property="og:image" content="http://cdn.docker.matlabchina.cn/Docker-ch20.1-2.PNG">
+<meta property="og:image" content="http://cdn.docker.matlabchina.cn/Docker-ch20.1-3.PNG">
+<meta property="og:image" content="http://cdn.docker.matlabchina.cn/Docker-ch20.2-1.PNG">
+<meta property="og:image" content="http://cdn.docker.matlabchina.cn/Docker-ch20.3-1.PNG">
+<meta property="og:image" content="http://cdn.docker.matlabchina.cn/Docker-ch20.6-1.PNG">
+<meta property="og:image" content="http://cdn.docker.matlabchina.cn/Docker-ch20.7-1.PNG">
+<meta property="og:updated_time" content="2018-01-06T07:25:46.653Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Docker技术入门与实战-第二十章 高级网络配置">
+<meta name="twitter:description" content="20.1 网络启动与配置参数 基本过程：  A. Docker服务启动时会在主机上自动创建一个docker0的虚拟网桥，并从本地未占用的私有网段钟随机分配一个IP给docker0；  例如：典型的172.17.42.1，掩码为255.255.0.0. B. 当创建容器时，会同时创建一个veth pair接口（当数据包发送到一个接口时，另外一个接口也可以收到相同的数据包）。这对接口一端在容器内(et">
+<meta name="twitter:image" content="http://cdn.docker.matlabchina.cn/Docker-ch20.1-1.PNG">
+    
+        <link rel="alternate" type="application/atom+xml" title="Quincey" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/logo.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">Quincey Svng</h5>
+          <a href="mailto:salsa2010@foxmail.com" title="salsa2010@foxmail.com" class="mail">salsa2010@foxmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                Quincey Svng
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/SuperFireFoxy" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="http://www.weibo.com/salsa2010" target="_blank" >
+                <i class="icon icon-lg icon-weibo"></i>
+                Weibo
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://www.facebook.com/felix.song.79" target="_blank" >
+                <i class="icon icon-lg icon-link"></i>
+                facebook
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">Docker技术入门与实战-第二十章 高级网络配置</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Search">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">Docker技术入门与实战-第二十章 高级网络配置</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2018-01-03T11:46:28.000Z" itemprop="datePublished" class="page-time">
+  2018-01-03
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Docker/">Docker</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#20-1-网络启动与配置参数"><span class="post-toc-number">1.</span> <span class="post-toc-text">20.1 网络启动与配置参数</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#20-2-配置容器的DNS和主机名"><span class="post-toc-number">2.</span> <span class="post-toc-text">20.2 配置容器的DNS和主机名</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#20-3-容器访问控制"><span class="post-toc-number">3.</span> <span class="post-toc-text">20.3 容器访问控制</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#20-4-映射容器端口到宿主主机的实现"><span class="post-toc-number">4.</span> <span class="post-toc-text">20.4 映射容器端口到宿主主机的实现</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#20-5-配置docker0网桥"><span class="post-toc-number">5.</span> <span class="post-toc-text">20.5 配置docker0网桥</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#20-6-自定义网桥"><span class="post-toc-number">6.</span> <span class="post-toc-text">20.6 自定义网桥</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#20-7-创建一个点到点连接"><span class="post-toc-number">7.</span> <span class="post-toc-text">20.7 创建一个点到点连接</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#20-8-工具和项目"><span class="post-toc-number">8.</span> <span class="post-toc-text">20.8 工具和项目</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#20-9-本章小结"><span class="post-toc-number">9.</span> <span class="post-toc-text">20.9 本章小结</span></a></li></ol>
+        </nav>
+    </aside>
+    
+<article id="post-Docker技术入门与实战-第二十章-高级网络配置"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">Docker技术入门与实战-第二十章 高级网络配置</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2018-01-03 19:46:28" datetime="2018-01-03T11:46:28.000Z"  itemprop="datePublished">2018-01-03</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Docker/">Docker</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h2 id="20-1-网络启动与配置参数"><a href="#20-1-网络启动与配置参数" class="headerlink" title="20.1 网络启动与配置参数"></a>20.1 网络启动与配置参数</h2><ol>
+<li><p>基本过程：</p>
+<ul>
+<li>A. Docker服务启动时会在主机上自动创建一个docker0的虚拟网桥，并从本地未占用的私有网段钟随机分配一个IP给docker0；<br>  例如：典型的172.17.42.1，掩码为255.255.0.0.</li>
+<li><p>B. 当创建容器时，会同时创建一个veth pair接口（当数据包发送到一个接口时，另外一个接口也可以收到相同的数据包）。这对接口一端在容器内(eth0),另一端在docker0上（vethAQI2QT）。且eth0上述docker0在同一网段内</p>
+<p>  <img src="http://cdn.docker.matlabchina.cn/Docker-ch20.1-1.PNG" alt="ch20.1-1"></p>
+</li>
+</ul>
+</li>
+<li><p>网络相关参数的配置</p>
+<ul>
+<li>配置Docker网络相关参数的命令，有些只有在<strong>启动Dcocker服务时才能配置，而且不能立马生效</strong><br>  <img src="http://cdn.docker.matlabchina.cn/Docker-ch20.1-2.PNG" alt="ch20.1-2"></li>
+<li>下面两个命令既可以在启动服务时指定，也可以在启动容器时指定<ul>
+<li>–dns=IP_ADDRESS  :使用指定的DNS服务器</li>
+<li>–dns-search=DOMAIN   ：指定DNS搜索域</li>
+</ul>
+</li>
+<li>有些选项只能在启动容器时指定<br>  <img src="http://cdn.docker.matlabchina.cn/Docker-ch20.1-3.PNG" alt="ch20.1-3"></li>
+</ul>
+</li>
+</ol>
+<h2 id="20-2-配置容器的DNS和主机名"><a href="#20-2-配置容器的DNS和主机名" class="headerlink" title="20.2 配置容器的DNS和主机名"></a>20.2 配置容器的DNS和主机名</h2><ol>
+<li><p>相关配置文件<br>容器中关于DNS和主机名的配置和Linux系统的配置方式是一致的，都是通过/etc/resolv.conf、/etc/hostname、/etc/hosts三个文件进行配置的</p>
+<ul>
+<li>/etc/resolv.conf文件在创建容器时会与主机的/etc/resolv.conf保持一致</li>
+<li>/etc/hosts:默认只记录了容器自身的一些地址和名称</li>
+<li>/etc/hostname:记录了容器的主机名</li>
+</ul>
+</li>
+<li>容器内修改配置文件<br>容器启动后再修改这三个配置文件的话，都只能在运行的容器中保留，一旦容器终止或重启，这些配置将不会被保存下来，<strong>也不会被docker commit提交</strong></li>
+<li>通过启动参数指定<br>如果用户想自定义容器的配置，可以在创建或启动容器时使用参数进行指定<br> <img src="http://cdn.docker.matlabchina.cn/Docker-ch20.2-1.PNG" alt="ch20.2-1"></li>
+</ol>
+<h2 id="20-3-容器访问控制"><a href="#20-3-容器访问控制" class="headerlink" title="20.3 容器访问控制"></a>20.3 容器访问控制</h2><ol>
+<li><p>容器访问外部网络<br>容器默认情况下是可以访问到宿主机本地的；容器访问外部网络需要通过宿主机进行转发，在宿主机系统中，检查转发是否打开：</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">felix@felix-ubuntu17:/sys/fs/cgroup/memory/docker$ sudo sysctl net.ipv4.ip_forward</span><br><span class="line">net.ipv4.ip_forward = 1</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>此外，在启动容器时，可以设定<code>--ip-forward=true</code>，docker服务会自动打开宿主机系统的转发服务</p>
+<ol>
+<li>容器见访问<br>容器间是否能相互访问取决于两个方面：<ul>
+<li>网络拓扑是否已经连通：默认情况下，所有容器都会连接到docker0网桥上，因此默认情况下网络拓扑是连通的</li>
+<li>本地系统的防火墙软件（iptables）是否允许访问通过：这主要取决于iptables的规则</li>
+</ul>
+</li>
+</ol>
+<ul>
+<li>2.1 访问所有端口<ul>
+<li>当前容器启动时，通过参数<code>--icc=true|false</code>配置一条iptables的FORWARD链策略；也可以在/etc/default/docker文件中增加一条配置<code>DOCER_OPTS==--icc=false</code>来默认禁止容器间的相互访问</li>
+<li>但是如果在容器启动时，有指定了<code>--iptables=false</code>，则上述两个方式都将修改不了宿主机上的iptables规则</li>
+</ul>
+</li>
+<li>2.2 访问指定端口<ul>
+<li>虽然使用<code>--icc=false</code>禁止了容器间的相互访问，但是，仍然可以通过<code>--link=CONTAINER_NAME:ALIAS</code>选项将两个容器暴露的端口互联，同时在iptables中卫两个互联的容器分别添加一条ACCEPT规则<br>  <img src="http://cdn.docker.matlabchina.cn/Docker-ch20.3-1.PNG" alt="ch20.3-1"></li>
+</ul>
+</li>
+</ul>
+<h2 id="20-4-映射容器端口到宿主主机的实现"><a href="#20-4-映射容器端口到宿主主机的实现" class="headerlink" title="20.4 映射容器端口到宿主主机的实现"></a>20.4 映射容器端口到宿主主机的实现</h2><p>默认情况下，容器可以主动访问到外部网络，但是外部网络是无法访问到容器的</p>
+<ol>
+<li><p>容器访问外部网络的实现</p>
+<ul>
+<li>网络拓扑<ul>
+<li>某内部容器的ip为:172.17.0.2</li>
+<li>宿主机本地ip为：10.0.2.15</li>
+</ul>
+</li>
+<li><p>容器要访问外部网络，<strong>需要对容器对外网的访问进行源地址映射(SNAT)</strong>,修改访问源地址为本地系统的IP地址10.0.2.15。<strong>映射也是通过iptables的源地址伪装操作实现的</strong></p>
+  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">felix@felix-ubuntu17:/sys/fs/cgroup/memory/docker$ sudo iptables -t nat -nvL POSTROUTING</span><br><span class="line">Chain POSTROUTING (policy ACCEPT 6280 packets, 700K bytes)</span><br><span class="line">pkts bytes target     prot opt <span class="keyword">in</span>     out     <span class="built_in">source</span>               destination         </span><br><span class="line">210 12288 MASQUERADE  all  --  *      !docker0  172.17.0.0/16        0.0.0.0/0           </span><br><span class="line">41  5785 MASQUERADE  all  --  *      *       10.0.3.0/24         !10.0.3.0/24         </span><br><span class="line">    0     0 MASQUERADE  tcp  --  *      *       172.17.0.2           172.17.0.2           tcp dpt:8080</span><br><span class="line">    0     0 MASQUERADE  tcp  --  *      *       172.17.0.2           172.17.0.2           tcp dpt:1521</span><br></pre></td></tr></table></figure>
+<ul>
+<li>POSTROUTING链的规则就是负责网包离开主机前，改写其源地址</li>
+<li>将所有源地址在172.17.0.0/16网段内，且不是从docker0接口发出的流量（即从容器中出来的流量），动态伪装成从系统网卡发出</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>外部访问容器实现<br>启动容器时，通过<code>-p</code>或者<code>-P</code>参数来映射容器内的端口到宿主机的端口上。而这一切的实现都是通过添加iptables的nat表中的规则实现的，将外部来的访问目的IP地址进行目标地址转换DNAT，将目标地址修改为容器的IP地址</li>
+</ol>
+<ul>
+<li><p>PREROUTING链负责包到达网络接口时，改写其目的地址，将所有流量都扔到DOCKER链上；接着，DOCKER链将所有不是从docker0进来的网络（即非外部网包）将目标端口为32769的连接，修改为目标地址172.17.0.2，目标端口为1521</p>
+  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">felix@felix-ubuntu17:~$ sudo iptables -t nat -nvL</span><br><span class="line">Chain PREROUTING (policy ACCEPT 3 packets, 174 bytes)</span><br><span class="line">pkts bytes target     prot opt <span class="keyword">in</span>     out     <span class="built_in">source</span>               destination         </span><br><span class="line">    0     0 DOCKER     all  --  *      *       0.0.0.0/0            0.0.0.0/0            ADDRTYPE match dst-type LOCAL</span><br><span class="line"></span><br><span class="line">Chain DOCKER (2 references)</span><br><span class="line">pkts bytes target     prot opt <span class="keyword">in</span>     out     <span class="built_in">source</span>               destination         </span><br><span class="line">    0     0 RETURN     all  --  docker0 *       0.0.0.0/0            0.0.0.0/0           </span><br><span class="line">    0     0 DNAT       tcp  --  !docker0 *       0.0.0.0/0            0.0.0.0/0            tcp dpt:32768 to:172.17.0.2:8080</span><br><span class="line">    0     0 DNAT       tcp  --  !docker0 *       0.0.0.0/0            0.0.0.0/0            tcp dpt:32769 to:172.17.0.2:1521</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="20-5-配置docker0网桥"><a href="#20-5-配置docker0网桥" class="headerlink" title="20.5 配置docker0网桥"></a>20.5 配置docker0网桥</h2><ul>
+<li><p>Docker服务默认会创建一个名称为<strong>docker0的Linux网桥</strong>,它在内核层连通了其他的物理或者虚拟网卡，这样就将所有容器和本地主机都放在了同一个物理网络</p>
+  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">felix@felix-ubuntu17:~$ sudo brctl show</span><br><span class="line">bridge name	bridge id		STP enabled	interfaces</span><br><span class="line">docker0		8000.0242eef0cef5	no		veth186b8f1</span><br><span class="line">lxcbr0		8000.00163e000000	no</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>每次创建一个新容器的时候，docker从可用的地址段中选择一个空闲的IP地址分配给容器的eth0端口，并且使用本地主机上的docker0接口的IP作为容器的默认网关</p>
+  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">felix@felix-ubuntu17:~$ sudo docker run -it -p 8088:80 busybox:latest /bin/sh</span><br><span class="line">/ <span class="comment"># ip addr show eth0</span></span><br><span class="line">17: eth0@if18: &lt;BROADCAST,MULTICAST,UP,LOWER_UP,M-DOWN&gt; mtu 1500 qdisc noqueue </span><br><span class="line">    link/ether 02:42:ac:11:00:03 brd ff:ff:ff:ff:ff:ff</span><br><span class="line">    inet 172.17.0.3/16 scope global eth0</span><br><span class="line">    valid_lft forever preferred_lft forever</span><br><span class="line">    inet6 fe80::42:acff:fe11:3/64 scope link</span><br><span class="line">    valid_lft forever preferred_lft forever</span><br><span class="line">/ <span class="comment"># ip route</span></span><br><span class="line">default via 172.17.0.1 dev eth0 </span><br><span class="line">172.17.0.0/16 dev eth0 scope link  src 172.17.0.3</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>实际上，Linux网桥可以很容易替换为OpenvSwitch等功能更强大的网桥实现，可以支持VLan等属性</p>
+</li>
+</ul>
+<h2 id="20-6-自定义网桥"><a href="#20-6-自定义网桥" class="headerlink" title="20.6 自定义网桥"></a>20.6 自定义网桥</h2><p>除了默认的docker0网桥，用户可以指定网桥的连接各个容器</p>
+<ul>
+<li><p>在启动Docker服务时：</p>
+<ul>
+<li>使用启动参数指定<code>-b BRIDGE</code>或者<code>--bridge=BRIDGE</code></li>
+<li>修改Docker服务的默认配置文件  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">echo</span> <span class="string">'DOCKER_OPTS="-b=bridge0" &gt;&gt; /etc/default/docker'</span></span><br><span class="line">$ sudo service docker start</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>在服务已经运行时<br>  <img src="http://cdn.docker.matlabchina.cn/Docker-ch20.6-1.PNG" alt="ch20.6-1"></p>
+</li>
+</ul>
+<h2 id="20-7-创建一个点到点连接"><a href="#20-7-创建一个点到点连接" class="headerlink" title="20.7 创建一个点到点连接"></a>20.7 创建一个点到点连接</h2><ul>
+<li>default：默认情况下，Docker会将所有容器连接到docker0提供的虚拟子网中</li>
+<li>requirement: 但是，用户有时候只需要两个容器之间可以直接通信，而不需要经过docker0网桥</li>
+<li><p>solution: 创建一对peer接口，分别放到两个容器中，配置成点对点链路类型即可</p>
+<p>  <img src="http://cdn.docker.matlabchina.cn/Docker-ch20.7-1.PNG" alt="ch20.7-1"></p>
+</li>
+</ul>
+<h2 id="20-8-工具和项目"><a href="#20-8-工具和项目" class="headerlink" title="20.8 工具和项目"></a>20.8 工具和项目</h2><ol>
+<li><p>pipework: 一个shell脚本封装了一些操作，可以简化在比较复杂的场景中对容器连接的操作命令</p>
+</li>
+<li><p>playgroud:</p>
+<ul>
+<li><strong>提供完整的Dokcer容器网络拓扑管理</strong>的Python库，包括了路由、NAT防火墙、以及一些提供HTTP、SMTP等服务器的实现</li>
+<li>利用playgroud，用户可以提前配置好容器的拓扑，然后一条命令，启动多个容器并构成互联关系</li>
+</ul>
+</li>
+<li><p>libswarm</p>
+<ul>
+<li>目标：打造管理Docker网络的最小化工具集</li>
+<li>主要目标：定义分布式系统各个组件之间通信的统一接口，以实现多种平台上的Docker容器操作的一致性，隐藏下层不同的实现接口</li>
+<li>使用libswarm可以实现，<strong>在同个控制端同时查看、管理运行在多个不同主机和平台上的Docker镜像、容器；引入更强大的服务发现和集群系统</strong></li>
+</ul>
+</li>
+</ol>
+<h2 id="20-9-本章小结"><a href="#20-9-本章小结" class="headerlink" title="20.9 本章小结"></a>20.9 本章小结</h2><ol>
+<li>目前来看，Docker网络所提供的功能都十分简单，<strong>且基本上都是依赖于Linux操作系统上的现有技术</strong></li>
+<li><strong>随着Docker应用在各种分布式环境，特别是云平台，网络方面的需求和瓶颈将会大量出现，而且不少都是新问题</strong></li>
+</ol>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    Last updated: <time datetime="2018-01-06T07:25:46.653Z" itemprop="dateUpdated">2018-01-06 15:25:46</time>
+</span><br>
+
+
+        
+        No one can guide you, except yourself!     self-link：<a href="/2018/01/03/Docker技术入门与实战-第二十章-高级网络配置/" target="_blank" rel="external">http://matlabchina.cn/2018/01/03/Docker技术入门与实战-第二十章-高级网络配置/</a>
+        
+    </div>
+    <footer>
+        <a href="http://matlabchina.cn">
+            <img src="/img/logo.jpg" alt="Quincey Svng">
+            Quincey Svng
+        </a>
+    </footer>
+</blockquote>
+
+        
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Docker/">Docker</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://matlabchina.cn/2018/01/03/Docker技术入门与实战-第二十章-高级网络配置/&title=《Docker技术入门与实战-第二十章 高级网络配置》 — Quincey&pic=http://matlabchina.cn/img/logo.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://matlabchina.cn/2018/01/03/Docker技术入门与实战-第二十章-高级网络配置/&title=《Docker技术入门与实战-第二十章 高级网络配置》 — Quincey&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://matlabchina.cn/2018/01/03/Docker技术入门与实战-第二十章-高级网络配置/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Docker技术入门与实战-第二十章 高级网络配置》 — Quincey&url=http://matlabchina.cn/2018/01/03/Docker技术入门与实战-第二十章-高级网络配置/&via=http://matlabchina.cn" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://matlabchina.cn/2018/01/03/Docker技术入门与实战-第二十章-高级网络配置/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2018/01/07/Docker技术入门与实战-第二十一章-Docker相关项目/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">Docker技术入门与实战-第二十一章 Docker相关项目</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2018/01/03/Docker技术入门与实战-第十九章-Docker安全/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">Docker技术入门与实战-第十九章 Docker安全</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+<section class="comments" id="comments">
+    <div id="gitment_thread"></div>
+    <link rel="stylesheet" href="//unpkg.com/gitment/style/default.css">
+    <script src="//unpkg.com/gitment/dist/gitment.browser.js"></script>
+    <script>
+        var gitment = new Gitment({
+            owner: 'SuperFireFoxy',
+            repo: 'superfirefoxy.github.io',
+            oauth: {
+                client_id: 'f79ac80faa3d2c58bf61',
+                client_secret: '655a9b1df478169a0c1f83cc4cc6b537873db4e3',
+            },
+        })
+        gitment.render('comments')
+    </script>
+</section>
+
+
+
+
+
+
+
+</article>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>This blog is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>Quincey Svng &copy; 2017 - 2018</span>
+            <span>
+                
+                <a href="http://www.miitbeian.gov.cn/" target="_blank">蜀ICP备16009264号-1</a><br>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://matlabchina.cn/2018/01/03/Docker技术入门与实战-第二十章-高级网络配置/&title=《Docker技术入门与实战-第二十章 高级网络配置》 — Quincey&pic=http://matlabchina.cn/img/logo.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://matlabchina.cn/2018/01/03/Docker技术入门与实战-第二十章-高级网络配置/&title=《Docker技术入门与实战-第二十章 高级网络配置》 — Quincey&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://matlabchina.cn/2018/01/03/Docker技术入门与实战-第二十章-高级网络配置/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Docker技术入门与实战-第二十章 高级网络配置》 — Quincey&url=http://matlabchina.cn/2018/01/03/Docker技术入门与实战-第二十章-高级网络配置/&via=http://matlabchina.cn" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://matlabchina.cn/2018/01/03/Docker技术入门与实战-第二十章-高级网络配置/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAPYAAAD2CAAAAADAeSUUAAADKElEQVR42u3aQW6DQAwF0N7/0ukB2pBvG6Rg3qyqCsI8szC25+cnXq8/K7+rd03yrOp+ygsbGxv7JuzX4Uoe8PfK/Jrje4939e4XkruwsbGx97GrG022O0k5ya56QcfGxsbGTpJZkg5zRpKisLGxsbGvKDCOi4ek8LiiEMLGxsbeyq4mhrw4mRQV1RR4SS8NGxsb++vZ1ZHtN/99yXwbGxsb+4vZr+JKHlNNHtVEmA+D3+4EGxsbexE7TwDVAz2TBtBZg4oPbSxsbGzsFezJgcjjWFbbQMn76Q2Y/3kKNjY29iL2pLWUDHR75UQv9L1CCBsbG3sHO08MeaFSrYd6raJqkwsbGxv7CezC4cVgc8njrytjol4aNjY29jp2ngCqRycTZJ6i8rtOLkWwsbGxv4xd/dzvlQGT8PWKog+JGRsbG3sRe9L0rz4mCVw1BL1AY2NjY29i56RJITEZ+l4yGMbGxsZexK62bI4BvdD0BgaTV4WNjY29iX11yTEZx1bbWIXXg42Njb2IfYysBqWXkPLkNznQkyQ/bGxs7Duy81QRRas1mk0SZN6iipIoNjY29sPYk/KgGtzRvDoPNDY2NvZSdrWC6W09bwPlq9wCw8bGxl7ErqafapOodwSnlzKTF4ONjY29lZ2fYzlhmBoktivGzG+fhY2NjX1zdi/ZJFHsDR6qA+ZqjwgbGxt7Hzv/ZE/+Mzn60xsD5IH78M6xsbGxb8vOE0xvHFsdG+SYyfEdbGxs7H3sfEO9wiNvYJ1ASvaPjY2NvYjd+5TP8XnjPmlv9QYVb3eOjY2NvY6dH4gp/HSxCJmEoDx4xsbGxl7HnjSMykPW+Mp5sozyNjY2NvYKdp7GJgOA/JBNnq6qT8fGxsbexH4VV/7pPxnKVvHVw5rY2NjYm9j5SlLXJJlNUmZeCJWDgo2NjX0T9iRp9Y5pVlv8vYExNjY29tPYZ6WWJBzJIaFRnyxvLWFjY2M/np3AeoPepC1VDeVpCQwbGxv75uz8+nxIkJcr1TEANjY29nPYvXJicmWSCKthLYwosLGxsRexJ62Z6pAgKhKKqbQaJmxsbOxF7F/LO6WBE23UrQAAAABJRU5ErkJggg==" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+
+
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = 'woops, lost connnection！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = 'bow, chaka bow boom!';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

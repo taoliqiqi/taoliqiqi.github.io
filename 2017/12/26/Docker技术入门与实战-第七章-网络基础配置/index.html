@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    <title>Docker技术入门与实战-第七章 网络基础配置 | Quincey | mind in mind</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="Docker">
+    <meta name="description" content="Docker的网络功能包括： 使用端口映射机制将容器内应用服务提供给外部网络 通过容器互联系统让多个容器之间进行快捷的网络通信    7.1 端口映射实现访问容器 映射Host主机上的特定端口到容器中的特定端口 sudo docker -it -p 8081:80 --name mynginx nginx /bin/bash -p:映射指定端口   sudo docker -it -P --na">
+<meta name="keywords" content="Docker">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Docker技术入门与实战-第七章 网络基础配置">
+<meta property="og:url" content="http://matlabchina.cn/2017/12/26/Docker技术入门与实战-第七章-网络基础配置/index.html">
+<meta property="og:site_name" content="Quincey">
+<meta property="og:description" content="Docker的网络功能包括： 使用端口映射机制将容器内应用服务提供给外部网络 通过容器互联系统让多个容器之间进行快捷的网络通信    7.1 端口映射实现访问容器 映射Host主机上的特定端口到容器中的特定端口 sudo docker -it -p 8081:80 --name mynginx nginx /bin/bash -p:映射指定端口   sudo docker -it -P --na">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2017-12-26T08:24:16.816Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Docker技术入门与实战-第七章 网络基础配置">
+<meta name="twitter:description" content="Docker的网络功能包括： 使用端口映射机制将容器内应用服务提供给外部网络 通过容器互联系统让多个容器之间进行快捷的网络通信    7.1 端口映射实现访问容器 映射Host主机上的特定端口到容器中的特定端口 sudo docker -it -p 8081:80 --name mynginx nginx /bin/bash -p:映射指定端口   sudo docker -it -P --na">
+    
+        <link rel="alternate" type="application/atom+xml" title="Quincey" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/logo.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">Quincey Svng</h5>
+          <a href="mailto:salsa2010@foxmail.com" title="salsa2010@foxmail.com" class="mail">salsa2010@foxmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                Quincey Svng
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/SuperFireFoxy" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="http://www.weibo.com/salsa2010" target="_blank" >
+                <i class="icon icon-lg icon-weibo"></i>
+                Weibo
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://www.facebook.com/felix.song.79" target="_blank" >
+                <i class="icon icon-lg icon-link"></i>
+                facebook
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">Docker技术入门与实战-第七章 网络基础配置</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Search">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">Docker技术入门与实战-第七章 网络基础配置</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2017-12-26T07:29:01.000Z" itemprop="datePublished" class="page-time">
+  2017-12-26
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Docker/">Docker</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#7-1-端口映射实现访问容器"><span class="post-toc-number">1.</span> <span class="post-toc-text">7.1 端口映射实现访问容器</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#7-2-容器互联"><span class="post-toc-number">2.</span> <span class="post-toc-text">7.2 容器互联</span></a></li></ol>
+        </nav>
+    </aside>
+    
+<article id="post-Docker技术入门与实战-第七章-网络基础配置"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">Docker技术入门与实战-第七章 网络基础配置</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2017-12-26 15:29:01" datetime="2017-12-26T07:29:01.000Z"  itemprop="datePublished">2017-12-26</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Docker/">Docker</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <ul>
+<li>Docker的网络功能包括：<ul>
+<li>使用端口映射机制将容器内应用服务提供给外部网络</li>
+<li>通过容器互联系统让多个容器之间进行快捷的网络通信</li>
+</ul>
+</li>
+</ul>
+<h2 id="7-1-端口映射实现访问容器"><a href="#7-1-端口映射实现访问容器" class="headerlink" title="7.1 端口映射实现访问容器"></a>7.1 端口映射实现访问容器</h2><ol>
+<li>映射Host主机上的特定端口到容器中的特定端口<ul>
+<li><code>sudo docker -it -p 8081:80 --name mynginx nginx /bin/bash</code><ul>
+<li><code>-p</code>:映射指定端口</li>
+</ul>
+</li>
+<li><code>sudo docker -it -P --name mynginx nginx /bin/bash</code><ul>
+<li><code>-P</code>:随机映射一个49000~49900的端口至容器内部开放的网络端口</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>查看端口映射情况<ul>
+<li><code>sudo docker ps -a</code></li>
+<li><code>sudo docker ps -l</code></li>
+<li><code>sudo docker port mynginx</code></li>
+</ul>
+</li>
+<li>查看容器的日志<ul>
+<li><code>sudo docker logs mynginx</code>:所有历史日志</li>
+<li><code>sudo docker logs -f mynginx</code>:容器的实时日志</li>
+</ul>
+</li>
+<li>映射Host主机上的特定ip的特定端口到容器中的特定端口<ul>
+<li><code>sudo docker -it -p 127.0.0.1:8081:80 --name mynginx nginx /bin/bash</code></li>
+</ul>
+</li>
+<li>映射Host主机上的特定ip的特定任意端口到容器中的特定端口<ul>
+<li><code>sudo docker -it -p 127.0.0.1::80 --name mynginx nginx /bin/bash</code><ul>
+<li>绑定随机的一个host端口到容器中的80端口</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<h2 id="7-2-容器互联"><a href="#7-2-容器互联" class="headerlink" title="7.2 容器互联"></a>7.2 容器互联</h2><ol>
+<li>容器的连接可以使接收容器看到源容器的地址等信息</li>
+<li>执行<code>docker run</code>的时候如果添加<code>--rm</code>标记，则容器在终止后会立刻删除；故：<code>--rm</code>和<code>-d</code>参数不能同时使用</li>
+<li>使用<code>--link</code>参数可以让容器之间安全的互联<ul>
+<li>步骤：<ul>
+<li>创建一个数据库容器<ul>
+<li><code>sudo docker run -d --name db postgres</code></li>
+</ul>
+</li>
+<li>创建一个web容器，然后将其连接到db容器上<ul>
+<li><code>sudo docker run -d -P --name web --link db:linkName nginx</code><ul>
+<li><code>--link name:alias</code>，其中<code>name</code>是要连接的容器的名称，<code>alias</code>是这个连接的别名</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>docker在两个互联的容器之间创建了一个安全隧道，而且不用映射他们的端口到Host主机上，从而避免了暴露数据库端口到外部网络上</li>
+<li>查看容器的连接信息<ul>
+<li>在容器内利用<code>env</code>命令查看器环境变量</li>
+<li>在容器内查看其<code>/etc/hosts</code>文件内容</li>
+</ul>
+</li>
+</ol>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    Last updated: <time datetime="2017-12-26T08:24:16.816Z" itemprop="dateUpdated">2017-12-26 16:24:16</time>
+</span><br>
+
+
+        
+        No one can guide you, except yourself!     self-link：<a href="/2017/12/26/Docker技术入门与实战-第七章-网络基础配置/" target="_blank" rel="external">http://matlabchina.cn/2017/12/26/Docker技术入门与实战-第七章-网络基础配置/</a>
+        
+    </div>
+    <footer>
+        <a href="http://matlabchina.cn">
+            <img src="/img/logo.jpg" alt="Quincey Svng">
+            Quincey Svng
+        </a>
+    </footer>
+</blockquote>
+
+        
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Docker/">Docker</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://matlabchina.cn/2017/12/26/Docker技术入门与实战-第七章-网络基础配置/&title=《Docker技术入门与实战-第七章 网络基础配置》 — Quincey&pic=http://matlabchina.cn/img/logo.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://matlabchina.cn/2017/12/26/Docker技术入门与实战-第七章-网络基础配置/&title=《Docker技术入门与实战-第七章 网络基础配置》 — Quincey&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://matlabchina.cn/2017/12/26/Docker技术入门与实战-第七章-网络基础配置/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Docker技术入门与实战-第七章 网络基础配置》 — Quincey&url=http://matlabchina.cn/2017/12/26/Docker技术入门与实战-第七章-网络基础配置/&via=http://matlabchina.cn" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://matlabchina.cn/2017/12/26/Docker技术入门与实战-第七章-网络基础配置/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2017/12/26/Docker技术入门与实战-第八章-使用Dockerfile创建镜像/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">Docker技术入门与实战-第八章 使用Dockerfile创建镜像</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2017/12/26/Docker技术入门与实战-第六章-数据管理/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">Docker技术入门与实战-第六章 数据管理</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+<section class="comments" id="comments">
+    <div id="gitment_thread"></div>
+    <link rel="stylesheet" href="//unpkg.com/gitment/style/default.css">
+    <script src="//unpkg.com/gitment/dist/gitment.browser.js"></script>
+    <script>
+        var gitment = new Gitment({
+            owner: 'SuperFireFoxy',
+            repo: 'superfirefoxy.github.io',
+            oauth: {
+                client_id: 'f79ac80faa3d2c58bf61',
+                client_secret: '655a9b1df478169a0c1f83cc4cc6b537873db4e3',
+            },
+        })
+        gitment.render('comments')
+    </script>
+</section>
+
+
+
+
+
+
+
+</article>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>This blog is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>Quincey Svng &copy; 2017 - 2018</span>
+            <span>
+                
+                <a href="http://www.miitbeian.gov.cn/" target="_blank">蜀ICP备16009264号-1</a><br>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://matlabchina.cn/2017/12/26/Docker技术入门与实战-第七章-网络基础配置/&title=《Docker技术入门与实战-第七章 网络基础配置》 — Quincey&pic=http://matlabchina.cn/img/logo.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://matlabchina.cn/2017/12/26/Docker技术入门与实战-第七章-网络基础配置/&title=《Docker技术入门与实战-第七章 网络基础配置》 — Quincey&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://matlabchina.cn/2017/12/26/Docker技术入门与实战-第七章-网络基础配置/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Docker技术入门与实战-第七章 网络基础配置》 — Quincey&url=http://matlabchina.cn/2017/12/26/Docker技术入门与实战-第七章-网络基础配置/&via=http://matlabchina.cn" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://matlabchina.cn/2017/12/26/Docker技术入门与实战-第七章-网络基础配置/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAPYAAAD2CAAAAADAeSUUAAADIklEQVR42u3aUXLiQAwEUO5/afYAKaBbglo8PH+lgrHnTT46kuZ2i6/7n6v91qNPN+9q11Nf2NjY2Bdh359ez+95xEjufP775C3Jex9uDTY2NvZx7OcB8+jnTfi1v2nX+cKIjY2NjR0XA5sQen5/cic2NjY29izAZrHUli5fl9vY2NjY/5WdNJVaZDseyJ+TBOrbemnY2NjYX8/OG0Pf//NH5tvY2NjYX8y+l1d+1GbWckqCKh8PP1RgY2NjH8Rum0TtK2cNoDY+h+vHxsbGPog9g+XhMSsk2jgcNpKwsbGxj2BvFp03+ttRbv7GovzAxsbGPpSdADYLysOpbRW1wYaNjY19KjsJpOTTpNHfFjObMqbupWFjY2NfkJ38454PX5NoaTeiHRtEz8HGxsY+lD0clJanHItcHTX9Izw2Njb2oew8fvaxtykqNuUQNjY29u+w85Boh76bo0IJMloDNjY29nHsOgDiQWzSQpoxNoNqbGxs7PPYCbUd026Kh/3hnhfPx8bGxj6I3cbYpqnUxsx+c19EIDY2NvZx7KSQyP+Tb0uafNPbIzvY2NjYv8Nuh7v5MCDfgrYIyVtdt3YmjI2NjX0RdltItO37fMAwGzzMNgIbGxv7JPYsDD4RKrOx8TCxsbGxsQ9izwKpjbr8eE1y52z7sLGxsX+H/d4xQD5s2GTvBwcD2NjY2F/PbgNm1oSaHbV5vtx24wo8NjY29qXY+SI2DaB2WzflR53b2NjY2Bdn50HV8mYlxCZW63YVNjY29kHstszYx8ym8dRGYJTh2NjY2Bdnt0dq2kbPbCS8eUIUjdjY2NjHsfONmLWT8s1tC5s2LLGxsbFPZbfLyl+WPyHfgtn4Ifo7YGNjY1+KfS+v5AmzCNxEXX0iCRsbG/sgdjtebWF5gTF7cvKc4QAYGxsb+1LsJLRmEbIZ/eZlxnDrsbGxsY9jvzdgku9uhs15Aj/8FjY2NvYPs9uNeNc4ISmNioEHNjY29g+z8yW+d5TbBhg2Njb2r7FnBUa+Ze3Idt9IerHR2NjY2Aex89ZM277Py4N8ufttwsbGxj6I/Q+qJSsm04VBvgAAAABJRU5ErkJggg==" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+
+
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = 'woops, lost connnection！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = 'bow, chaka bow boom!';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

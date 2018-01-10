@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    <title>Docker技术入门与实战-第十八章 Docker核心技术 | Quincey | mind in mind</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="Docker">
+    <meta name="description" content="早期的Docker底层是通过LXC技术实现的；自Docker 0.9版本以后，Docker除了继续支持LXC格式之外，还开始引入自家的libcontainer，试图打造更通用的底层容器虚拟化库 Docker的底层依赖的核心技术主要包括： Linux操作系统的命名空间（Namespaces） 控制组(Control Group) 联合文件系统(Union File Systems) Linux虚拟">
+<meta name="keywords" content="Docker">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Docker技术入门与实战-第十八章 Docker核心技术">
+<meta property="og:url" content="http://matlabchina.cn/2018/01/02/Docker技术入门与实战-第十八章-Docker核心技术/index.html">
+<meta property="og:site_name" content="Quincey">
+<meta property="og:description" content="早期的Docker底层是通过LXC技术实现的；自Docker 0.9版本以后，Docker除了继续支持LXC格式之外，还开始引入自家的libcontainer，试图打造更通用的底层容器虚拟化库 Docker的底层依赖的核心技术主要包括： Linux操作系统的命名空间（Namespaces） 控制组(Control Group) 联合文件系统(Union File Systems) Linux虚拟">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="http://cdn.docker.matlabchina.cn/Docker-ch18.1-1.PNG">
+<meta property="og:image" content="http://cdn.docker.matlabchina.cn/Docker-ch18.2-1.PNG">
+<meta property="og:image" content="http://cdn.docker.matlabchina.cn/Docker-ch18.5-1.PNG">
+<meta property="og:image" content="http://cdn.docker.matlabchina.cn/Docker-ch18.5-2.PNG">
+<meta property="og:image" content="http://cdn.docker.matlabchina.cn/Docker-ch18.5-3.PNG">
+<meta property="og:updated_time" content="2018-01-03T10:48:50.406Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Docker技术入门与实战-第十八章 Docker核心技术">
+<meta name="twitter:description" content="早期的Docker底层是通过LXC技术实现的；自Docker 0.9版本以后，Docker除了继续支持LXC格式之外，还开始引入自家的libcontainer，试图打造更通用的底层容器虚拟化库 Docker的底层依赖的核心技术主要包括： Linux操作系统的命名空间（Namespaces） 控制组(Control Group) 联合文件系统(Union File Systems) Linux虚拟">
+<meta name="twitter:image" content="http://cdn.docker.matlabchina.cn/Docker-ch18.1-1.PNG">
+    
+        <link rel="alternate" type="application/atom+xml" title="Quincey" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/logo.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">Quincey Svng</h5>
+          <a href="mailto:salsa2010@foxmail.com" title="salsa2010@foxmail.com" class="mail">salsa2010@foxmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                Quincey Svng
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/SuperFireFoxy" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="http://www.weibo.com/salsa2010" target="_blank" >
+                <i class="icon icon-lg icon-weibo"></i>
+                Weibo
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://www.facebook.com/felix.song.79" target="_blank" >
+                <i class="icon icon-lg icon-link"></i>
+                facebook
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">Docker技术入门与实战-第十八章 Docker核心技术</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Search">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">Docker技术入门与实战-第十八章 Docker核心技术</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2018-01-02T14:54:58.000Z" itemprop="datePublished" class="page-time">
+  2018-01-02
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Docker/">Docker</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#18-1-基本架构"><span class="post-toc-number">1.</span> <span class="post-toc-text">18.1 基本架构</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#18-2-命名空间"><span class="post-toc-number">2.</span> <span class="post-toc-text">18.2 命名空间</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#18-3-控制组"><span class="post-toc-number">3.</span> <span class="post-toc-text">18.3 控制组</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#18-4-联合文件系统UFS"><span class="post-toc-number">4.</span> <span class="post-toc-text">18.4 联合文件系统UFS</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#18-5-Docker网络实现"><span class="post-toc-number">5.</span> <span class="post-toc-text">18.5 Docker网络实现</span></a></li></ol>
+        </nav>
+    </aside>
+    
+<article id="post-Docker技术入门与实战-第十八章-Docker核心技术"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">Docker技术入门与实战-第十八章 Docker核心技术</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2018-01-02 22:54:58" datetime="2018-01-02T14:54:58.000Z"  itemprop="datePublished">2018-01-02</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Docker/">Docker</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <ul>
+<li>早期的Docker底层是通过LXC技术实现的；自Docker 0.9版本以后，Docker除了继续支持LXC格式之外，还开始引入自家的libcontainer，试图打造更通用的底层容器虚拟化库</li>
+<li>Docker的底层依赖的核心技术主要包括：<ul>
+<li>Linux操作系统的命名空间（Namespaces）</li>
+<li>控制组(Control Group)</li>
+<li>联合文件系统(Union File Systems)</li>
+<li>Linux虚拟网络支持</li>
+</ul>
+</li>
+</ul>
+<h2 id="18-1-基本架构"><a href="#18-1-基本架构" class="headerlink" title="18.1 基本架构"></a>18.1 基本架构</h2><ol>
+<li><p>Docker采用标准的C/S架构</p>
+<p> <img src="http://cdn.docker.matlabchina.cn/Docker-ch18.1-1.PNG" alt="ch18.1-1"></p>
+<ul>
+<li>1.1 服务端<ul>
+<li>Docker daemon一般在宿主主机后台运行，作为服务端接受来自客户的请求</li>
+<li>Docker daemon采用专门的Engine模块来分发管理各个来自客户端的任务</li>
+<li>Docker服务端默认监听本地的 unix:///var/run/docker.sock套接字，只允许本地的root用户访问</li>
+<li>可以通过<code>-H</code>选项来修改监听的方式，例如：<code>sudo docker -H 0.0.0.0:1234 -d &amp;</code></li>
+<li>Ubuntu中，Docker服务端的默认启动配置文件在/etc/default/docker</li>
+</ul>
+</li>
+<li>1.2 客户端<ul>
+<li>客户端默认通过本地的unix:///var/run/docker.sock套接字向服务端发送命令</li>
+<li>如果服务端更改了监听的套接字，那么客户端可以通过<code>-H</code>参数指定套接字,例如：<code>sudo docekr -H tcp://127.0.0.1:1234 version</code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<h2 id="18-2-命名空间"><a href="#18-2-命名空间" class="headerlink" title="18.2 命名空间"></a>18.2 命名空间</h2><ol>
+<li>每个容器都可以拥有自己单独的命名空间，运行在其中的应用都像是在独立的操作系统中运行一样。命名空间保证了容器之间彼此互不影响</li>
+<li>要想实现虚拟化，除了要对内存、CPU、网络IO、硬盘IO、存储空间等进行限制外；<strong>还要实现文件系统、网络、PID、UID、IPC等等相互隔离</strong></li>
+<li>Linux系统对于命名空间功能的逐步完善，在Linux上已经可以实现上述的所有需求，<strong>让某些进程在彼此隔离的命名空间中运行</strong>。虽然，<strong>这些进程都共用一个内核和某些运行时环境</strong>（runtime，例如一下系统命令和系统库），但是彼此是不可见的–他们都认为自己是独占系统</li>
+<li>进程命名空间<ul>
+<li>Linux通过命名空间来管理进程号，对于同一进程，在不同命名空间中，看到的进程号是不同的。</li>
+<li>进程命名空间是一个父子关系的结构，子空间的进程对于父空间是可见的。但是，<strong>新fork出的进程在父命名空间和子命名空间将分别有一个进程号来对应</strong>。</li>
+</ul>
+</li>
+<li><p>网络命名空间</p>
+<ul>
+<li>一个网络命名空间为进程提供了一个完全独立的网络协议栈的视图</li>
+<li><p>Docker采用虚拟网络设备（Virtual NetWork Device）的方式，将不同命名空间的的网络设备连接到一起。默认情况下，虚拟网卡将同本地主机的docker0网桥连接在一起。</p>
+<p>  <img src="http://cdn.docker.matlabchina.cn/Docker-ch18.2-1.PNG" alt="ch18.2-1"></p>
+</li>
+<li><p>使用<code>brctl show</code>指令就可以查看连接到宿主主机docker0网桥的虚拟网口</p>
+</li>
+</ul>
+</li>
+<li>IPC命名空间<ul>
+<li>容器中进程交互还是采用了Linux常见的进程间通信的方法（IPC），包括信号量、消息队列、共享内存等</li>
+<li>同一个IPC名字空间内的进程可以彼此可见，允许进行交互；不同空间的进程则无法交互</li>
+</ul>
+</li>
+<li>挂载命名空间<ul>
+<li>类似于chroot，将一个进程放到特定的目录执行</li>
+<li>挂载命名空间允许不同命名空间的进程看到的文件结构不一样，这样每个命名空间中的进程所看到的文件目录彼此被隔离</li>
+</ul>
+</li>
+<li>UTS命名空间<ul>
+<li>UTS（UNIX Time-sharing System）命名空间允许每个容器都拥有独立的主机名和域名</li>
+<li>默认情况下，Docker容器的主机名就是容器的ID</li>
+</ul>
+</li>
+<li>用户命名空间<ul>
+<li>每个容器都有不同的用户和组ID</li>
+<li>每个容器都可以有root账户，更宿主主机不在一个命名空间</li>
+</ul>
+</li>
+</ol>
+<h2 id="18-3-控制组"><a href="#18-3-控制组" class="headerlink" title="18.3 控制组"></a>18.3 控制组</h2><ol>
+<li>控制组(CGroups)是Linux内核的一个特性：主要用来对<strong>共享资源（如内存、CPU）进行隔离、限制、审计</strong>等。<strong>只有能控制分配到容器的资源，Docker才能避免多个容器同时运行时的资源竞争</strong></li>
+<li>控制组可以提供对容器的内存、CPU、磁盘IO等资源进行限制和计费管理</li>
+<li>控制组的设计目标是：为不同的应用提供统一的接口。从控制单一进程（比如nice工具），到系统级虚拟化（包括OpenVZ，LXC等）</li>
+<li>控制组主要提供以下功能：<ul>
+<li>资源限制</li>
+<li>优先级：设置组获得资源的优先级</li>
+<li>资源审计：记录某个进程使用CPU的时间</li>
+<li>隔离：为组隔离名字</li>
+<li>控制：挂起、恢复和重启动等操作</li>
+</ul>
+</li>
+<li><p>查看Docker对各个容器（进程）的资源限制</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">felix@felix-ubuntu17:~/docker/weblogic_docker$ <span class="built_in">cd</span> /sys/fs/cgroup/memory/docker/</span><br><span class="line">felix@felix-ubuntu17:/sys/fs/cgroup/memory/docker$ ll</span><br><span class="line">total 0</span><br><span class="line">drwxr-xr-x 3 root root 0 1月   3 17:50 ./</span><br><span class="line">dr-xr-xr-x 7 root root 0 1月   3 17:46 ../</span><br><span class="line">-rw-r--r-- 1 root root 0 1月   3 17:46 cgroup.clone_children</span><br><span class="line">--w--w--w- 1 root root 0 1月   3 17:46 cgroup.event_control</span><br><span class="line">-rw-r--r-- 1 root root 0 1月   3 17:46 cgroup.procs</span><br><span class="line">drwxr-xr-x 2 root root 0 1月   3 17:50 fea86bf355df7b04e1e4bce4168f042e82a8b18cf395476e0a1e021c6d68cc32/</span><br><span class="line">-rw-r--r-- 1 root root 0 1月   3 17:46 memory.failcnt</span><br><span class="line">--w------- 1 root root 0 1月   3 17:46 memory.force_empty</span><br><span class="line">-rw-r--r-- 1 root root 0 1月   3 17:46 memory.kmem.failcnt</span><br><span class="line">-rw-r--r-- 1 root root 0 1月   3 17:46 memory.kmem.limit_in_bytes</span><br><span class="line">-rw-r--r-- 1 root root 0 1月   3 17:46 memory.kmem.max_usage_in_bytes</span><br><span class="line">-r--r--r-- 1 root root 0 1月   3 17:46 memory.kmem.slabinfo</span><br><span class="line">-rw-r--r-- 1 root root 0 1月   3 17:46 memory.kmem.tcp.failcnt</span><br><span class="line">-rw-r--r-- 1 root root 0 1月   3 17:46 memory.kmem.tcp.limit_in_bytes</span><br><span class="line">-rw-r--r-- 1 root root 0 1月   3 17:46 memory.kmem.tcp.max_usage_in_bytes</span><br><span class="line">-r--r--r-- 1 root root 0 1月   3 17:46 memory.kmem.tcp.usage_in_bytes</span><br><span class="line">-r--r--r-- 1 root root 0 1月   3 17:46 memory.kmem.usage_in_bytes</span><br><span class="line">-rw-r--r-- 1 root root 0 1月   3 17:46 memory.limit_in_bytes</span><br><span class="line">-rw-r--r-- 1 root root 0 1月   3 17:46 memory.max_usage_in_bytes</span><br><span class="line">-rw-r--r-- 1 root root 0 1月   3 17:46 memory.move_charge_at_immigrate</span><br><span class="line">-r--r--r-- 1 root root 0 1月   3 17:46 memory.numa_stat</span><br><span class="line">-rw-r--r-- 1 root root 0 1月   3 17:46 memory.oom_control</span><br><span class="line">---------- 1 root root 0 1月   3 17:46 memory.pressure_level</span><br><span class="line">-rw-r--r-- 1 root root 0 1月   3 17:46 memory.soft_limit_in_bytes</span><br><span class="line">-r--r--r-- 1 root root 0 1月   3 17:46 memory.stat</span><br><span class="line">-rw-r--r-- 1 root root 0 1月   3 17:46 memory.swappiness</span><br><span class="line">-r--r--r-- 1 root root 0 1月   3 17:46 memory.usage_in_bytes</span><br><span class="line">-rw-r--r-- 1 root root 0 1月   3 17:46 memory.use_hierarchy</span><br><span class="line">-rw-r--r-- 1 root root 0 1月   3 17:46 notify_on_release</span><br><span class="line">-rw-r--r-- 1 root root 0 1月   3 17:46 tasks</span><br></pre></td></tr></table></figure>
+<ul>
+<li>修改各项配置文件，即可修改各项资源限制的配置</li>
+<li><p>查看某个容器的资源限制</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">felix@felix-ubuntu17:/sys/fs/cgroup/memory/docker$ <span class="built_in">cd</span> fea86bf355df7b04e1e4bce4168f042e82a8b18cf395476e0a1e021c6d68cc32/</span><br><span class="line">felix@felix-ubuntu17:/sys/fs/cgroup/memory/docker/fea86bf355df7b04e1e4bce4168f042e82a8b18cf395476e0a1e021c6d68cc32$ ll</span><br><span class="line">total 0</span><br><span class="line">drwxr-xr-x 2 root root 0 1月   3 17:50 ./</span><br><span class="line">drwxr-xr-x 3 root root 0 1月   3 17:50 ../</span><br><span class="line">-rw-r--r-- 1 root root 0 1月   3 17:50 cgroup.clone_children</span><br><span class="line">--w--w--w- 1 root root 0 1月   3 17:50 cgroup.event_control</span><br><span class="line">-rw-r--r-- 1 root root 0 1月   3 17:50 cgroup.procs</span><br><span class="line">-rw-r--r-- 1 root root 0 1月   3 17:50 memory.failcnt</span><br><span class="line">--w------- 1 root root 0 1月   3 17:50 memory.force_empty</span><br><span class="line">-rw-r--r-- 1 root root 0 1月   3 17:50 memory.kmem.failcnt</span><br><span class="line">-rw-r--r-- 1 root root 0 1月   3 17:50 memory.kmem.limit_in_bytes</span><br><span class="line">-rw-r--r-- 1 root root 0 1月   3 17:50 memory.kmem.max_usage_in_bytes</span><br><span class="line">-r--r--r-- 1 root root 0 1月   3 17:50 memory.kmem.slabinfo</span><br><span class="line">-rw-r--r-- 1 root root 0 1月   3 17:50 memory.kmem.tcp.failcnt</span><br><span class="line">-rw-r--r-- 1 root root 0 1月   3 17:50 memory.kmem.tcp.limit_in_bytes</span><br><span class="line">-rw-r--r-- 1 root root 0 1月   3 17:50 memory.kmem.tcp.max_usage_in_bytes</span><br><span class="line">-r--r--r-- 1 root root 0 1月   3 17:50 memory.kmem.tcp.usage_in_bytes</span><br><span class="line">-r--r--r-- 1 root root 0 1月   3 17:50 memory.kmem.usage_in_bytes</span><br><span class="line">-rw-r--r-- 1 root root 0 1月   3 17:50 memory.limit_in_bytes</span><br><span class="line">-rw-r--r-- 1 root root 0 1月   3 17:50 memory.max_usage_in_bytes</span><br><span class="line">-rw-r--r-- 1 root root 0 1月   3 17:50 memory.move_charge_at_immigrate</span><br><span class="line">-r--r--r-- 1 root root 0 1月   3 17:50 memory.numa_stat</span><br><span class="line">-rw-r--r-- 1 root root 0 1月   3 17:50 memory.oom_control</span><br><span class="line">---------- 1 root root 0 1月   3 17:50 memory.pressure_level</span><br><span class="line">-rw-r--r-- 1 root root 0 1月   3 17:50 memory.soft_limit_in_bytes</span><br><span class="line">-r--r--r-- 1 root root 0 1月   3 17:50 memory.stat</span><br><span class="line">-rw-r--r-- 1 root root 0 1月   3 17:50 memory.swappiness</span><br><span class="line">-r--r--r-- 1 root root 0 1月   3 17:50 memory.usage_in_bytes</span><br><span class="line">-rw-r--r-- 1 root root 0 1月   3 17:50 memory.use_hierarchy</span><br><span class="line">-rw-r--r-- 1 root root 0 1月   3 17:50 notify_on_release</span><br><span class="line">-rw-r--r-- 1 root root 0 1月   3 17:50 tasks</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>启动容器时对指定的资源限制进行配置  </p>
+<p> 例如：<br> 可以使用启动参数<code>-c | --cpu-shares[=0]</code>来调整使用CPU的优先级<br> 使用<code>-m | memory[=MEMORY]</code>来调整容器使用内存的大小</p>
+</li>
+</ol>
+<h2 id="18-4-联合文件系统UFS"><a href="#18-4-联合文件系统UFS" class="headerlink" title="18.4 联合文件系统UFS"></a>18.4 联合文件系统UFS</h2><ol>
+<li>联合文件系统：轻量级的高性能分层文件系统<ul>
+<li>将文件系统的修改信息作为一次提交，并层层叠加</li>
+<li>同时，可将不同目录挂载到同一个虚拟文件系统下</li>
+</ul>
+</li>
+<li>Docker重要的UFS就是AUFS（Another Union File System或者v2版本以后的Advanced Multi-layered Unification File System）。 AUFS：<ul>
+<li>支持每个成员目录（类似于Git的分支）设定为只读、读写和可写权限。</li>
+<li>AUFS里有个类似分层的概念，对制度权限的分支可以逻辑上进行增量的修改（不影响只读部分）</li>
+</ul>
+</li>
+<li>当Docker利用镜像启动一个容器时，将利用镜像分配文件系统，并挂载一个新的可读写层给容器，容器围在这个文件系统中创建，并将这个可读写层添加到镜像中</li>
+</ol>
+<h2 id="18-5-Docker网络实现"><a href="#18-5-Docker网络实现" class="headerlink" title="18.5 Docker网络实现"></a>18.5 Docker网络实现</h2><ol>
+<li>Docker的网络实现主要利用了<strong>Linux网络上的网络命名空间</strong>和<strong>虚拟网络设备</strong>（特别是veth pair）</li>
+<li><p>虚拟网络接口：其最大的优势是转发效率极高。这是因为Linux通过<strong>在内核中进行数据复制来实现虚拟接口之间的数据转发</strong>。这比通过外部物理网络设备进行交换要快得多。<br>Docker容器网络就是利用了Linux虚拟网络接口。它在本地和容器内分别见了一个虚拟接口，并让它们彼此连通（这样的一堆借口叫做veth pair）</p>
+<p> <img src="http://cdn.docker.matlabchina.cn/Docker-ch18.5-1.PNG" alt="ch18.5-1"></p>
+</li>
+<li><p>网络创建过程</p>
+<p> <img src="http://cdn.docker.matlabchina.cn/Docker-ch18.5-2.PNG" alt="ch18.5-2"></p>
+</li>
+<li>启动容器时，也可以通过启动参数<code>--net</code>来指定容器的网络配置，可配置的模式有：bridge、host、container、none</li>
+<li><p>网络配置细节：</p>
+<p> <img src="http://cdn.docker.matlabchina.cn/Docker-ch18.5-3.PNG" alt="ch18.5-3"></p>
+</li>
+</ol>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    Last updated: <time datetime="2018-01-03T10:48:50.406Z" itemprop="dateUpdated">2018-01-03 18:48:50</time>
+</span><br>
+
+
+        
+        No one can guide you, except yourself!     self-link：<a href="/2018/01/02/Docker技术入门与实战-第十八章-Docker核心技术/" target="_blank" rel="external">http://matlabchina.cn/2018/01/02/Docker技术入门与实战-第十八章-Docker核心技术/</a>
+        
+    </div>
+    <footer>
+        <a href="http://matlabchina.cn">
+            <img src="/img/logo.jpg" alt="Quincey Svng">
+            Quincey Svng
+        </a>
+    </footer>
+</blockquote>
+
+        
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Docker/">Docker</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://matlabchina.cn/2018/01/02/Docker技术入门与实战-第十八章-Docker核心技术/&title=《Docker技术入门与实战-第十八章 Docker核心技术》 — Quincey&pic=http://matlabchina.cn/img/logo.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://matlabchina.cn/2018/01/02/Docker技术入门与实战-第十八章-Docker核心技术/&title=《Docker技术入门与实战-第十八章 Docker核心技术》 — Quincey&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://matlabchina.cn/2018/01/02/Docker技术入门与实战-第十八章-Docker核心技术/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Docker技术入门与实战-第十八章 Docker核心技术》 — Quincey&url=http://matlabchina.cn/2018/01/02/Docker技术入门与实战-第十八章-Docker核心技术/&via=http://matlabchina.cn" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://matlabchina.cn/2018/01/02/Docker技术入门与实战-第十八章-Docker核心技术/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2018/01/03/Docker技术入门与实战-第十九章-Docker安全/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">Docker技术入门与实战-第十九章 Docker安全</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2018/01/02/Docker技术入门与实战-第十七章-Docker实践之道/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">Docker技术入门与实战-第十七章 Docker实践之道</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+<section class="comments" id="comments">
+    <div id="gitment_thread"></div>
+    <link rel="stylesheet" href="//unpkg.com/gitment/style/default.css">
+    <script src="//unpkg.com/gitment/dist/gitment.browser.js"></script>
+    <script>
+        var gitment = new Gitment({
+            owner: 'SuperFireFoxy',
+            repo: 'superfirefoxy.github.io',
+            oauth: {
+                client_id: 'f79ac80faa3d2c58bf61',
+                client_secret: '655a9b1df478169a0c1f83cc4cc6b537873db4e3',
+            },
+        })
+        gitment.render('comments')
+    </script>
+</section>
+
+
+
+
+
+
+
+</article>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>This blog is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>Quincey Svng &copy; 2017 - 2018</span>
+            <span>
+                
+                <a href="http://www.miitbeian.gov.cn/" target="_blank">蜀ICP备16009264号-1</a><br>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://matlabchina.cn/2018/01/02/Docker技术入门与实战-第十八章-Docker核心技术/&title=《Docker技术入门与实战-第十八章 Docker核心技术》 — Quincey&pic=http://matlabchina.cn/img/logo.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://matlabchina.cn/2018/01/02/Docker技术入门与实战-第十八章-Docker核心技术/&title=《Docker技术入门与实战-第十八章 Docker核心技术》 — Quincey&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://matlabchina.cn/2018/01/02/Docker技术入门与实战-第十八章-Docker核心技术/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Docker技术入门与实战-第十八章 Docker核心技术》 — Quincey&url=http://matlabchina.cn/2018/01/02/Docker技术入门与实战-第十八章-Docker核心技术/&via=http://matlabchina.cn" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://matlabchina.cn/2018/01/02/Docker技术入门与实战-第十八章-Docker核心技术/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAPYAAAD2CAAAAADAeSUUAAADHklEQVR42u3aQW7jQAwEwPz/09kHLCx3k3ZgjUunADFGKupATXN+fuLr97/r+r+Pfvlo5es7PvplfpfhhY2NjX0TdvLQ1+CElKzQ/vf6Lk9eADY2NvZx7GS5TS/IizW7e27BxsbGxs4//fPWeP08SYvCxsbGxt60kLaN5eFUEh5hY2NjY2/azGbj8apG9fYsDRsbG/vj2fmm4vP/fst8GxsbG/uD2b/l1Y5m98PgfFRcKLCxsbEPYu8DoyT02QRV+cYjf35sbGzs89j7EW9SiHesOQu5sLGxsU9lz+L+9ghOPvpt1xzisbGxsW/OflVA03bIzSC5vTs2Njb22exHN5jNRmcbifdtY6IsDRsbG/sI9izcmYX118i8ReXFKkYC2NjY2DdkJw+xCd9nB3pmLyAJmLCxsbHPY7eBTvJx35YsZ7RlffJ6sLGxsY9gt7ecxU/5lmM/co4s2NjY2AexZw0sbyp5gWajhRcPBrCxsbFvy84/69uIZ9ZmkvbWFrFuY9jY2Ng3Yec/3YREf9OoihJjY2NjH8SeHbXZFKXdwOTNLHkqbGxs7FPZCXXW3v4yotoUHRsbG/vu7KRhzCKnTQyUX8MSYGNjYx/ETjYbs5CoDf1zZH7AKJpyY2NjYx/Ebo+/bOKb2S83pa+P7GBjY2N/PHv2KT9rdckIdjNaqEe82NjY2Mex6+lBfPuEMRsDtC8JGxsb+zx20sxetUVpV263H8MOhY2NjX1zdtIGEkbbNtrjO0k5ileIjY2NfRB79hHfhjhJKdsNTAJ+UlZsbGzsL2DPjt3MGlXb9lp8Mf3AxsbGPoKdL5GHR23AlA8thuXGxsbG/gL2fhPSlm8fbxUlw8bGxj6C/VtewxnyIvrPR7l5ObCxsbFPYudX0uSui5WvkMf9m2JhY2Njn8ROmtbs9pt6txubfCuFjY2NfSp7FgO1TWtW0NnYIIqWsLGxsb+efT022A8M2uM7xfNgY2NjfzE7P16TPHpCmo0Bngw5sLGxsY9j55uK9uHagXH+GpIg6QVZGjY2NvbHs98R1rdNZbb+rEzY2NjYB7H/ATNOXcm5d0BtAAAAAElFTkSuQmCC" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+
+
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = 'woops, lost connnection！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = 'bow, chaka bow boom!';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

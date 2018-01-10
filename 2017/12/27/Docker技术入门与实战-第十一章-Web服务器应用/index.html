@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    <title>Docker技术入门与实战-第十一章 Web服务器应用 | Quincey | mind in mind</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="Docker">
+    <meta name="description" content="11.1 Apache 创建Dockerfile  Dockerfile 12345678910111213141516171819#设置基础镜像FROM sshd:ubuntufile#提供作者信息MAINTAINER from si by Felix (salsa2010@foxmail.com)#安装apache2RUN apt-get -yq install apache2RUN /etc">
+<meta name="keywords" content="Docker">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Docker技术入门与实战-第十一章 Web服务器应用">
+<meta property="og:url" content="http://matlabchina.cn/2017/12/27/Docker技术入门与实战-第十一章-Web服务器应用/index.html">
+<meta property="og:site_name" content="Quincey">
+<meta property="og:description" content="11.1 Apache 创建Dockerfile  Dockerfile 12345678910111213141516171819#设置基础镜像FROM sshd:ubuntufile#提供作者信息MAINTAINER from si by Felix (salsa2010@foxmail.com)#安装apache2RUN apt-get -yq install apache2RUN /etc">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="http://cdn.docker.matlabchina.cn/Docker-ch11.2-1.PNG">
+<meta property="og:image" content="http://cdn.docker.matlabchina.cn/Docker-ch11.2-2.PNG">
+<meta property="og:image" content="http://cdn.docker.matlabchina.cn/Docker-ch11.4-1.jpg">
+<meta property="og:image" content="http://cdn.docker.matlabchina.cn/Docker-ch11.4-2.PNG">
+<meta property="og:updated_time" content="2017-12-30T09:05:10.263Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Docker技术入门与实战-第十一章 Web服务器应用">
+<meta name="twitter:description" content="11.1 Apache 创建Dockerfile  Dockerfile 12345678910111213141516171819#设置基础镜像FROM sshd:ubuntufile#提供作者信息MAINTAINER from si by Felix (salsa2010@foxmail.com)#安装apache2RUN apt-get -yq install apache2RUN /etc">
+<meta name="twitter:image" content="http://cdn.docker.matlabchina.cn/Docker-ch11.2-1.PNG">
+    
+        <link rel="alternate" type="application/atom+xml" title="Quincey" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/logo.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">Quincey Svng</h5>
+          <a href="mailto:salsa2010@foxmail.com" title="salsa2010@foxmail.com" class="mail">salsa2010@foxmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                Quincey Svng
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/SuperFireFoxy" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="http://www.weibo.com/salsa2010" target="_blank" >
+                <i class="icon icon-lg icon-weibo"></i>
+                Weibo
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://www.facebook.com/felix.song.79" target="_blank" >
+                <i class="icon icon-lg icon-link"></i>
+                facebook
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">Docker技术入门与实战-第十一章 Web服务器应用</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Search">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">Docker技术入门与实战-第十一章 Web服务器应用</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2017-12-27T11:22:55.000Z" itemprop="datePublished" class="page-time">
+  2017-12-27
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Docker/">Docker</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#11-1-Apache"><span class="post-toc-number">1.</span> <span class="post-toc-text">11.1 Apache</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#11-2-Nginx"><span class="post-toc-number">2.</span> <span class="post-toc-text">11.2 Nginx</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#11-3-Tomcat"><span class="post-toc-number">3.</span> <span class="post-toc-text">11.3 Tomcat</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#11-4-Weblogic"><span class="post-toc-number">4.</span> <span class="post-toc-text">11.4 Weblogic</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#11-5-LAMP"><span class="post-toc-number">5.</span> <span class="post-toc-text">11.5 LAMP</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#11-6-CMS"><span class="post-toc-number">6.</span> <span class="post-toc-text">11.6 CMS</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#11-7-本章小结"><span class="post-toc-number">7.</span> <span class="post-toc-text">11.7 本章小结</span></a></li></ol>
+        </nav>
+    </aside>
+    
+<article id="post-Docker技术入门与实战-第十一章-Web服务器应用"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">Docker技术入门与实战-第十一章 Web服务器应用</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2017-12-27 19:22:55" datetime="2017-12-27T11:22:55.000Z"  itemprop="datePublished">2017-12-27</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Docker/">Docker</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h2 id="11-1-Apache"><a href="#11-1-Apache" class="headerlink" title="11.1 Apache"></a>11.1 Apache</h2><ol>
+<li><p>创建Dockerfile</p>
+<ul>
+<li><p>Dockerfile</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#设置基础镜像</span></span><br><span class="line"><span class="keyword">FROM</span> sshd:ubuntufile</span><br><span class="line"></span><br><span class="line"><span class="comment">#提供作者信息</span></span><br><span class="line"><span class="keyword">MAINTAINER</span> <span class="keyword">from</span> si by Felix (salsa2010@foxmail.com)</span><br><span class="line"></span><br><span class="line"><span class="comment">#安装apache2</span></span><br><span class="line"><span class="keyword">RUN</span><span class="bash"> apt-get -yq install apache2</span></span><br><span class="line"><span class="bash">RUN /etc/init.d/apache2 restart</span></span><br><span class="line"><span class="bash"></span></span><br><span class="line"><span class="bash"><span class="comment">#复制启动脚本</span></span></span><br><span class="line"><span class="bash">ADD run.sh /root/run.sh</span></span><br><span class="line"><span class="bash">RUN chmod 777 /root/*.sh</span></span><br><span class="line"><span class="bash"></span></span><br><span class="line"><span class="bash"><span class="comment">#暴露80端口</span></span></span><br><span class="line"><span class="bash">EXPOSE 80</span></span><br><span class="line"><span class="bash"></span></span><br><span class="line"><span class="bash"><span class="comment">#启动时执行脚本</span></span></span><br><span class="line"><span class="bash">CMD [<span class="string">"/root/run.sh"</span>]</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>run.sh</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">/bin/bash</span></span><br><span class="line">service ssh restart</span><br><span class="line">/etc/init.d/apache2 restart</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>创建apache:ubuntu镜像</p>
+<p> <code>sudo docker build -t apache:ubuntu .</code></p>
+</li>
+<li><p>启动容器</p>
+<ul>
+<li><p>端口映射</p>
+<ul>
+<li><p><code>sudo docker run -it -p 10022:22 -p 8080:80 --name apacheUbuntu apache:ubuntufile /bin/bash</code></p>
+</li>
+<li><p>使用Dockerfile创建镜像是，子镜像会继承父镜像的开放端口(<code>EXPOSE</code>)；但却不会继承启动命令(<code>CMD</code>)</p>
+</li>
+</ul>
+</li>
+<li>映射本地目录<ul>
+<li><code>sudo docker run -it -p 10022:22 -p 8080:80 - v /home/felix/www:/var/www:ro --name apacheUbuntu apache:ubuntufile /bin/bash</code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<h2 id="11-2-Nginx"><a href="#11-2-Nginx" class="headerlink" title="11.2 Nginx"></a>11.2 Nginx</h2><ol>
+<li>Nginx是一款<strong>高性能的web服务器和反向代理器</strong><ul>
+<li>作为web服务器：相比Apache，Nginx使用更少的资源；C语言实现，轻松支持高达50000个并发连接数的响应</li>
+<li>可以作为HTTP代理服务器对外进行服务</li>
+</ul>
+</li>
+<li><p>Dockerfile</p>
+<p> <img src="http://cdn.docker.matlabchina.cn/Docker-ch11.2-1.PNG" alt="ch11.2-1"></p>
+</li>
+<li><p>Tengine镜像：Nginx的增强版</p>
+<ul>
+<li><p>Dockerfile</p>
+<p><img src="http://cdn.docker.matlabchina.cn/Docker-ch11.2-2.PNG" alt="ch11.2-2"></p>
+</li>
+</ul>
+</li>
+</ol>
+<h2 id="11-3-Tomcat"><a href="#11-3-Tomcat" class="headerlink" title="11.3 Tomcat"></a>11.3 Tomcat</h2><ol>
+<li><p>Dockerfile</p>
+ <figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#设置基础镜像</span></span><br><span class="line"><span class="keyword">FROM</span> sshd:ubuntufile</span><br><span class="line"></span><br><span class="line"><span class="comment">#提供作者信息</span></span><br><span class="line"><span class="keyword">MAINTAINER</span> <span class="keyword">from</span> si by Felix (salsa2010@foxmail.com)</span><br><span class="line"></span><br><span class="line"><span class="comment">#设置环境变量</span></span><br><span class="line"><span class="keyword">ENV</span> DEBIAN_FRONTEND noninteractive</span><br><span class="line"></span><br><span class="line"><span class="comment">#更改系统时区，因为web应用中经常会用到时区这个系统变量，ubuntu默认的时区会有问题</span></span><br><span class="line"><span class="comment">#RUN echo "Asia/Shanghai" &gt; /etc/timezone &amp;&amp; \</span></span><br><span class="line"><span class="comment">#	dpkg-reconfigure -f noninteractive tzdata</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#安装跟Tomcat用户认证相关的软件</span></span><br><span class="line"><span class="keyword">RUN</span><span class="bash"> apt-get install -yq wget pwgen ca-certificates &amp;&amp; \</span></span><br><span class="line"><span class="bash">    apt-get clean &amp;&amp;\</span></span><br><span class="line"><span class="bash">    rm -rf /var/lib/apt/lists/*</span></span><br><span class="line"><span class="bash"></span></span><br><span class="line"><span class="bash"><span class="comment">#设置Tomcat的环境变量</span></span></span><br><span class="line"><span class="bash">ENV CATALINA_HOME /tomcat</span></span><br><span class="line"><span class="bash">ENV JAVA_HOME /jdk</span></span><br><span class="line"><span class="bash"></span></span><br><span class="line"><span class="bash"><span class="comment">#复制tomcat和jdk文件到镜像中</span></span></span><br><span class="line"><span class="bash">ADD apache-tomcat-8.5.24 /tomcat</span></span><br><span class="line"><span class="bash">ADD jdk1.8.0_151 /jdk</span></span><br><span class="line"><span class="bash"></span></span><br><span class="line"><span class="bash"><span class="comment">#复制启动脚本</span></span></span><br><span class="line"><span class="bash">ADD create_tomcat_admin_user.sh /create_tomcat_admin_user.sh</span></span><br><span class="line"><span class="bash">ADD run.sh /run.sh</span></span><br><span class="line"><span class="bash">RUN chmod +x /*.sh</span></span><br><span class="line"><span class="bash">RUN chmod +x /tomcat/bin/*.sh</span></span><br><span class="line"><span class="bash"></span></span><br><span class="line"><span class="bash"><span class="comment">#暴露端口</span></span></span><br><span class="line"><span class="bash">EXPOSE 8080</span></span><br><span class="line"><span class="bash"></span></span><br><span class="line"><span class="bash"><span class="comment">#执行启动脚本</span></span></span><br><span class="line"><span class="bash">CMD [<span class="string">"/run.sh"</span>]</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>create_tomcat_admin_user.sh</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">/bin/bash</span></span><br><span class="line"></span><br><span class="line">if [ ! -f /.tomcat_admin_created ]; then</span><br><span class="line">    echo "Tomcat 'admin' user already created"</span><br><span class="line">    exit 0</span><br><span class="line">fi</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">generate password</span></span><br><span class="line">PASS=$( [ &#123;TOMCAT_PASS&#125; ] &amp;&amp; echo "preset" || echo "random")</span><br><span class="line"></span><br><span class="line">echo "=&gt; Creating and admin user with a $&#123;_word&#125; password in Tomcat"</span><br><span class="line">sed -i -r 's/&lt;\/tomcat-users&gt;//' $&#123;CATALINA_HOME&#125;/conf/tomcat-users.xml</span><br><span class="line">echo '&lt;role rolename="manager-gui"/&gt;' &gt;&gt; $&#123;CATALINA_HOME&#125;/conf/tomcat-users.xml</span><br><span class="line">echo '&lt;role rolename="manager-script"/&gt;' &gt;&gt; $&#123;CATALINA_HOME&#125;/conf/tomcat-users.xml</span><br><span class="line">echo '&lt;role rolename="manager-jmx"/&gt;' &gt;&gt; $&#123;CATALINA_HOME&#125;/conf/tomcat-users.xml</span><br><span class="line">echo '&lt;role rolename="admin-gui"/&gt;' &gt;&gt; $&#123;CATALINA_HOME&#125;/conf/tomcat-users.xml</span><br><span class="line">echo '&lt;role rolename="admin-script"/&gt;' &gt;&gt; $&#123;CATALINA_HOME&#125;/conf/tomcat-users.xml</span><br><span class="line">echo "&lt;user username=\"admin\" password=\"$&#123;PASS&#125;\"&gt; roles=\"manager-gui, manager-script, manager-jmx, admin-gui, admin-script\"/&gt;" &gt;&gt; $&#123;CATALINA_HOME&#125;/conf/tomcat-users.xml</span><br><span class="line">echo '&lt;/tomcat-users&gt;' &gt;&gt; $&#123;CATALINA_HOME&#125;/conf/tomcat-users.xml</span><br><span class="line">echo "=&gt; Done!"</span><br><span class="line">touch /.tomcat_admin_created</span><br><span class="line"></span><br><span class="line">echo "================================================="</span><br><span class="line">echo "You can noew configure to this Tomcat server using:"</span><br><span class="line">echo ""</span><br><span class="line">echo "		admin:$&#123;PASS&#125;"</span><br><span class="line">echo ""</span><br><span class="line">echo "================================================="</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>run.sh</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">/bin/bash</span></span><br><span class="line"></span><br><span class="line">if [ ! -f /.tomcat_admin_created ]; then</span><br><span class="line">    /create_tomcat_admin_user.sh</span><br><span class="line">fi</span><br><span class="line">/usr/sbin/sshd -D &amp;</span><br><span class="line">exec $&#123;CATALINA_HOME&#125;/bin/catalina.sh run</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ol>
+<h2 id="11-4-Weblogic"><a href="#11-4-Weblogic" class="headerlink" title="11.4 Weblogic"></a>11.4 Weblogic</h2><ol>
+<li><p>简介：</p>
+<ul>
+<li>Weblogic是一个基于JavaEE的中间件</li>
+<li><p>与Tomcat不同的是，Weblogic是一个商业软件</p>
+<blockquote>
+<p>中间件：中间件(middleware)是基础软件的一大类，属于可复用软件的范畴。顾名思义，中间件处于操作系统软件与用户的应用软件的中间。<strong>中间件在操作系统、网络和数据库之上，应用软件的下层</strong>，总的作用是为处于自己上层的应用软件提供运行与开发的环境，帮助用户灵活、高效地开发和集成复杂的应用软件。在众多关于中间件的定义中，比较普遍被接受的是IDC表述的：<strong>中间件是一种独立的系统软件或服务程序，分布式应用软件借助这种软件在不同的技术之间共享资源，中间件位于客户机服务器的操作系统之上，管理计算资源和网络通信。</strong></p>
+</blockquote>
+<p><img src="http://cdn.docker.matlabchina.cn/Docker-ch11.4-1.jpg" alt="ch11.4-1"></p>
+</li>
+</ul>
+</li>
+<li><p>Weblogic基本概念</p>
+<ul>
+<li><p>Weblogic域：Weblogic域是作为单元进行管理的一组相关的Weblogic服务器资源。一个域包括：</p>
+<ul>
+<li>一个或多个Weblogic服务器实例,这些实例可以是：<ul>
+<li>集群实例</li>
+<li>非集群实例</li>
+<li>集群与非集群实例</li>
+</ul>
+</li>
+<li>部署在域中的应用程序组件：</li>
+<li>此域中的这些应用程序组件和服务实例所需要的资源和服务（包括网络，连接器等）</li>
+</ul>
+<p><img src="http://cdn.docker.matlabchina.cn/Docker-ch11.4-2.PNG" alt="ch11.4-2"></p>
+</li>
+<li><p>Administration服务器：一个特殊的Weblogic服务器实例，用于用户配置\管理域中所有资源的核心</p>
+</li>
+<li>Managed服务器：驾驭域中的其他实例为Managed服务器,所有的Web应用、EJB、Web服务和其他资源都在这些服务器上</li>
+</ul>
+</li>
+<li>当安装和部署方式较为复杂时：<ul>
+<li>可先启动容器，在容器内进行安装和配置</li>
+<li>然后，通过<code>docker commit</code>将这个容器提交为一个镜像</li>
+<li>最后，再进一步使用Dockerfile来完成最终的镜像创建</li>
+</ul>
+</li>
+<li>具体安装步骤不再赘述</li>
+</ol>
+<h2 id="11-5-LAMP"><a href="#11-5-LAMP" class="headerlink" title="11.5 LAMP"></a>11.5 LAMP</h2><ol>
+<li>LAMP是指：Linux + Apache HTTP Server + MySQL + PHP</li>
+<li><p>通过Dockerfile创建部署自己的PHP应用</p>
+<ul>
+<li><p>Dockerfile</p>
+  <figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">FROM</span> tutum/lamp:latest</span><br><span class="line"><span class="keyword">RUN</span><span class="bash"> rm -rf /app &amp;&amp; git <span class="built_in">clone</span> https://github.com/username.customapp.git /app</span></span><br><span class="line"><span class="bash">EXPOSE 80 3306</span></span><br><span class="line"><span class="bash">CMD [<span class="string">"run.sh"</span>]</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>创建镜像<br>  <code>sudo docker build -t dockerpool/lamp-with-my-app</code></p>
+</li>
+</ul>
+</li>
+</ol>
+<h2 id="11-6-CMS"><a href="#11-6-CMS" class="headerlink" title="11.6 CMS"></a>11.6 CMS</h2><ol>
+<li>CMS: 内容管理系统是指提供内容编辑服务的平台程序</li>
+<li>主要的CMS系统：<ul>
+<li>WordPress</li>
+<li>Drupal</li>
+<li>Joomla</li>
+<li>Typo3</li>
+<li>…</li>
+</ul>
+</li>
+</ol>
+<h2 id="11-7-本章小结"><a href="#11-7-本章小结" class="headerlink" title="11.7 本章小结"></a>11.7 本章小结</h2><ol>
+<li>Docker暂时不支持在容器运行时修改容器的一些配置。比如：<ul>
+<li>无法为运行中的容器映射更多的宿主主机目录</li>
+<li>无法为运行中的主机映射更多宿主主机的网络</li>
+<li>…</li>
+</ul>
+</li>
+<li>对于程序代码、程序的资源目录、日志、数据库文件等需要实时更新的数据一顶要通过<code>-v</code>参数映射到宿主主机目录中来，<strong>使用Docker的AUFS文件格式，会产生较大的性能问题</strong></li>
+</ol>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    Last updated: <time datetime="2017-12-30T09:05:10.263Z" itemprop="dateUpdated">2017-12-30 17:05:10</time>
+</span><br>
+
+
+        
+        No one can guide you, except yourself!     self-link：<a href="/2017/12/27/Docker技术入门与实战-第十一章-Web服务器应用/" target="_blank" rel="external">http://matlabchina.cn/2017/12/27/Docker技术入门与实战-第十一章-Web服务器应用/</a>
+        
+    </div>
+    <footer>
+        <a href="http://matlabchina.cn">
+            <img src="/img/logo.jpg" alt="Quincey Svng">
+            Quincey Svng
+        </a>
+    </footer>
+</blockquote>
+
+        
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Docker/">Docker</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://matlabchina.cn/2017/12/27/Docker技术入门与实战-第十一章-Web服务器应用/&title=《Docker技术入门与实战-第十一章 Web服务器应用》 — Quincey&pic=http://matlabchina.cn/img/logo.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://matlabchina.cn/2017/12/27/Docker技术入门与实战-第十一章-Web服务器应用/&title=《Docker技术入门与实战-第十一章 Web服务器应用》 — Quincey&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://matlabchina.cn/2017/12/27/Docker技术入门与实战-第十一章-Web服务器应用/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Docker技术入门与实战-第十一章 Web服务器应用》 — Quincey&url=http://matlabchina.cn/2017/12/27/Docker技术入门与实战-第十一章-Web服务器应用/&via=http://matlabchina.cn" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://matlabchina.cn/2017/12/27/Docker技术入门与实战-第十一章-Web服务器应用/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2017/12/30/Docker技术入门与实战-第十二章-数据库应用/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">Docker技术入门与实战-第十二章 数据库应用</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2017/12/27/Docker技术入门与实战-第十章-创建支持SSH服务的镜像/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">Docker技术入门与实战-第十章 创建支持SSH服务的镜像</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+<section class="comments" id="comments">
+    <div id="gitment_thread"></div>
+    <link rel="stylesheet" href="//unpkg.com/gitment/style/default.css">
+    <script src="//unpkg.com/gitment/dist/gitment.browser.js"></script>
+    <script>
+        var gitment = new Gitment({
+            owner: 'SuperFireFoxy',
+            repo: 'superfirefoxy.github.io',
+            oauth: {
+                client_id: 'f79ac80faa3d2c58bf61',
+                client_secret: '655a9b1df478169a0c1f83cc4cc6b537873db4e3',
+            },
+        })
+        gitment.render('comments')
+    </script>
+</section>
+
+
+
+
+
+
+
+</article>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>This blog is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>Quincey Svng &copy; 2017 - 2018</span>
+            <span>
+                
+                <a href="http://www.miitbeian.gov.cn/" target="_blank">蜀ICP备16009264号-1</a><br>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://matlabchina.cn/2017/12/27/Docker技术入门与实战-第十一章-Web服务器应用/&title=《Docker技术入门与实战-第十一章 Web服务器应用》 — Quincey&pic=http://matlabchina.cn/img/logo.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://matlabchina.cn/2017/12/27/Docker技术入门与实战-第十一章-Web服务器应用/&title=《Docker技术入门与实战-第十一章 Web服务器应用》 — Quincey&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://matlabchina.cn/2017/12/27/Docker技术入门与实战-第十一章-Web服务器应用/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Docker技术入门与实战-第十一章 Web服务器应用》 — Quincey&url=http://matlabchina.cn/2017/12/27/Docker技术入门与实战-第十一章-Web服务器应用/&via=http://matlabchina.cn" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://matlabchina.cn/2017/12/27/Docker技术入门与实战-第十一章-Web服务器应用/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAPYAAAD2CAAAAADAeSUUAAADJklEQVR42u3aQW7jQAwEwPz/09lrgCB2NyljrXHpZDiKNDU5dEjO11d8ff+4fn/z+2qfnL/x8T0XX9jY2Ng3YSeAZBG/v998/uun+T1P/hjY2NjYx7FngHxByffJ22d3YmNjY2M//pxvSn5/G1HY2NjY2PtguCrwkkLoPwQYNjY29tuzZzHzuHGTL3cTVC/vpWFjY2O/Pbsdx77z55fMt7GxsbHfmP1dXrMyo23u5w2soQIbGxv7IHY7di0euh7f5vHZrh8bGxv7JPY+fh7/1qaQmA0JkiYXNjY29qnsa8uAvNhotynfrCfzEGxsbOwj2HXVUmLawGuLn1mwYWNjY5/Ebpv4syiaRddmrPvkLdjY2NgHsffLmo0EHj+tjbdVrGJjY2PfnJ3/c98ud7bQ2cCgDlpsbGzsg9jtcZw2zDZjgCQgV7mNjY2NfQT7qofmQ9l8EJvfUw+GsbGxsY9jty/eFC2b4uSywQA2Njb2Qey2iZ8UMPuY2ZQ3SXxiY2Njn8TOo2s2KtgPIdohQbTF2NjY2MexN2PaNqjykGvDrPgpNjY29nHs2YJmBy6TImfz9qQ0wsbGxj6JnbTX27hqx7R5aylvYw1PLWFjY2PfkN029PNlzZr++ZPzsQE2Njb2J7Dblk3xgpf9/59vX9RLw8bGxr4te9/o34yK2/bTfvSLjY2N/Wns2YKu/a02/GbtJ2xsbOz7sh8HzP64TLv0PNja0I2aStjY2Ng3ZOc3zYasecy0x4by7fvzydjY2NgHsfMGzabWSbZydugnL2menFTCxsbGvi17diBmtintMaB2IF0Mm7GxsbEPZSePmDV32uM77SGhl5xXwsbGxr45uw2G9jmz8XB7lKcOMGxsbOxbsb/LKx8hfI2uZFg7GwNjY2Njn8puF5Tj89FvfqynPTxUj3uxsbGxb8vOQ2u1c4umUr4d+RZgY2Njn8duC4M82NrC5oI+WTLPxcbGxv5gdluotC2kdhSRDxiwsbGxsdv788M9efupHQNgY2Njfw67PSjTlhZ5c3+zrXlkYmNjY5/EnrXvk5IgiZNN0TLbJmxsbOyD2P8AdNQ1AHcEmMMAAAAASUVORK5CYII=" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+
+
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = 'woops, lost connnection！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = 'bow, chaka bow boom!';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

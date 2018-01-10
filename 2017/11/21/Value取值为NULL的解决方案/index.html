@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    <title>Spring注解@Value取值为NULL的解决方案 | Quincey | mind in mind</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="Spring,@Annotation">
+    <meta name="description" content="在spring mvc架构中，如果希望在程序中直接使用properties中定义的配置值，通常使用一下方式来获取： @Value(&amp;quot;${tag}&amp;quot;) private String tagValue; 但是取值时，有时这个tagvalue为NULL，可能原因有：  使用static或final修饰了tagValue，如下：   private static String tagV">
+<meta name="keywords" content="Spring,@Annotation">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Spring注解@Value取值为NULL的解决方案">
+<meta property="og:url" content="http://matlabchina.cn/2017/11/21/Value取值为NULL的解决方案/index.html">
+<meta property="og:site_name" content="Quincey">
+<meta property="og:description" content="在spring mvc架构中，如果希望在程序中直接使用properties中定义的配置值，通常使用一下方式来获取： @Value(&amp;quot;${tag}&amp;quot;) private String tagValue; 但是取值时，有时这个tagvalue为NULL，可能原因有：  使用static或final修饰了tagValue，如下：   private static String tagV">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2017-11-23T08:18:44.270Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Spring注解@Value取值为NULL的解决方案">
+<meta name="twitter:description" content="在spring mvc架构中，如果希望在程序中直接使用properties中定义的配置值，通常使用一下方式来获取： @Value(&amp;quot;${tag}&amp;quot;) private String tagValue; 但是取值时，有时这个tagvalue为NULL，可能原因有：  使用static或final修饰了tagValue，如下：   private static String tagV">
+    
+        <link rel="alternate" type="application/atom+xml" title="Quincey" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/logo.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">Quincey Svng</h5>
+          <a href="mailto:salsa2010@foxmail.com" title="salsa2010@foxmail.com" class="mail">salsa2010@foxmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                Quincey Svng
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/SuperFireFoxy" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="http://www.weibo.com/salsa2010" target="_blank" >
+                <i class="icon icon-lg icon-weibo"></i>
+                Weibo
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://www.facebook.com/felix.song.79" target="_blank" >
+                <i class="icon icon-lg icon-link"></i>
+                facebook
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">Spring注解@Value取值为NULL的解决方案</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Search">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">Spring注解@Value取值为NULL的解决方案</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2017-11-20T16:02:11.000Z" itemprop="datePublished" class="page-time">
+  2017-11-21
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Spring/">Spring</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+<article id="post-Value取值为NULL的解决方案"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">Spring注解@Value取值为NULL的解决方案</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2017-11-21 00:02:11" datetime="2017-11-20T16:02:11.000Z"  itemprop="datePublished">2017-11-21</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Spring/">Spring</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>在spring mvc架构中，如果希望在程序中直接使用properties中定义的配置值，通常使用一下方式来获取：</p>
+<pre><code>@Value(&quot;${tag}&quot;)
+private String tagValue;
+</code></pre><p>但是取值时，有时这个tagvalue为NULL，可能原因有：</p>
+<ul>
+<li>使用static或final修饰了tagValue，如下：</li>
+</ul>
+<blockquote>
+<pre><code>private static String tagValue;  //错误
+private final String tagValue;    //错误
+</code></pre></blockquote>
+<ul>
+<li>类没有加上@Component(或者@service等)</li>
+</ul>
+<blockquote>
+<pre><code>@Component   //遗漏
+class TestValue{
+     @Value(&quot;${tag}&quot;)
+     private String tagValue;
+}
+</code></pre></blockquote>
+<ul>
+<li>类被new新建了实例，而没有使用@Autowired</li>
+</ul>
+<blockquote>
+<pre><code>@Component   
+class TestValue{
+     @Value(&quot;${tag}&quot;)
+     private String tagValue;
+}
+
+class Test{
+    ...
+    TestValue testValue = new TestValue()
+}
+</code></pre></blockquote>
+<ul>
+<li>这个testValue中肯定是取不到值的，必须使用@Autowired：</li>
+</ul>
+<blockquote>
+<pre><code>class Test{
+        @AutoWired
+        TestValue testValue
+    }
+</code></pre></blockquote>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    Last updated: <time datetime="2017-11-23T08:18:44.270Z" itemprop="dateUpdated">2017-11-23 16:18:44</time>
+</span><br>
+
+
+        
+        No one can guide you, except yourself!     self-link：<a href="/2017/11/21/Value取值为NULL的解决方案/" target="_blank" rel="external">http://matlabchina.cn/2017/11/21/Value取值为NULL的解决方案/</a>
+        
+    </div>
+    <footer>
+        <a href="http://matlabchina.cn">
+            <img src="/img/logo.jpg" alt="Quincey Svng">
+            Quincey Svng
+        </a>
+    </footer>
+</blockquote>
+
+        
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Annotation/">@Annotation</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Spring/">Spring</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://matlabchina.cn/2017/11/21/Value取值为NULL的解决方案/&title=《Spring注解@Value取值为NULL的解决方案》 — Quincey&pic=http://matlabchina.cn/img/logo.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://matlabchina.cn/2017/11/21/Value取值为NULL的解决方案/&title=《Spring注解@Value取值为NULL的解决方案》 — Quincey&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://matlabchina.cn/2017/11/21/Value取值为NULL的解决方案/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Spring注解@Value取值为NULL的解决方案》 — Quincey&url=http://matlabchina.cn/2017/11/21/Value取值为NULL的解决方案/&via=http://matlabchina.cn" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://matlabchina.cn/2017/11/21/Value取值为NULL的解决方案/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2017/11/21/Thinking-in-Java-第三章-运算符/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">Thinking in Java 第三章 运算符</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2017/11/21/hello-world/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">Hello Hexo</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+<section class="comments" id="comments">
+    <div id="gitment_thread"></div>
+    <link rel="stylesheet" href="//unpkg.com/gitment/style/default.css">
+    <script src="//unpkg.com/gitment/dist/gitment.browser.js"></script>
+    <script>
+        var gitment = new Gitment({
+            owner: 'SuperFireFoxy',
+            repo: 'superfirefoxy.github.io',
+            oauth: {
+                client_id: 'f79ac80faa3d2c58bf61',
+                client_secret: '655a9b1df478169a0c1f83cc4cc6b537873db4e3',
+            },
+        })
+        gitment.render('comments')
+    </script>
+</section>
+
+
+
+
+
+
+
+</article>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>This blog is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>Quincey Svng &copy; 2017 - 2018</span>
+            <span>
+                
+                <a href="http://www.miitbeian.gov.cn/" target="_blank">蜀ICP备16009264号-1</a><br>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://matlabchina.cn/2017/11/21/Value取值为NULL的解决方案/&title=《Spring注解@Value取值为NULL的解决方案》 — Quincey&pic=http://matlabchina.cn/img/logo.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://matlabchina.cn/2017/11/21/Value取值为NULL的解决方案/&title=《Spring注解@Value取值为NULL的解决方案》 — Quincey&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://matlabchina.cn/2017/11/21/Value取值为NULL的解决方案/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Spring注解@Value取值为NULL的解决方案》 — Quincey&url=http://matlabchina.cn/2017/11/21/Value取值为NULL的解决方案/&via=http://matlabchina.cn" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://matlabchina.cn/2017/11/21/Value取值为NULL的解决方案/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACt0lEQVR42u3ay47CMAwF0Pn/n2akWTEShetHgMXpClVtk5NFYmz//MTX7e+6/31/5+r5qydvF9fzsZ6POLrw8PDwWlNPhryaxNVCXI2SIPMlfvEFPDw8vGO83mGQb9lVdvWZy/t4eHh4H+Xl8WqCT77fmw8eHh7ed/ImU++lFfDw8PC+jZenVp8nWPN3J4mGI7kWPDw8vJg32ZQ/9ft4fQ8PDw+vVVVPNtzJVJLjYTRbPDw8vAO8JDje3XXzRqtq8qLwjwEPDw9viVct6ucTqrYdJPcLC4SHh4d3jJcH0JPU7e5b0dLg4eHhHeYlB0A+0Xy6B1u48PDw8FZ5eUNANeDutUlNksiFPDEeHh7egJdv91uD5Rt9NV3bLIDh4eHhjXm9Qv5WS0EvlH+xxHh4eHirvDwlWi2SzZsJekH5g2QEHh4e3iqv0LpUDJGrKd3qAuWzwsPDw9vlJS9PmgAWtvJWghgPDw/vNG8SQFdLYtUWgeoh8e8+Hh4e3jFeNR0wT9FWv99rQcDDw8M7wesV9Sep1fwYmITmeHh4eO/n5QX7rYatartV+fDAw8PDW+JVkxF5iPwe8EJ1Dg8PD2+w1SZBc7U8Nkn4TvAPci14eHh4S7xe8X6eGqgeP/lB8qKbDA8PD2+J10s09J7p4fPC24Nv4uHh4a3y8sL8pIhVTWHkB9KLhcbDw8N7C686cLXkn2/6kyatQuSOh4eHV+RV0w3VUlkvxq8mcKP54OHh4S3xbsVr8lZ1ESeJDzw8PLxzvF4xvrrdV4+crSYGPDw8vHO86mGQpy16DVjLX8PDw8M7xpunEvIQfFL0qraL4eHh4X2Wlw+WpCQmAXQhsMbDw8P7Gt5ky06mtRa+4+Hh4R3jTZqo8md6x09eVCtX+fDw8PBavGoBLC9H9fC9pVyr7+Hh4eE9m8MvKop9giedwIcAAAAASUVORK5CYII=" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+
+
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = 'woops, lost connnection！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = 'bow, chaka bow boom!';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

@@ -1,0 +1,831 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    <title>Docker技术入门与实战-第十三章 编程语言 | Quincey | mind in mind</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="Docker">
+    <meta name="description" content="13.1 PHP php是一种动态脚本语言。  优点：随着网站的PV/UV的增长，需要支持更大的并发的时候，基于原有的PHP系统进行分层优化和业务整合相对容易。 php的哲学是quick and dirty(快速有效为先)，十分适合对交付速度要求很高的场景   使用官方镜像  Dockerfile 123456FROM php:latestCOPY myapp.php /usr/src/app/m">
+<meta name="keywords" content="Docker">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Docker技术入门与实战-第十三章 编程语言">
+<meta property="og:url" content="http://matlabchina.cn/2017/12/30/Docker技术入门与实战-第十三章-编程语言/index.html">
+<meta property="og:site_name" content="Quincey">
+<meta property="og:description" content="13.1 PHP php是一种动态脚本语言。  优点：随着网站的PV/UV的增长，需要支持更大的并发的时候，基于原有的PHP系统进行分层优化和业务整合相对容易。 php的哲学是quick and dirty(快速有效为先)，十分适合对交付速度要求很高的场景   使用官方镜像  Dockerfile 123456FROM php:latestCOPY myapp.php /usr/src/app/m">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2017-12-31T09:15:19.395Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Docker技术入门与实战-第十三章 编程语言">
+<meta name="twitter:description" content="13.1 PHP php是一种动态脚本语言。  优点：随着网站的PV/UV的增长，需要支持更大的并发的时候，基于原有的PHP系统进行分层优化和业务整合相对容易。 php的哲学是quick and dirty(快速有效为先)，十分适合对交付速度要求很高的场景   使用官方镜像  Dockerfile 123456FROM php:latestCOPY myapp.php /usr/src/app/m">
+    
+        <link rel="alternate" type="application/atom+xml" title="Quincey" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/logo.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">Quincey Svng</h5>
+          <a href="mailto:salsa2010@foxmail.com" title="salsa2010@foxmail.com" class="mail">salsa2010@foxmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                Quincey Svng
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/SuperFireFoxy" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="http://www.weibo.com/salsa2010" target="_blank" >
+                <i class="icon icon-lg icon-weibo"></i>
+                Weibo
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://www.facebook.com/felix.song.79" target="_blank" >
+                <i class="icon icon-lg icon-link"></i>
+                facebook
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">Docker技术入门与实战-第十三章 编程语言</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Search">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">Docker技术入门与实战-第十三章 编程语言</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2017-12-30T12:33:45.000Z" itemprop="datePublished" class="page-time">
+  2017-12-30
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Docker/">Docker</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#13-1-PHP"><span class="post-toc-number">1.</span> <span class="post-toc-text">13.1 PHP</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#13-2-C-C"><span class="post-toc-number">2.</span> <span class="post-toc-text">13.2 C/C++</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#13-3-Java"><span class="post-toc-number">3.</span> <span class="post-toc-text">13.3 Java</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#13-4-Python"><span class="post-toc-number">4.</span> <span class="post-toc-text">13.4 Python</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#13-5-Perl"><span class="post-toc-number">5.</span> <span class="post-toc-text">13.5 Perl</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#13-6-Ruby"><span class="post-toc-number">6.</span> <span class="post-toc-text">13.6 Ruby</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#13-7-JavaScript"><span class="post-toc-number">7.</span> <span class="post-toc-text">13.7 JavaScript</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#13-8-Go-Golang"><span class="post-toc-number">8.</span> <span class="post-toc-text">13.8 Go(Golang)</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#13-9-本章小结"><span class="post-toc-number">9.</span> <span class="post-toc-text">13.9 本章小结</span></a></li></ol>
+        </nav>
+    </aside>
+    
+<article id="post-Docker技术入门与实战-第十三章-编程语言"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">Docker技术入门与实战-第十三章 编程语言</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2017-12-30 20:33:45" datetime="2017-12-30T12:33:45.000Z"  itemprop="datePublished">2017-12-30</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Docker/">Docker</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h2 id="13-1-PHP"><a href="#13-1-PHP" class="headerlink" title="13.1 PHP"></a>13.1 PHP</h2><ol>
+<li><p>php是一种动态脚本语言。</p>
+<ul>
+<li>优点：随着网站的PV/UV的增长，需要支持更大的并发的时候，基于原有的PHP系统进行分层优化和业务整合相对容易。</li>
+<li>php的哲学是<code>quick and dirty</code>(快速有效为先)，十分适合对交付速度要求很高的场景</li>
+</ul>
+</li>
+<li><p>使用官方镜像</p>
+<ul>
+<li><p>Dockerfile</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">FROM</span> php:latest</span><br><span class="line"></span><br><span class="line"><span class="keyword">COPY</span><span class="bash"> myapp.php /usr/src/app/myapp.php</span></span><br><span class="line"><span class="bash">WORKDIR /usr/src/app</span></span><br><span class="line"><span class="bash"></span></span><br><span class="line"><span class="bash">CMD [<span class="string">"php"</span>,<span class="string">"./myapp.php"</span>]</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>创建镜像</p>
+<ul>
+<li><code>sudo docker build -t my-php-app .</code></li>
+</ul>
+</li>
+<li>创建容器<ul>
+<li><code>sudo docker run -it --rm --name my-running-app my-php-app /bin/bash</code></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>使用带有Apache的php镜像</p>
+<ul>
+<li><p>Dockerfile</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">FROM</span> php:<span class="number">5.6</span>-apache</span><br><span class="line"><span class="comment">#拷贝php的配置文件</span></span><br><span class="line"><span class="keyword">COPY</span><span class="bash"> config/php.ini /usr/<span class="built_in">local</span>/lib/</span></span><br><span class="line"><span class="bash"><span class="comment">#拷贝源码文件</span></span></span><br><span class="line"><span class="bash">COPY src/ /var/www/html/</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>PHP常用框架</p>
+<ul>
+<li>4.1 CakePHP<ul>
+<li>特性：Rails风格的开源全栈MVC框架（此处的全栈是相对于Yaf这类微框架而言的）</li>
+<li>下载镜像<ul>
+<li><code>sudo docker pull vcarl/cakephp</code></li>
+</ul>
+</li>
+<li>运行容器<ul>
+<li><code>sudo docker run -d -p 80:80 -p 443:443 -v /path/to/project:/var/www/html vcarl/cakephp</code></li>
+<li><code>/path/to/project</code>指向项目根目录</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>4.2 Zend<ul>
+<li>特性：用100%面向对象编码实现。每个组件几乎不依靠其他组件，这样松耦合的结构可以让开发者独立使用各种组件</li>
+<li>下载Zend Server镜像<ul>
+<li><code>sudo docker pull php-zendserver</code></li>
+</ul>
+</li>
+<li>运行容器<ul>
+<li><code>sudo docker run php-zendserver</code></li>
+<li>如果对php和Zend Server的版本有要求，可以在<code>docker run</code>命令中加入 <code>:&lt;php-version&gt;</code>或者<code>:&lt;ZS-version&gt;-php&lt;version&gt;</code>。例如<code>php-zendserver:7.0-php5.4</code></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>4.3 Symfony<ul>
+<li>特性：以<strong>依赖注入</strong>为核心的全栈式PHP MVC开发框架。以依赖注入的方式为开发者提供了几乎无限的扩展性</li>
+<li>下载Symfony镜像<ul>
+<li><code>sudo docker pull gregory90/php-symfony</code></li>
+<li>或者<code>sudo docker pull teamrock/sysfony2</code></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>4.4 Phalcon<ul>
+<li>特性：使用C扩展开发的PHP Web框架，具有高性能和低资源占用的特性<ul>
+<li>开源</li>
+<li>全栈的PHP 5框架</li>
+<li>使用C扩展，专门为高性能优化，是PHP MVC框架中性能最高的全栈框架</li>
+<li>无需学习C语言，所有函数都以PHP类的方式封装</li>
+</ul>
+</li>
+<li>下载Phalcon镜像<ul>
+<li><code>sudo docker pull szeist/phalcon-apache2</code></li>
+</ul>
+</li>
+<li>运行容器<ul>
+<li><code>sudo docker run -v /docment/root/on/your/machine:/var/www -p 8080:80 szeist/phalcon-apache2</code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<h2 id="13-2-C-C"><a href="#13-2-C-C" class="headerlink" title="13.2 C/C++"></a>13.2 C/C++</h2><ol>
+<li><p>GCC</p>
+<ul>
+<li>1.1 特性：<ul>
+<li>一个开源的C/C++语言编译器系统</li>
+<li>支持多种编程语言</li>
+<li>支持交叉编译至多种指令集的处理器</li>
+</ul>
+</li>
+<li><p>1.2 C/C++代码运行在容器中</p>
+<ul>
+<li>就是将GCC编译指令写入Dockerfile中，然后使用此Dockerfile构建自定义镜像，最后直接运行此镜像，即可启动程序</li>
+<li><p>Docerfile</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">FROM</span> gcc:<span class="number">4.9</span></span><br><span class="line"><span class="keyword">COPY</span><span class="bash"> helloworld.c /usr/src/myapp</span></span><br><span class="line"><span class="bash">WORKDIR /usr/src/myapp</span></span><br><span class="line"><span class="bash">RUN gcc -o helloworld helloworld.c</span></span><br><span class="line"><span class="bash">CMD [<span class="string">"./helloworld"</span>]</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>启动容器时编译/运行C/C++代码</p>
+<ul>
+<li><code>sudo docker run -rm -v &quot;$(pwd)&quot;:/usr/src/myapp -w /usr/src/myapp gcc4.9 gcc -o hellowrold hellowrold.c</code></li>
+<li><code>-w</code>：指定workdir</li>
+<li>如果项目已经写好了<code>makefile</code>，也可以在容器中直接执行<code>make</code>:<code>sudo docker run -rm -v &quot;$(pwd)&quot;:/usr/src/myapp -w /usr/src/myapp gcc4.9 make</code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>LLVM</p>
+<ul>
+<li>2.1 特性<ul>
+<li>LLVM（Low Level Virtual Machine）的目的是<strong>对任意编程语言</strong>实现的程序，利用虚拟技术，创造出<strong>编译时期、链接时期、运行事情、闲置时期的优化</strong></li>
+<li>以C++实现</li>
+<li>支持Java bytecode、Objective-C、Python、Ruby、C#等语言</li>
+</ul>
+</li>
+<li>2.2 官方镜像<ul>
+<li><code>sudo docker pull imiell/llvm</code></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Clang<ul>
+<li>3.1 特性<ul>
+<li>基于C++和LLVM实现的C/C++/Objective-C/Objective-C++的编译器</li>
+<li>快：Clang比GCC快数倍</li>
+<li>内存占用小：Clang内存占用约是源码的1.3倍，而Apple GCC则超过10倍</li>
+<li>诊断信息可读性强：</li>
+<li>良好兼容GCC</li>
+<li>各个功能<strong>基于库的模块化设计</strong>：<ul>
+<li>GCC是一个单一的可执行程序编译器，<strong>内部完成了从预处理到最后代码生成的全部过程，中间的信息都无法被其他程序重用</strong></li>
+<li>Clang将编译过程分离成各个单独的库，各个阶段的信息都可以通过库的调用实现重用，例如：可将编译和语法检查的各种信息供IDE的代码补全、提示功能使用</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>3.2 使用官方镜像<ul>
+<li><code>sudo docer pull bowery/clang</code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<h2 id="13-3-Java"><a href="#13-3-Java" class="headerlink" title="13.3 Java"></a>13.3 Java</h2><ol>
+<li>使用官方镜像：<ul>
+<li><code>sudo docker pull java</code></li>
+</ul>
+</li>
+<li><p>定制镜像</p>
+<ul>
+<li><p>2.1 Dockerfile</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">FROM</span> java:<span class="number">7</span></span><br><span class="line"><span class="keyword">COPY</span><span class="bash"> Main.java /usr/src/myapp</span></span><br><span class="line"><span class="bash">WORKDIR /usr/src/myapp</span></span><br><span class="line"><span class="bash">RUN javac Main.java</span></span><br><span class="line"><span class="bash">CMD [<span class="string">"java"</span>,<span class="string">"Main"</span>]</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>2.2 创建镜像</p>
+<ul>
+<li><code>sudo docker build -t my-java-app</code></li>
+</ul>
+</li>
+<li>2.3 运行容器<ul>
+<li><code>sudo docker run -it --rm --name my-running-app my-java-app</code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<h2 id="13-4-Python"><a href="#13-4-Python" class="headerlink" title="13.4 Python"></a>13.4 Python</h2><ol>
+<li>特性：<ul>
+<li>解释型的、带CLI交互接口的、面向对象的、开源的动态脚本语言</li>
+<li>集成了模块(modules)、异常处理(exceptions)、动态类型(dynamic typing)、高级数据结构(元组、列表、序列)、类等高级特性</li>
+<li>Python与C/C++代码之间可以方便的相互调用</li>
+<li>非常适合敏捷Web开发</li>
+</ul>
+</li>
+<li><p>Docker中运行Python</p>
+<ul>
+<li>2.1 使用官方镜像<ul>
+<li><code>sudo docker pull python</code></li>
+</ul>
+</li>
+<li><p>2.2 定制镜像(Dockerfile)</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#指定python版本</span></span><br><span class="line"><span class="keyword">FROM</span> python:<span class="number">2</span>-<span class="keyword">onbuild</span></span><br><span class="line"><span class="comment">#CMD ["python","./your-daemon-or-script.py"]</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>2.3 运行单个Python脚本</p>
+<ul>
+<li><code>sduo docker run -it --rm --name my-running-script -v &quot;$(pwd)&quot;:/usr/src/myapp -w /usr/src/myapp python:3 python your-daemon-or-script.py</code></li>
+<li><strong>一定要指定Python的运行版本</strong></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Python的常见框架<ul>
+<li>3.1 Flask<ul>
+<li>特性：轻量的Web应用框架;它只有一个简单的核心，使用extension来扩展其他功能</li>
+</ul>
+</li>
+<li>3.2 Django<ul>
+<li>开源MVC模式的web框架</li>
+<li>注重组件的重用性和“可插拔性”，敏捷开发和DRY法则(Don’t Repeat Yourself)</li>
+<li>使用官方镜像：<ul>
+<li><code>sudo docker pull dockerfiles/django-uwsgi-nginx</code>:选用Django、uWSGI and Nginx的技术组合</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<h2 id="13-5-Perl"><a href="#13-5-Perl" class="headerlink" title="13.5 Perl"></a>13.5 Perl</h2><ol>
+<li>特性：<ul>
+<li>Perl是一个高级的动态解释型的脚本语言</li>
+<li>最重要的特性是它<strong>内部集成了正则表达式的功能</strong>，以及巨大的<strong>第三方代码库CPAN</strong></li>
+</ul>
+</li>
+<li>官方镜像<ul>
+<li><code>sudo docker pull perl</code></li>
+</ul>
+</li>
+<li>Catalyst<ul>
+<li>Catalyst是一个Perl语言开发的MVC框架</li>
+</ul>
+</li>
+</ol>
+<h2 id="13-6-Ruby"><a href="#13-6-Ruby" class="headerlink" title="13.6 Ruby"></a>13.6 Ruby</h2><ol>
+<li>特性：<ul>
+<li>一种<strong>跨平台</strong>、<strong>面向对象</strong>、通用的开源<strong>动态脚本语言</strong></li>
+<li>支持多种编程范式：<ul>
+<li>函数编程</li>
+<li>面向对象变成</li>
+<li>CLI交互编程</li>
+</ul>
+</li>
+<li>动态数据类型</li>
+<li>自动内存管理</li>
+</ul>
+</li>
+<li>使用官方镜像<ul>
+<li><code>sudo docker pull ruby</code></li>
+</ul>
+</li>
+<li><p>Ruby框架</p>
+<ul>
+<li>3.1 JRuby:类似于Python的Jython，可在Java上运行Ruby语言</li>
+<li>3.2 Ruby on Rails<ul>
+<li>Ruby语言写的网页程序开发框架</li>
+<li>一些设计理念和机制比较创新，比较彻底的实现了面向对象编程</li>
+</ul>
+</li>
+<li><p>3.3 Sinatra</p>
+<ul>
+<li><p>比较优雅的包装了Web开发的DSL（领域特定语言），用Sinatra只需5行代码即可实现一个helloword程序：</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">require</span> <span class="string">'rubygems'</span></span><br><span class="line"><span class="keyword">require</span> <span class="string">'sinatra'</span></span><br><span class="line"></span><br><span class="line">get <span class="string">'/'</span> <span class="keyword">do</span></span><br><span class="line">    <span class="string">'hello world'</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<h2 id="13-7-JavaScript"><a href="#13-7-JavaScript" class="headerlink" title="13.7 JavaScript"></a>13.7 JavaScript</h2><ol>
+<li>JavaScript技术栈<ul>
+<li>一种弱类型的解释型动态脚本语言</li>
+<li>支持面向对象变成</li>
+<li>浏览器默认自带JavaScript解释器</li>
+<li>重复利用JavaScript MVC框架的优势，将敏捷开发发挥到极致</li>
+<li>JavaScript解释器也可运行于后端时，JavaScript也支持后端开发。比如Node.js</li>
+</ul>
+</li>
+<li>Node.js<ul>
+<li>JavaScript代码通过V8引擎运行于后端服务器。</li>
+<li>它的并发能力与PHP、Python等相当</li>
+</ul>
+</li>
+<li>Node.js的Web框架-Express<ul>
+<li>目前最稳定、最广泛使用的Node.js的Web框架</li>
+<li>Express不对Node.js已有的特性进行二次抽象，而只是在其之上扩展了Web应用所需的功能</li>
+</ul>
+</li>
+<li>AngularJS<ul>
+<li>是一个JavaScript MVC框架，AngularJS很小，只有60k</li>
+<li>特性：<ul>
+<li>数据绑定</li>
+<li>模板</li>
+<li>MVC</li>
+<li>依赖注入</li>
+<li>指令</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<h2 id="13-8-Go-Golang"><a href="#13-8-Go-Golang" class="headerlink" title="13.8 Go(Golang)"></a>13.8 Go(Golang)</h2><ol>
+<li>基本设计理念：<strong>编译效率、运行效率、开发效率</strong>三者兼顾（Python的便利，C++的运行效率，小到可以忽略的编译时间）</li>
+<li><p>特性：</p>
+<ul>
+<li>静态类型：满足运行效率要求</li>
+<li>自动垃圾回收</li>
+<li>简洁的符号和语法</li>
+<li>平坦的类型系统：使用结构化类型系统，简化事前设计，也为未来增加抽象层提供了非侵入式的解决方法</li>
+<li>基于CSP模型的并行：使用比线程更轻量的goroutime，让一个线程可以执行多个并发结构，简化了并发结构的通信和数据共享</li>
+<li>使用一套简单规范，简化依赖和编译流程</li>
+</ul>
+</li>
+<li><p>Go框架：</p>
+<ul>
+<li>3.1 Beego：使用<strong>Go的思维</strong>来帮助开发者构建并开发Go应用程序的开源框架</li>
+<li>3.2 Revel：高生产力的轻量级的Web开发框架</li>
+<li>3.3 Martini：优雅的Go语言Web框架，专为编写模块化的Web应用而生</li>
+</ul>
+</li>
+</ol>
+<h2 id="13-9-本章小结"><a href="#13-9-本章小结" class="headerlink" title="13.9 本章小结"></a>13.9 本章小结</h2><ol>
+<li>使用Docker搭建各种编程语言及其常用开发框架的Docker环境的方法一般分两种：<ul>
+<li>基于内含SSH服务的镜像，定制Dockerfile。随后构建并运行镜像：<ul>
+<li>优点：可以方便的使用SSH服务访问自定义容器中的站点或程序</li>
+</ul>
+</li>
+<li>直接使用官方的编程语言镜像，然后通过适当的配置也可以构建自定义的镜像</li>
+</ul>
+</li>
+</ol>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    Last updated: <time datetime="2017-12-31T09:15:19.395Z" itemprop="dateUpdated">2017-12-31 17:15:19</time>
+</span><br>
+
+
+        
+        No one can guide you, except yourself!     self-link：<a href="/2017/12/30/Docker技术入门与实战-第十三章-编程语言/" target="_blank" rel="external">http://matlabchina.cn/2017/12/30/Docker技术入门与实战-第十三章-编程语言/</a>
+        
+    </div>
+    <footer>
+        <a href="http://matlabchina.cn">
+            <img src="/img/logo.jpg" alt="Quincey Svng">
+            Quincey Svng
+        </a>
+    </footer>
+</blockquote>
+
+        
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Docker/">Docker</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://matlabchina.cn/2017/12/30/Docker技术入门与实战-第十三章-编程语言/&title=《Docker技术入门与实战-第十三章 编程语言》 — Quincey&pic=http://matlabchina.cn/img/logo.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://matlabchina.cn/2017/12/30/Docker技术入门与实战-第十三章-编程语言/&title=《Docker技术入门与实战-第十三章 编程语言》 — Quincey&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://matlabchina.cn/2017/12/30/Docker技术入门与实战-第十三章-编程语言/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Docker技术入门与实战-第十三章 编程语言》 — Quincey&url=http://matlabchina.cn/2017/12/30/Docker技术入门与实战-第十三章-编程语言/&via=http://matlabchina.cn" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://matlabchina.cn/2017/12/30/Docker技术入门与实战-第十三章-编程语言/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2018/01/01/Docker技术入门与实战-第十四章-使用私有仓库/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">Docker技术入门与实战-第十四章 使用私有仓库</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2017/12/30/Docker技术入门与实战-第十二章-数据库应用/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">Docker技术入门与实战-第十二章 数据库应用</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+<section class="comments" id="comments">
+    <div id="gitment_thread"></div>
+    <link rel="stylesheet" href="//unpkg.com/gitment/style/default.css">
+    <script src="//unpkg.com/gitment/dist/gitment.browser.js"></script>
+    <script>
+        var gitment = new Gitment({
+            owner: 'SuperFireFoxy',
+            repo: 'superfirefoxy.github.io',
+            oauth: {
+                client_id: 'f79ac80faa3d2c58bf61',
+                client_secret: '655a9b1df478169a0c1f83cc4cc6b537873db4e3',
+            },
+        })
+        gitment.render('comments')
+    </script>
+</section>
+
+
+
+
+
+
+
+</article>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>This blog is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>Quincey Svng &copy; 2017 - 2018</span>
+            <span>
+                
+                <a href="http://www.miitbeian.gov.cn/" target="_blank">蜀ICP备16009264号-1</a><br>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://matlabchina.cn/2017/12/30/Docker技术入门与实战-第十三章-编程语言/&title=《Docker技术入门与实战-第十三章 编程语言》 — Quincey&pic=http://matlabchina.cn/img/logo.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://matlabchina.cn/2017/12/30/Docker技术入门与实战-第十三章-编程语言/&title=《Docker技术入门与实战-第十三章 编程语言》 — Quincey&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://matlabchina.cn/2017/12/30/Docker技术入门与实战-第十三章-编程语言/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Docker技术入门与实战-第十三章 编程语言》 — Quincey&url=http://matlabchina.cn/2017/12/30/Docker技术入门与实战-第十三章-编程语言/&via=http://matlabchina.cn" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://matlabchina.cn/2017/12/30/Docker技术入门与实战-第十三章-编程语言/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAPYAAAD2CAAAAADAeSUUAAADKUlEQVR42u3aMXIjMQwEQP//07oqp1eSZkBuyUv1Rg5kapsOYGDw8xM/j98n+fnZ8/9n8vPzz29+sLGxsW/Czl/39edfv0RyBc/OTN4ht2BjY2Ofyp4VrdeA12fmpyXU9nuxsbGxv5OdFIZH8OSlLm+BsLGxsbH3DpKScc9KE7JeOLGxsbHPY+dj/WR8vzKln13ZhbM0bGxs7D/P3hv0fvbnj+Xb2NjY2B9iPy548nC3HfRve0NsbGzsg9izdiIf6yTtRBL95q1LUdiwsbGxj2O3R7cv3fJWqEUBw8bGxj6CnbxWezUzarLEkxTdoiRjY2NjH8Tey1u50NkVJO+PjY2NfR57hpkhV6LZNop486fCxsbGPog9C2VnTcs6ZnbCm4vGxsbGvjm7Hcq0hWfv77brPm82lbCxsbGPYL8eG+UlJB8etaWuXd9JLgIbGxv7JPaswVhZ1imWacpkI1/rwcbGxj6Jnb/iLCTIy2ESUcwWdKJYAhsbG/sI9qyotAOjpJjl46TZKic2Njb2Sewrgtt2nNQ2PLOoGBsbG/vb2DPSbP0xb1pWVnyexgPY2NjYN2cn/77n8W1+NflYKsck8QA2Njb22eyV5qGNV1c2jPKii42Njf097DZAnYXB22psPPZ6U4yxsbGxj2Dn5aH9mtkQamUwVMQM2NjY2MexZzHqbL0mb3jyBqNtpbCxsbFPYrdloF2vbAdMeclsr6NIRbCxsbFvxV5vPGaD+/xyZ1HBm3YFGxsb+yD27B/9/Lgr4t78tLb4YWNjY9+dnX/9LF5dX7VJYob6e7GxsbEPZbclpI0Q2rZnfQ3oaTHDxsbGPoidH51fxHVhQL6+Uwy8sLGxsY9gzwbrs6WcvCjWf7dy+IWNjY19X/ajfLbd7nKjstQmYWNjYx/EvgKwq4ztWgAaZt3Y2NjYt2K3Q/aVeLgdDOWXWIcT2NjY2Mex28Kwt2YuBbRlYcPGxsbG3lt+WmTyJlFJw8bGxv5K9vqkKh8b5QFAch1LBQwbGxv7JuxkqJSXoqSoJL/bDoyKQouNjY19EHsW9OakfPA0K2B5hLwh38bGxsb+W+x/dteglNhzWsAAAAAASUVORK5CYII=" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+
+
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = 'woops, lost connnection！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = 'bow, chaka bow boom!';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

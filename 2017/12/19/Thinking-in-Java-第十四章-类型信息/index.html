@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    <title>Thinking in Java 第十四章 类型信息 | Quincey | mind in mind</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="ThinkingInJava">
+    <meta name="description" content="运行时类型信息使得你可以在程序运行时发现和使用类型信息 RTTI的两种方式： “传统的”RTTI，假定我们在编译时已经知道了所有的类型 “反射”机制，在运行时发现和使用类的信息    14.1 为什么需要RTTI 使用RTTI，可以查询某个引用所指向的对象的确切类型，针对确切类型来执行某些特殊的操作，而在更上层的接口类型中无法获取这些信息  14.2 Class对象 Class对象就是用来描述每">
+<meta name="keywords" content="ThinkingInJava">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Thinking in Java 第十四章 类型信息">
+<meta property="og:url" content="http://matlabchina.cn/2017/12/19/Thinking-in-Java-第十四章-类型信息/index.html">
+<meta property="og:site_name" content="Quincey">
+<meta property="og:description" content="运行时类型信息使得你可以在程序运行时发现和使用类型信息 RTTI的两种方式： “传统的”RTTI，假定我们在编译时已经知道了所有的类型 “反射”机制，在运行时发现和使用类的信息    14.1 为什么需要RTTI 使用RTTI，可以查询某个引用所指向的对象的确切类型，针对确切类型来执行某些特殊的操作，而在更上层的接口类型中无法获取这些信息  14.2 Class对象 Class对象就是用来描述每">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="http://ozv461xxi.bkt.clouddn.com/ThinkInJava-ch14.2-1.PNG">
+<meta property="og:image" content="http://ozv461xxi.bkt.clouddn.com/ThinkInJava-ch14.2-2.PNG">
+<meta property="og:image" content="http://ozv461xxi.bkt.clouddn.com/ThinkInJava-ch14.2-3.PNG">
+<meta property="og:image" content="http://ozv461xxi.bkt.clouddn.com/ThinkInJava-ch14.3-1.PNG">
+<meta property="og:image" content="http://ozv461xxi.bkt.clouddn.com/ThinkInJava-ch14.3-2.PNG">
+<meta property="og:image" content="http://cdn.matlabchina.cn/ThinkInJava-ch14.5-1.PNG">
+<meta property="og:image" content="http://cdn.matlabchina.cn/ThinkInJava-ch14.7-1.PNG">
+<meta property="og:updated_time" content="2017-12-20T14:29:21.024Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Thinking in Java 第十四章 类型信息">
+<meta name="twitter:description" content="运行时类型信息使得你可以在程序运行时发现和使用类型信息 RTTI的两种方式： “传统的”RTTI，假定我们在编译时已经知道了所有的类型 “反射”机制，在运行时发现和使用类的信息    14.1 为什么需要RTTI 使用RTTI，可以查询某个引用所指向的对象的确切类型，针对确切类型来执行某些特殊的操作，而在更上层的接口类型中无法获取这些信息  14.2 Class对象 Class对象就是用来描述每">
+<meta name="twitter:image" content="http://ozv461xxi.bkt.clouddn.com/ThinkInJava-ch14.2-1.PNG">
+    
+        <link rel="alternate" type="application/atom+xml" title="Quincey" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/logo.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">Quincey Svng</h5>
+          <a href="mailto:salsa2010@foxmail.com" title="salsa2010@foxmail.com" class="mail">salsa2010@foxmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                Quincey Svng
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/SuperFireFoxy" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="http://www.weibo.com/salsa2010" target="_blank" >
+                <i class="icon icon-lg icon-weibo"></i>
+                Weibo
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://www.facebook.com/felix.song.79" target="_blank" >
+                <i class="icon icon-lg icon-link"></i>
+                facebook
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">Thinking in Java 第十四章 类型信息</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Search">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">Thinking in Java 第十四章 类型信息</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2017-12-19T07:47:45.000Z" itemprop="datePublished" class="page-time">
+  2017-12-19
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/ThinkingInJava/">ThinkingInJava</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#14-1-为什么需要RTTI"><span class="post-toc-number">1.</span> <span class="post-toc-text">14.1 为什么需要RTTI</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#14-2-Class对象"><span class="post-toc-number">2.</span> <span class="post-toc-text">14.2 Class对象</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#14-3-类型转换前先做检查"><span class="post-toc-number">3.</span> <span class="post-toc-text">14.3 类型转换前先做检查</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#14-4-注册工厂"><span class="post-toc-number">4.</span> <span class="post-toc-text">14.4 注册工厂</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#14-5-instanceof与Class的等价性"><span class="post-toc-number">5.</span> <span class="post-toc-text">14.5 instanceof与Class的等价性</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#14-6-反射：运行时的类信息"><span class="post-toc-number">6.</span> <span class="post-toc-text">14.6 反射：运行时的类信息</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#14-7-动态代理"><span class="post-toc-number">7.</span> <span class="post-toc-text">14.7 动态代理</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#14-8-空对象"><span class="post-toc-number">8.</span> <span class="post-toc-text">14.8 空对象</span></a></li></ol>
+        </nav>
+    </aside>
+    
+<article id="post-Thinking-in-Java-第十四章-类型信息"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">Thinking in Java 第十四章 类型信息</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2017-12-19 15:47:45" datetime="2017-12-19T07:47:45.000Z"  itemprop="datePublished">2017-12-19</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/ThinkingInJava/">ThinkingInJava</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <ul>
+<li>运行时类型信息使得你可以在程序运行时发现和使用类型信息</li>
+<li>RTTI的两种方式：<ul>
+<li>“传统的”RTTI，假定我们在编译时已经知道了所有的类型</li>
+<li>“反射”机制，在运行时发现和使用类的信息</li>
+</ul>
+</li>
+</ul>
+<h2 id="14-1-为什么需要RTTI"><a href="#14-1-为什么需要RTTI" class="headerlink" title="14.1 为什么需要RTTI"></a>14.1 为什么需要RTTI</h2><ol>
+<li>使用RTTI，可以查询某个引用所指向的对象的确切类型，针对确切类型来执行某些特殊的操作，而在更上层的接口类型中无法获取这些信息</li>
+</ol>
+<h2 id="14-2-Class对象"><a href="#14-2-Class对象" class="headerlink" title="14.2 Class对象"></a>14.2 Class对象</h2><ol>
+<li>Class对象就是用来描述每个类的信息的类，每个类都有一个Class对象，他被保存在同名的.class文件中</li>
+<li>所有的类都是在对其第一次使用时，动态加载到JVM中的</li>
+<li><p>无论何时，只要想在运行时获得类型信息，就必须首先获得恰当的Class对象的引用。</p>
+<p> 获取目标类的Class对象</p>
+<ul>
+<li>Class.forName(“TargetClassName”);不需要为了获得Class引用而持有该类型的对象</li>
+<li>obj.getClass():通过一个对象，获得它所属类的Class引用</li>
+</ul>
+</li>
+</ol>
+<p>Reference:<a href="http://www.cnblogs.com/flyme/p/4571030.html" target="_blank" rel="noopener">JAVA中类、实例与Class对象</a></p>
+<ol>
+<li><p>类字面常量</p>
+<ul>
+<li>4.1 形式如<code>FancyToy.class</code></li>
+<li><p>类字面常量不仅可应用于普通类，也可以应用于<code>接口</code>、<code>数组</code>、<code>基本数据类型</code>、<code>基本数据类型的包装器类</code></p>
+<p>  基本数据类型用<code>.class</code>获得Class引用，包装类用<code>.TYPE</code>获得Class引用</p>
+<p><img src="http://ozv461xxi.bkt.clouddn.com/ThinkInJava-ch14.2-1.PNG" alt="ch14.2-1"></p>
+</li>
+<li>4.2 由<code>.class</code>来创建对Class对象的引用时，并不会自动的初始化该Class对象</li>
+<li><p>为类而做的准备包含三个步骤：</p>
+<ul>
+<li>加载：由类加载器执行的。通过查找字节码（从classpath中开始查找），并从这些字节码中创建一个Class对象</li>
+<li>链接：在链接阶段会先验证类中的字节码；然后为静态域分配存储空间</li>
+<li>初始化：如果该类有父类，则对其父类先进行初始化，执行静态初始化器和静态初始化块。</li>
+</ul>
+<p>类加载器首先检查这个类的Class对象是否已经加载。如果尚未加载，默认的类加载器就会根据类名查找.class文件，在加载过程中，也会验证类的字节码</p>
+<p><img src="http://ozv461xxi.bkt.clouddn.com/ThinkInJava-ch14.2-2.PNG" alt="ch14.2-2"></p>
+</li>
+<li><p>4.3 仅使用<strong><code>.class</code>语法来获得对Class对象的引用并不会引发目标类的初始化</strong>。<strong>但是为了产生Class引用，Class.forName()会立即进行初始化</strong>，就像在对<code>initable3</code>引用的创建中看到的。</p>
+<ul>
+<li><code>static final</code>值是一个编译器常量，因此<code>Initable.staticFinal</code>并不会出发对<code>Initable</code>类的初始化；但如果仅仅是<code>static final</code>还不足以确保这种行为，因为这种常量也可能是通过其他语句生成的，它就不是一个“编译器常量”了，例如：对<code>Initable.staticFinal2</code>的访问就会触发类的初始化</li>
+<li>如果一个域是<code>static</code>不是<code>final</code>的，那么对它的访问时，就会在它被读取之前，先进行链接（为static域分配存储空间）和初始化，就像对<code>Initable2.staticNonFinal</code>访问时一样</li>
+</ul>
+</li>
+<li><p>4.4 泛化的Class引用</p>
+<ul>
+<li><p>使用泛型语法，可以使Class引用只能指向其声明的类型</p>
+  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Class&lt;Integer&gt; genericIntClass=<span class="keyword">int</span>.class;</span><br><span class="line"><span class="comment">//won't compile</span></span><br><span class="line"><span class="comment">//Class&lt;Number&gt; genericIntClass=int.class;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>为了在使用泛化的Class引用时放松限制，使用通配符</p>
+  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Class&lt;Integer&gt; genericIntClass=<span class="keyword">int</span>.class;</span><br><span class="line"><span class="comment">//won't compile</span></span><br><span class="line">Class&lt;? extends Number&gt; genericIntClass=<span class="keyword">int</span>.class;</span><br><span class="line">Class&lt;? <span class="keyword">super</span> FancyToy&gt; genericIntClass=Toy.class;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>向Class引用添加泛型语法的原因仅仅是为了提供编译器类型检查</p>
+</li>
+<li>一个有趣的事：将泛型语法应用于Class对象时，<code>newInstance()</code>返回该对象的确切类型；而不应用泛型语法于Class对象时，它将返回基本的<code>Object</code>类型</li>
+</ul>
+</li>
+<li><p>4.5 新的转型语法</p>
+<ul>
+<li><code>cast()</code>方法接收一个对象，然后将其转型为Class引用的类型</li>
+<li><p><code>Class.asSubclaass()</code>:将一个类对象转型为更加具体的类型</p>
+<p><img src="http://ozv461xxi.bkt.clouddn.com/ThinkInJava-ch14.2-3.PNG" alt="ch14.2-3"></p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<h2 id="14-3-类型转换前先做检查"><a href="#14-3-类型转换前先做检查" class="headerlink" title="14.3 类型转换前先做检查"></a>14.3 类型转换前先做检查</h2><ol>
+<li>已知的RTTI的形式包括：<ul>
+<li>传统的类型转换：如：(Shape)circle;</li>
+<li>Java要执行类型检查，被称为“类型安全的向下转型”：编译器将检查向下转型是否合理，因此它不允许向下转型到实际上不是待转型的子类的类型上</li>
+<li>使用<code>instanceof</code>进行类型检查</li>
+</ul>
+</li>
+<li>使用<code>Class.forName()</code>与使用<code>TestClass.class</code>(类字面常量)来获得Class引用的区别是：<br> 使用<code>Class.forName()</code>需要<code>try-catch</code>语块来捕获<code>IllegalAccessException</code>等异常，因为编译器无法对其做静态检查；而使用<code>TestClass.class</code>(类字面常量)无需<code>try-catch</code>语块，因为编译器可以对其做静态检查</li>
+<li><p>如果程序中编写过多的<code>instanceof</code>表达式，就说明你的设计可能存在瑕疵</p>
+<p> <img src="http://ozv461xxi.bkt.clouddn.com/ThinkInJava-ch14.3-1.PNG" alt="ch14.3-1"></p>
+<ul>
+<li><p>动态的<code>instanceof</code></p>
+<p>  <img src="http://ozv461xxi.bkt.clouddn.com/ThinkInJava-ch14.3-2.PNG" alt="ch14.3-2"></p>
+<ul>
+<li>使用一个预填充所有Class对象的Map,在<code>Instacne()</code>方法中，就不再需要<code>instanceof</code>表达式了</li>
+</ul>
+</li>
+<li><code>Class.isAssignableFrom(Class superClass)</code>:执行运行时检查，检查该Class对象是否是superClass的子类</li>
+</ul>
+</li>
+</ol>
+<h2 id="14-4-注册工厂"><a href="#14-4-注册工厂" class="headerlink" title="14.4 注册工厂"></a>14.4 注册工厂</h2><ol>
+<li>实现：将每个实现类中包含一个static的工厂类，然后再基类中保存一个工厂基类的对象列表，通过这个工厂列表就可以实现动态的生成各个子类的对象</li>
+<li>目的：将具体的实现子类，通过内嵌的工厂类在进行实例化生成；在基类中只需要保存一个子类的内嵌工厂对象列表即可。<strong>这样就实现了具体类对象的生成和这些类的“消费”的分离</strong></li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">@startuml</span><br><span class="line">interface Factory&lt;T&gt;&#123;</span><br><span class="line">    + T create()</span><br><span class="line">&#125;</span><br><span class="line">class Part&#123;</span><br><span class="line">    - List&lt;Factory&lt;? extends Part&gt;&gt; partFactories</span><br><span class="line">    - static init partFactories&#123;add partFactories&#125;</span><br><span class="line">    + String toString()</span><br><span class="line">    + Part createRandom()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class FuelFilter&#123;</span><br><span class="line">    - class Factory implements Chapter14_RTTI.Factory&lt;FuelFilter&gt;&#123; create()&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class CabinAirFilter&#123;</span><br><span class="line">    - class Factory implements Chapter14_RTTI.Factory&lt;CabinAirFilter&gt;&#123; create()&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class FanBelt&#123;</span><br><span class="line">    - class Factory implements Chapter14_RTTI.Factory&lt;FanBelt&gt;&#123; create()&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Part &lt;|-- Filter</span><br><span class="line">Filter &lt;|-- FuelFilter</span><br><span class="line">Filter &lt;|-- CabinAirFilter</span><br><span class="line">Part &lt;|-- Belt</span><br><span class="line">Belt &lt;|-- FanBelt</span><br><span class="line">@enduml</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> Chapter14_RTTI;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Factory</span>&lt;<span class="title">T</span>&gt; </span>&#123;</span><br><span class="line">    <span class="function">T <span class="title">create</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> Chapter14_RTTI;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">import</span> java.util.ArrayList;</span><br><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"><span class="keyword">import</span> java.util.Random;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Part</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.getClass().getSimpleName();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">static</span> List&lt;Factory&lt;? extends Part&gt;&gt; partFactories=<span class="keyword">new</span> ArrayList&lt;Factory&lt;? extends Part&gt;&gt;();</span><br><span class="line">    <span class="keyword">static</span> &#123;</span><br><span class="line">        partFactories.add(<span class="keyword">new</span> FuelFilter.Factory());</span><br><span class="line">               <span class="comment">/**继续添加类型，，，省去，*/</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> Random random=<span class="keyword">new</span> Random(<span class="number">47</span>);</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Part <span class="title">creatRandom</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> partFactories.get(random.nextInt(partFactories.size())).create();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Filter</span> <span class="keyword">extends</span> <span class="title">Part</span></span>&#123;</span><br><span class="line"> </span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">FuelFilter</span> <span class="keyword">extends</span> <span class="title">Filter</span></span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">Factory</span> <span class="keyword">implements</span> <span class="title">Chapter14_RTTI</span>.<span class="title">Factory</span>&lt;<span class="title">FuelFilter</span>&gt;</span>&#123;</span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> FuelFilter <span class="title">create</span><span class="params">()</span></span>&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">new</span> FuelFilter();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">FuelFilterS</span> <span class="keyword">extends</span> <span class="title">FuelFilter</span></span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">Factory</span> <span class="keyword">implements</span> <span class="title">Chapter14_RTTI</span>.<span class="title">Factory</span>&lt;<span class="title">FuelFilterS</span>&gt;</span>&#123;</span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> FuelFilterS <span class="title">create</span><span class="params">()</span></span>&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">new</span> FuelFilterS();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">AirFilter</span> <span class="keyword">extends</span> <span class="title">Filter</span></span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">Factory</span> <span class="keyword">implements</span> <span class="title">Chapter14_RTTI</span>.<span class="title">Factory</span>&lt;<span class="title">AirFilter</span>&gt;</span>&#123;</span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> AirFilter <span class="title">create</span><span class="params">()</span></span>&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">new</span> AirFilter();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">OilFilter</span> <span class="keyword">extends</span> <span class="title">Filter</span></span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">Factory</span> <span class="keyword">implements</span> <span class="title">Chapter14_RTTI</span>.<span class="title">Factory</span>&lt;<span class="title">OilFilter</span>&gt;</span>&#123;</span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> OilFilter <span class="title">create</span><span class="params">()</span></span>&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">new</span> OilFilter();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Belt</span> <span class="keyword">extends</span> <span class="title">Part</span></span>&#123;</span><br><span class="line">     </span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">FanBelt</span> <span class="keyword">extends</span> <span class="title">Belt</span></span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span>  <span class="class"><span class="keyword">class</span> <span class="title">Factory</span> <span class="keyword">implements</span> <span class="title">Chapter14_RTTI</span>.<span class="title">Factory</span>&lt;<span class="title">FanBelt</span>&gt;</span>&#123;</span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> FanBelt <span class="title">create</span><span class="params">()</span></span>&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">new</span> FanBelt();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">GeneratorBelt</span> <span class="keyword">extends</span> <span class="title">Belt</span></span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">Factory</span> <span class="keyword">implements</span> <span class="title">Chapter14_RTTI</span>.<span class="title">Factory</span>&lt;<span class="title">GeneratorBelt</span>&gt;</span>&#123;</span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> GeneratorBelt <span class="title">create</span><span class="params">()</span></span>&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">new</span> GeneratorBelt();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">PowerSteeringBelt</span> <span class="keyword">extends</span> <span class="title">Belt</span></span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">Factory</span> <span class="keyword">implements</span> <span class="title">Chapter14_RTTI</span>.<span class="title">Factory</span>&lt;<span class="title">PowerSteeringBelt</span>&gt;</span>&#123;</span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> PowerSteeringBelt <span class="title">create</span><span class="params">()</span></span>&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">new</span> PowerSteeringBelt();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> Chapter14_RTTI;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;   </span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;<span class="number">10</span>;i++)</span><br><span class="line">            System.out.println(Part.creatRandom());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//输出</span></span><br><span class="line">FuelFilter</span><br><span class="line">FuelFilter</span><br><span class="line">FuelFilter</span><br><span class="line">FuelFilter</span><br><span class="line">FuelFilter</span><br><span class="line">FuelFilter</span><br><span class="line">FuelFilter</span><br><span class="line">FuelFilter</span><br><span class="line">FuelFilter</span><br><span class="line">FuelFilter</span><br></pre></td></tr></table></figure>
+<h2 id="14-5-instanceof与Class的等价性"><a href="#14-5-instanceof与Class的等价性" class="headerlink" title="14.5 instanceof与Class的等价性"></a>14.5 <code>instanceof</code>与<code>Class</code>的等价性</h2><ol>
+<li>以<code>instanceof</code>的形式或<code>isInstance()</code>的形式来执行类型检查的结果相同</li>
+<li><p>通过<code>x.getClass()</code>获取的Class引用，然后来通过<code>==</code>或<code>equals()</code>来检查<code>Class对象</code>是否相等，其检查结果也一样。</p>
+<ul>
+<li>但是，两组测试的结论却不同。<code>instanceof</code>保持了类型的概念，它指的是“你是这个类吗？或者你是这个类的派生类？”</li>
+<li><p>如果用<code>==</code>比较实际的<code>Class</code>对象，就没有考虑继承</p>
+<p><img src="http://cdn.matlabchina.cn/ThinkInJava-ch14.5-1.PNG" alt="ch14.5-1"></p>
+</li>
+</ul>
+</li>
+</ol>
+<h2 id="14-6-反射：运行时的类信息"><a href="#14-6-反射：运行时的类信息" class="headerlink" title="14.6 反射：运行时的类信息"></a>14.6 反射：运行时的类信息</h2><ol>
+<li>要通过RTTI来获得某个对象的确切信息,则该类型就必须在编译阶段就已知；</li>
+<li>RTTI和反射的区别是：<ul>
+<li>对RTTI来说，编译器在编译时打开和检查.class文件（换句话说，我们可以以“普通”方式调用对象的所有方法）</li>
+<li>对于反射机制来说，<code>.class</code>文件在编译时是不可获得的，所以在运行时打开和检查<code>.class</code>文件</li>
+</ul>
+</li>
+<li><p><code>Class</code>类和<code>java.lang.reflect</code>类库一起对<code>反射</code>的概念进行了支持，该类库包含了以下类：</p>
+<ul>
+<li>Field</li>
+<li>Method</li>
+<li><p>Constructor</p>
+<p>这些类型的对象是由JVM在运行时创建的，用以表示未知类里对应的成员</p>
+</li>
+<li><p><code>Class.forName()</code>生成的结果在编译时是不可知的，因为所有的方法特征签名信息都是在执行时被取出来的</p>
+</li>
+<li>反射机制提供了足够的支持，使得能够创建一个在编译时完全未知的对象，并调用此对象的方法</li>
+</ul>
+</li>
+</ol>
+<h2 id="14-7-动态代理"><a href="#14-7-动态代理" class="headerlink" title="14.7 动态代理"></a>14.7 动态代理</h2><ol>
+<li><p>普通的<strong>代理模式</strong>就是通过组合的方式，由另一个类中的方法来代理被组合对象的的方法，在被代理的过程中，可对被组合对象的方法进行一些行为的修改</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">@startuml</span><br><span class="line">interface Interface&#123;</span><br><span class="line">    + void doSomething()</span><br><span class="line">    + void doSomethingElse(String arg)</span><br><span class="line">&#125;</span><br><span class="line">Class RealObject&#123;</span><br><span class="line">    + void doSomething()</span><br><span class="line">    + void doSomethingElse(String arg)</span><br><span class="line">&#125;</span><br><span class="line">Class Proxy&#123;</span><br><span class="line">    - Interface interface</span><br><span class="line">    + void doSomething()</span><br><span class="line">    + void doSomethingElse(String arg)</span><br><span class="line">&#125;</span><br><span class="line">Class SimpleProxyDemo&#123;</span><br><span class="line">    + void consumer(Interface iface)</span><br><span class="line">&#125;</span><br><span class="line">Interface &lt;-- RealObject</span><br><span class="line">Interface &lt;-- Proxy</span><br><span class="line">@enduml</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Java的动态代理：<strong>动态的创建代理并动态的处理对所代理方法的调用</strong></p>
+<p> <img src="http://cdn.matlabchina.cn/ThinkInJava-ch14.7-1.PNG" alt="ch14.7-1"></p>
+<ul>
+<li>静态方法<code>Proxy.newProxyInstance()</code>可以创建动态代理，它需要三个参数<ul>
+<li>一个<strong>类加载器</strong>：通常可以从已被加载的对象中获取其类加载器，然后传递给它</li>
+<li>一个你希望该代理类实现的<strong>接口列表</strong>（不是类或抽象类）</li>
+<li>一个实现了<code>InvocationHandler</code>接口的一个实现类，在这个实现类中override了<code>invoke</code>方法，<code>invoke()</code>方法中传递进来了代理对象</li>
+</ul>
+</li>
+<li>动态代理可以将所有调用重定向到调用处理器，因此通常会想调用处理器传递给一个“实际”对象的引用，从而使得调用处理器在其中执行中介任务时，可以将请求转发</li>
+</ul>
+</li>
+</ol>
+<h2 id="14-8-空对象"><a href="#14-8-空对象" class="headerlink" title="14.8 空对象"></a>14.8 空对象</h2><p>1. </p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    Last updated: <time datetime="2017-12-20T14:29:21.024Z" itemprop="dateUpdated">2017-12-20 22:29:21</time>
+</span><br>
+
+
+        
+        No one can guide you, except yourself!     self-link：<a href="/2017/12/19/Thinking-in-Java-第十四章-类型信息/" target="_blank" rel="external">http://matlabchina.cn/2017/12/19/Thinking-in-Java-第十四章-类型信息/</a>
+        
+    </div>
+    <footer>
+        <a href="http://matlabchina.cn">
+            <img src="/img/logo.jpg" alt="Quincey Svng">
+            Quincey Svng
+        </a>
+    </footer>
+</blockquote>
+
+        
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ThinkingInJava/">ThinkingInJava</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://matlabchina.cn/2017/12/19/Thinking-in-Java-第十四章-类型信息/&title=《Thinking in Java 第十四章 类型信息》 — Quincey&pic=http://matlabchina.cn/img/logo.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://matlabchina.cn/2017/12/19/Thinking-in-Java-第十四章-类型信息/&title=《Thinking in Java 第十四章 类型信息》 — Quincey&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://matlabchina.cn/2017/12/19/Thinking-in-Java-第十四章-类型信息/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Thinking in Java 第十四章 类型信息》 — Quincey&url=http://matlabchina.cn/2017/12/19/Thinking-in-Java-第十四章-类型信息/&via=http://matlabchina.cn" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://matlabchina.cn/2017/12/19/Thinking-in-Java-第十四章-类型信息/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2017/12/20/Docker技术入门与实战-第一章-初识Docker/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">Docker技术入门与实战-第一章 初识Docker</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2017/12/18/Thinking-in-Java-第十三章-字符串/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">Thinking in Java 第十三章 字符串</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+<section class="comments" id="comments">
+    <div id="gitment_thread"></div>
+    <link rel="stylesheet" href="//unpkg.com/gitment/style/default.css">
+    <script src="//unpkg.com/gitment/dist/gitment.browser.js"></script>
+    <script>
+        var gitment = new Gitment({
+            owner: 'SuperFireFoxy',
+            repo: 'superfirefoxy.github.io',
+            oauth: {
+                client_id: 'f79ac80faa3d2c58bf61',
+                client_secret: '655a9b1df478169a0c1f83cc4cc6b537873db4e3',
+            },
+        })
+        gitment.render('comments')
+    </script>
+</section>
+
+
+
+
+
+
+
+</article>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>This blog is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>Quincey Svng &copy; 2017 - 2018</span>
+            <span>
+                
+                <a href="http://www.miitbeian.gov.cn/" target="_blank">蜀ICP备16009264号-1</a><br>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://matlabchina.cn/2017/12/19/Thinking-in-Java-第十四章-类型信息/&title=《Thinking in Java 第十四章 类型信息》 — Quincey&pic=http://matlabchina.cn/img/logo.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://matlabchina.cn/2017/12/19/Thinking-in-Java-第十四章-类型信息/&title=《Thinking in Java 第十四章 类型信息》 — Quincey&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://matlabchina.cn/2017/12/19/Thinking-in-Java-第十四章-类型信息/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Thinking in Java 第十四章 类型信息》 — Quincey&url=http://matlabchina.cn/2017/12/19/Thinking-in-Java-第十四章-类型信息/&via=http://matlabchina.cn" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://matlabchina.cn/2017/12/19/Thinking-in-Java-第十四章-类型信息/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACrUlEQVR42u3awW7jMAwE0P7/T3evC7RxZ0SxmwWeT0UdO3o5iMRQHx/x9fnX9eru109+ferVe169Ofn2CxceHh7eYOlny0p4CSxZQ75mPDw8vG1est0/773JEvPdO/n/80rw8PDw3pPXFoykIOVsPDw8vP+LlzfTk2Lz3FLj4eHh/VteHgS0z54t9zkKWcla8PDw8GJePkV6n79X5nt4eHh446n6fPyfN83tJ6PV4uHh4S3w8g13Ei7khwAmQ7iXb8PDw8Nb4LVN7VmgMG/Q86AEDw8Pb5t3NvhvN+uzn2NyfAEPDw9vg5e0s20rnLfLdVschxR4eHh4e7x2g54Eu88tclt+isgYDw8Pb5k3WXoCuHU3GYzh4eHh7fG2x1RteZhEGz+UBzw8PLwxb9IoJ3fr7TuIG4pIAg8PD2+Nd3bE6iwIzhv3C0cH8PDw8NZ48zHYWSvcFp62nODh4eH9Di+PGyZR7NmYrT7yhYeHh7fMuzXWmvwc88b9ZYyLh4eHd5XXbtnJppzHDUnEkMQi33wLHh4e3hov37Ing7GiFb4U9eLh4eHt8fLB1a3GehIW58UMDw8Pb4+XD5zag1ltcHy52ODh4eEt8JIR1/OykpD3M7jyYtBGz3h4eHgbvDZgbZvv/PPtYYVoOIeHh4e3xjtrkfPrLGhIwo4ffjI8PDy8X+S1YUFbNuYBcVTA8PDw8NZ47SGqs02/3dbb5vub/+Dh4eFd5X2W17xpnpSTOhzBw8PDW+C1UcLZw5MRV3v0apSU4OHh4cVraIf6ybNtuLDxNjw8PLxtXr6h31rKPIaI4gk8PDy8N+Al4exkf06ikCIOxsPDw3sD3miQ/xi55vFEEYvg4eHhrfHOWuSzZ/O7SXtdHLrCw8PDu8Q7G2LdYlye1M3TCzw8PLyn6w8r67tgyLXYCQAAAABJRU5ErkJggg==" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+
+
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = 'woops, lost connnection！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = 'bow, chaka bow boom!';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

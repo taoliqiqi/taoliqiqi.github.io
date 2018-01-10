@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    <title>Thinking in Java 第四章 控制执行流程 | Quincey | mind in mind</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="ThinkinJava">
+    <meta name="description" content="4.1 true和false java不允许将一个数字作为boolean值使用  4.3.3 逗号操作符 区别于逗号操作符（用于分隔函数参数），java里唯一用到逗号操作符的就是for语句中的初始化和步进控制部分： 通过使用逗号操作符，可以在for语句中定义多个变量，但是必须具有相同的类型 无论在初始化还是步进部分，语句都是顺序执行的。    eg: 123for(int i=1,j=i+10;i">
+<meta name="keywords" content="ThinkinJava">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Thinking in Java 第四章 控制执行流程">
+<meta property="og:url" content="http://matlabchina.cn/2017/11/22/Thinking-in-Java-第四章 控制执行流程/index.html">
+<meta property="og:site_name" content="Quincey">
+<meta property="og:description" content="4.1 true和false java不允许将一个数字作为boolean值使用  4.3.3 逗号操作符 区别于逗号操作符（用于分隔函数参数），java里唯一用到逗号操作符的就是for语句中的初始化和步进控制部分： 通过使用逗号操作符，可以在for语句中定义多个变量，但是必须具有相同的类型 无论在初始化还是步进部分，语句都是顺序执行的。    eg: 123for(int i=1,j=i+10;i">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2017-11-23T08:52:06.124Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Thinking in Java 第四章 控制执行流程">
+<meta name="twitter:description" content="4.1 true和false java不允许将一个数字作为boolean值使用  4.3.3 逗号操作符 区别于逗号操作符（用于分隔函数参数），java里唯一用到逗号操作符的就是for语句中的初始化和步进控制部分： 通过使用逗号操作符，可以在for语句中定义多个变量，但是必须具有相同的类型 无论在初始化还是步进部分，语句都是顺序执行的。    eg: 123for(int i=1,j=i+10;i">
+    
+        <link rel="alternate" type="application/atom+xml" title="Quincey" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/logo.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">Quincey Svng</h5>
+          <a href="mailto:salsa2010@foxmail.com" title="salsa2010@foxmail.com" class="mail">salsa2010@foxmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                Quincey Svng
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/SuperFireFoxy" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="http://www.weibo.com/salsa2010" target="_blank" >
+                <i class="icon icon-lg icon-weibo"></i>
+                Weibo
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://www.facebook.com/felix.song.79" target="_blank" >
+                <i class="icon icon-lg icon-link"></i>
+                facebook
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">Thinking in Java 第四章 控制执行流程</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Search">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">Thinking in Java 第四章 控制执行流程</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2017-11-22T11:32:48.000Z" itemprop="datePublished" class="page-time">
+  2017-11-22
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/ThinkinJava/">ThinkinJava</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#4-1-true和false"><span class="post-toc-number">1.</span> <span class="post-toc-text">4.1 true和false</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#4-3-3-逗号操作符"><span class="post-toc-number">2.</span> <span class="post-toc-text">4.3.3 逗号操作符</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#4-5-return"><span class="post-toc-number">3.</span> <span class="post-toc-text">4.5 return</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#4-7-臭名昭著的goto"><span class="post-toc-number">4.</span> <span class="post-toc-text">4.7 臭名昭著的goto</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#4-8-switch"><span class="post-toc-number">5.</span> <span class="post-toc-text">4.8 switch</span></a></li></ol>
+        </nav>
+    </aside>
+    
+<article id="post-Thinking-in-Java-第四章 控制执行流程"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">Thinking in Java 第四章 控制执行流程</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2017-11-22 19:32:48" datetime="2017-11-22T11:32:48.000Z"  itemprop="datePublished">2017-11-22</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/ThinkinJava/">ThinkinJava</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h2 id="4-1-true和false"><a href="#4-1-true和false" class="headerlink" title="4.1 true和false"></a>4.1 true和false</h2><ol>
+<li>java不允许将一个数字作为boolean值使用</li>
+</ol>
+<h2 id="4-3-3-逗号操作符"><a href="#4-3-3-逗号操作符" class="headerlink" title="4.3.3 逗号操作符"></a>4.3.3 逗号操作符</h2><ol>
+<li>区别于逗号操作符（用于分隔函数参数），java里唯一用到逗号操作符的就是for语句中的初始化和步进控制部分：<ul>
+<li>通过使用逗号操作符，可以在for语句中定义多个变量，但是必须具有相同的类型</li>
+<li>无论在初始化还是步进部分，语句都是顺序执行的。</li>
+</ul>
+</li>
+</ol>
+<p>eg:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>,j=i+<span class="number">10</span>;i&lt;<span class="number">5</span>;i++,j=i*<span class="number">2</span>)&#123;</span><br><span class="line">      System.out.println(<span class="string">"x"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="4-5-return"><a href="#4-5-return" class="headerlink" title="4.5 return"></a>4.5 return</h2><ol>
+<li><code>void</code>返回值类型的函数内部，编译器会自动添加一个 <code>return；</code> 语句</li>
+</ol>
+<h2 id="4-7-臭名昭著的goto"><a href="#4-7-臭名昭著的goto" class="headerlink" title="4.7 臭名昭著的goto"></a>4.7 臭名昭著的goto</h2><ol>
+<li>goto语句实在源码级上进行跳转。由此带来的问题是：程序的控制流程很难识别，使得程序很难分析</li>
+<li>尽管goto仍然是java的保留字，但是语言中并未使用它。<ul>
+<li>虽然java没有goto，但是利用<code>break，continue</code>这两个关键词，可以在迭代语句中实现源码级跳转，但是也仅限用于迭代语句，这就相当于是精简版的goto</li>
+<li>通过精简“goto”的能力，使得程序可读性更高，反而使得语言特性更加有用</li>
+</ul>
+</li>
+<li>利用<code>break，continue</code>实现代码级跳转的具体规则：<ul>
+<li>java中，标签唯一起作用的地方就是刚好在迭代语句之前；<strong>在标签和迭代语句之间不能有任何的代码</strong></li>
+<li>规则：<ul>
+<li>1）一般的continue会退回最内层循环的标签位置，并重新进入紧接在那个标签后面的循环</li>
+<li>2）<strong>带标签的continue会到达标签的位置，并重新进入紧接在那个标签后面的循环</strong></li>
+<li>3）一般的break会中断并跳出当前循环</li>
+<li>4）<strong>带标签的break会中断并跳出标签所指的循环</strong></li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">label1：</span><br><span class="line">outer-iteration&#123;</span><br><span class="line">    inner-iteration&#123;</span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">    <span class="keyword">break</span>;<span class="comment">//(1)</span></span><br><span class="line">   <span class="comment">//...</span></span><br><span class="line">   <span class="keyword">continue</span>;<span class="comment">//(2)</span></span><br><span class="line">   <span class="comment">//...</span></span><br><span class="line">   <span class="keyword">continue</span> label1;<span class="comment">//(3)</span></span><br><span class="line">   <span class="comment">//...</span></span><br><span class="line">   <span class="keyword">break</span> label1;<span class="comment">//(4)</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="4-8-switch"><a href="#4-8-switch" class="headerlink" title="4.8 switch"></a>4.8 switch</h2><ol>
+<li>swith的选择因子必须是int或char那样的整数值</li>
+</ol>
+<p>String类型是不能直接作为选择因子的，可以将其封装成enum作为选择因子</p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    Last updated: <time datetime="2017-11-23T08:52:06.124Z" itemprop="dateUpdated">2017-11-23 16:52:06</time>
+</span><br>
+
+
+        
+        No one can guide you, except yourself!     self-link：<a href="/2017/11/22/Thinking-in-Java-第四章 控制执行流程/" target="_blank" rel="external">http://matlabchina.cn/2017/11/22/Thinking-in-Java-第四章 控制执行流程/</a>
+        
+    </div>
+    <footer>
+        <a href="http://matlabchina.cn">
+            <img src="/img/logo.jpg" alt="Quincey Svng">
+            Quincey Svng
+        </a>
+    </footer>
+</blockquote>
+
+        
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ThinkinJava/">ThinkinJava</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://matlabchina.cn/2017/11/22/Thinking-in-Java-第四章 控制执行流程/&title=《Thinking in Java 第四章 控制执行流程》 — Quincey&pic=http://matlabchina.cn/img/logo.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://matlabchina.cn/2017/11/22/Thinking-in-Java-第四章 控制执行流程/&title=《Thinking in Java 第四章 控制执行流程》 — Quincey&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://matlabchina.cn/2017/11/22/Thinking-in-Java-第四章 控制执行流程/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Thinking in Java 第四章 控制执行流程》 — Quincey&url=http://matlabchina.cn/2017/11/22/Thinking-in-Java-第四章 控制执行流程/&via=http://matlabchina.cn" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://matlabchina.cn/2017/11/22/Thinking-in-Java-第四章 控制执行流程/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2017/11/23/Thinking-in-Java-第五章-初始化与清理/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">Thinking in Java 第五章 初始化与清理</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2017/11/21/Thinking-in-Java-第三章-运算符/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">Thinking in Java 第三章 运算符</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+<section class="comments" id="comments">
+    <div id="gitment_thread"></div>
+    <link rel="stylesheet" href="//unpkg.com/gitment/style/default.css">
+    <script src="//unpkg.com/gitment/dist/gitment.browser.js"></script>
+    <script>
+        var gitment = new Gitment({
+            owner: 'SuperFireFoxy',
+            repo: 'superfirefoxy.github.io',
+            oauth: {
+                client_id: 'f79ac80faa3d2c58bf61',
+                client_secret: '655a9b1df478169a0c1f83cc4cc6b537873db4e3',
+            },
+        })
+        gitment.render('comments')
+    </script>
+</section>
+
+
+
+
+
+
+
+</article>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>This blog is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>Quincey Svng &copy; 2017 - 2018</span>
+            <span>
+                
+                <a href="http://www.miitbeian.gov.cn/" target="_blank">蜀ICP备16009264号-1</a><br>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://matlabchina.cn/2017/11/22/Thinking-in-Java-第四章 控制执行流程/&title=《Thinking in Java 第四章 控制执行流程》 — Quincey&pic=http://matlabchina.cn/img/logo.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://matlabchina.cn/2017/11/22/Thinking-in-Java-第四章 控制执行流程/&title=《Thinking in Java 第四章 控制执行流程》 — Quincey&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://matlabchina.cn/2017/11/22/Thinking-in-Java-第四章 控制执行流程/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Thinking in Java 第四章 控制执行流程》 — Quincey&url=http://matlabchina.cn/2017/11/22/Thinking-in-Java-第四章 控制执行流程/&via=http://matlabchina.cn" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://matlabchina.cn/2017/11/22/Thinking-in-Java-第四章 控制执行流程/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACu0lEQVR42u3aQY7jMAwEwPz/0zPXAQZ2mqSY+FA+LbxZWaUFRKGp1yt+fv48f99c/eb/8/+XVyPfj/baePDw8PAGU78aLnnTm1wCu1+UN1/Bw8PDW+Pdf/h+6FMb+v0i3pely/d4eHh4D+NVR0g292qRwMPDw3s+rzr1fMzqkRoPDw/vu7wkjKjy8mWqLtZK1oKHh4cX8/KY4Dl/Xunv4eHh4Y276r1mWDW0ncQWb2aLh4eHt8DLN9xeQDBpkvWOy3h4eHjbvHzTP1sSehcUykEJHh4e3hovqh5BwywpJL1x8oZZobOHh4eHN+D1QodJFJtfGrhfgiiGwMPDwzvKm2zo+VG4GsUmJSR5g4eHh7fBq27Q1fZYMt0kwE0ue1329/Dw8PA+wssD3F5oWw2LexcO8PDw8DZ4yfE03/onocYkaChfusLDw8Mb8KrN+F4xyAtD7/8nuhmBh4eHt8zLs9D8oJxv970lwMPDw/sMr/nXxX/Ve58fu1+nJoqHh4cX75Cn2vy9MpCHs+XlwMPDw1vgJUP3PlmNg6tfyS+E4eHh4Z3lTQLcXoTRC22by4GHh4f3EV6+xVd/Wb1wUP365WEaDw8Pb4E3/3wOyxtmeZCBh4eH93le3u66DwUmgN6B+82YeHh4eAu8PHSoduerB/Rk4e5LRdQGw8PDwzvEq7aX8oNyr7VWLUVvFhcPDw9vjVfdoKthRFIq8mte+VLi4eHhbfOqhWF+xWpyBSEqJ3h4eHhHeT/FJ1+OcrMqnnQh5MXDw8Nb4OVPr/2fx8Qbx3Q8PDy8PV5eDKpBarU8TI7ghRgXDw8P7xCvGj0kC5QcwScxRLRweHh4eA/jnQ0dkhJVvkCAh4eH9xjeJPnoXcZK2MeO1Hh4eHiHcs5e3JBPKP9uoTGGh4eHt8CbbOU5Pr9s+oUHDw8PL31+AffjxTpB1X5zAAAAAElFTkSuQmCC" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+
+
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = 'woops, lost connnection！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = 'bow, chaka bow boom!';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

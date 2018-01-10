@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    <title>Thinking in Java 第十章 内部类 | Quincey | mind in mind</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="ThinkinJava">
+    <meta name="description" content="内部类允许吧一些逻辑相关联的类组织在一起，并控制位于内部的类的可见性 内部类了解外部类，并能与之通信；而且用内部类写出的代码更加优雅而清晰  10.1 创建内部类 内部类：把类的定义放在另一个类的内部  10.2 链接到外部类 当生成一个内部类对象时，此对象与制造它的外围对象就有一种联系，所以它能访问其外围类对象的所有成员 当通过某个外围类的对象创建了一个内部类对象时，此内部类对象必定会秘密的捕">
+<meta name="keywords" content="ThinkinJava">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Thinking in Java 第十章 内部类">
+<meta property="og:url" content="http://matlabchina.cn/2017/12/13/Thinking-in-Java-第十章-内部类/index.html">
+<meta property="og:site_name" content="Quincey">
+<meta property="og:description" content="内部类允许吧一些逻辑相关联的类组织在一起，并控制位于内部的类的可见性 内部类了解外部类，并能与之通信；而且用内部类写出的代码更加优雅而清晰  10.1 创建内部类 内部类：把类的定义放在另一个类的内部  10.2 链接到外部类 当生成一个内部类对象时，此对象与制造它的外围对象就有一种联系，所以它能访问其外围类对象的所有成员 当通过某个外围类的对象创建了一个内部类对象时，此内部类对象必定会秘密的捕">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="http://ozv461xxi.bkt.clouddn.com/ThinkInJava-ch10.4-1.PNG">
+<meta property="og:image" content="http://ozv461xxi.bkt.clouddn.com/ThinkInJava-ch10.6-1.PNG">
+<meta property="og:image" content="http://ozv461xxi.bkt.clouddn.com/ThinkInJava-ch10.6-2.PNG">
+<meta property="og:image" content="http://ozv461xxi.bkt.clouddn.com/ThinkInJava-ch10.6-3.PNG">
+<meta property="og:image" content="http://ozv461xxi.bkt.clouddn.com/ThinkInJava-ch10.6-4.PNG">
+<meta property="og:image" content="http://ozv461xxi.bkt.clouddn.com/ThinkInJava-ch10.6-5.PNG">
+<meta property="og:image" content="http://ozv461xxi.bkt.clouddn.com/ThinkInJava-ch10.6-6.PNG">
+<meta property="og:image" content="http://ozv461xxi.bkt.clouddn.com/ThinkInJava-ch10.6-7.PNG">
+<meta property="og:image" content="http://ozv461xxi.bkt.clouddn.com/ThinkInJava-ch10.7-1.PNG">
+<meta property="og:image" content="http://ozv461xxi.bkt.clouddn.com/ThinkInJava-ch10.8-1.PNG">
+<meta property="og:image" content="http://ozv461xxi.bkt.clouddn.com/ThinkInJava-ch10.9-1.PNG">
+<meta property="og:updated_time" content="2017-12-13T13:50:42.974Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Thinking in Java 第十章 内部类">
+<meta name="twitter:description" content="内部类允许吧一些逻辑相关联的类组织在一起，并控制位于内部的类的可见性 内部类了解外部类，并能与之通信；而且用内部类写出的代码更加优雅而清晰  10.1 创建内部类 内部类：把类的定义放在另一个类的内部  10.2 链接到外部类 当生成一个内部类对象时，此对象与制造它的外围对象就有一种联系，所以它能访问其外围类对象的所有成员 当通过某个外围类的对象创建了一个内部类对象时，此内部类对象必定会秘密的捕">
+<meta name="twitter:image" content="http://ozv461xxi.bkt.clouddn.com/ThinkInJava-ch10.4-1.PNG">
+    
+        <link rel="alternate" type="application/atom+xml" title="Quincey" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/logo.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">Quincey Svng</h5>
+          <a href="mailto:salsa2010@foxmail.com" title="salsa2010@foxmail.com" class="mail">salsa2010@foxmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                Quincey Svng
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/SuperFireFoxy" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="http://www.weibo.com/salsa2010" target="_blank" >
+                <i class="icon icon-lg icon-weibo"></i>
+                Weibo
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://www.facebook.com/felix.song.79" target="_blank" >
+                <i class="icon icon-lg icon-link"></i>
+                facebook
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">Thinking in Java 第十章 内部类</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Search">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">Thinking in Java 第十章 内部类</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2017-12-13T01:49:44.000Z" itemprop="datePublished" class="page-time">
+  2017-12-13
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/ThinkinJava/">ThinkinJava</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#10-1-创建内部类"><span class="post-toc-number">1.</span> <span class="post-toc-text">10.1 创建内部类</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#10-2-链接到外部类"><span class="post-toc-number">2.</span> <span class="post-toc-text">10.2 链接到外部类</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#10-3-使用-this和-new"><span class="post-toc-number">3.</span> <span class="post-toc-text">10.3 使用.this和.new</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#10-4-内部类与向上转型"><span class="post-toc-number">4.</span> <span class="post-toc-text">10.4 内部类与向上转型</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#10-5-在方法和作用域内的内部类"><span class="post-toc-number">5.</span> <span class="post-toc-text">10.5 在方法和作用域内的内部类</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#10-6-匿名内部类"><span class="post-toc-number">6.</span> <span class="post-toc-text">10.6 匿名内部类</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#10-7-嵌套类"><span class="post-toc-number">7.</span> <span class="post-toc-text">10.7 嵌套类</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#10-8-为什么需要内部类"><span class="post-toc-number">8.</span> <span class="post-toc-text">10.8 为什么需要内部类</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#10-9-内部类的继承"><span class="post-toc-number">9.</span> <span class="post-toc-text">10.9 内部类的继承</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#10-10-内部类可以被覆盖吗"><span class="post-toc-number">10.</span> <span class="post-toc-text">10.10 内部类可以被覆盖吗</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#10-11-局部内部类"><span class="post-toc-number">11.</span> <span class="post-toc-text">10.11 局部内部类</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#10-12-内部类标识符"><span class="post-toc-number">12.</span> <span class="post-toc-text">10.12 内部类标识符</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#10-13-总结"><span class="post-toc-number">13.</span> <span class="post-toc-text">10.13 总结</span></a></li></ol>
+        </nav>
+    </aside>
+    
+<article id="post-Thinking-in-Java-第十章-内部类"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">Thinking in Java 第十章 内部类</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2017-12-13 09:49:44" datetime="2017-12-13T01:49:44.000Z"  itemprop="datePublished">2017-12-13</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/ThinkinJava/">ThinkinJava</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <ul>
+<li>内部类允许吧一些逻辑相关联的类组织在一起，并控制位于内部的类的可见性</li>
+<li>内部类了解外部类，并能与之通信；而且用内部类写出的代码更加优雅而清晰</li>
+</ul>
+<h2 id="10-1-创建内部类"><a href="#10-1-创建内部类" class="headerlink" title="10.1 创建内部类"></a>10.1 创建内部类</h2><ol>
+<li>内部类：把类的定义放在另一个类的内部</li>
+</ol>
+<h2 id="10-2-链接到外部类"><a href="#10-2-链接到外部类" class="headerlink" title="10.2 链接到外部类"></a>10.2 链接到外部类</h2><ol>
+<li>当生成一个内部类对象时，此对象与制造它的外围对象就有一种联系，所以它<strong>能访问其外围类对象的所有成员</strong></li>
+<li>当通过某个外围类的对象创建了一个内部类对象时，此内部类对象必定会秘密的捕获一个指向哪个外围类对象的引用。通过这个指向外部类对象的引用，就可以访问外部类的所有成员变量。</li>
+<li><strong>非static内部类的对象只能在与其外围类的对象相关联的情况下才能被创建，这是因为内部类对象在创建时需要一个指向其外部类对象的引用，如果编译器访问不到这个引用就会报错</strong></li>
+</ol>
+<h2 id="10-3-使用-this和-new"><a href="#10-3-使用-this和-new" class="headerlink" title="10.3 使用.this和.new"></a>10.3 使用<code>.this</code>和<code>.new</code></h2><ol>
+<li>在拥有外部类对象之前是不能创建内部类对象的。这是因为内部类对象会暗暗地连接到创建它的外部类对象上。</li>
+<li>创建内部类对象方式</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Outter.Inner inner=<span class="keyword">new</span> Outter().new Inner();</span><br></pre></td></tr></table></figure>
+<h2 id="10-4-内部类与向上转型"><a href="#10-4-内部类与向上转型" class="headerlink" title="10.4 内部类与向上转型"></a>10.4 内部类与向上转型</h2><ol>
+<li><p>当一个<code>private</code>内部类implements了某个接口类</p>
+<ul>
+<li>则该内部类只能在外部类中进行访问，外部类的对象都不能访问，因此不能通过<code>new Outter().new Inner()</code>这种方式来创建内部类对象</li>
+<li>当在外部类中new了一个内部类对象，并将其关联到一个其基类（接口类）的引用，此时该内部类对象就被向上转型了，并且<strong>不能向下转型为private内部类对象</strong>，因为内部类的名称都不可见</li>
+<li><p>由此，也实现了内部类的实现与外部接口的完全分离</p>
+<p><img src="http://ozv461xxi.bkt.clouddn.com/ThinkInJava-ch10.4-1.PNG" alt="ch10.4-1"></p>
+</li>
+</ul>
+</li>
+</ol>
+<h2 id="10-5-在方法和作用域内的内部类"><a href="#10-5-在方法和作用域内的内部类" class="headerlink" title="10.5 在方法和作用域内的内部类"></a>10.5 在方法和作用域内的内部类</h2><ol>
+<li>内部类不仅可以定义于外部类中，其他它可以在一个方法里面或者任意的作用域内定义内部类<ul>
+<li>定义于方法中的内部类</li>
+<li>定义于作用域的类，此作用域在方法内部</li>
+<li>一个实现了接口的匿名类</li>
+<li>一个匿名类，它扩展了非默认构造器的类</li>
+<li>一个匿名类，它执行字段初始化</li>
+<li>一个匿名类，它通过实例初始化实现构造（匿名类不可能有构造器）</li>
+</ul>
+</li>
+</ol>
+<h2 id="10-6-匿名内部类"><a href="#10-6-匿名内部类" class="headerlink" title="10.6 匿名内部类"></a>10.6 匿名内部类</h2><ol>
+<li><p>一个实现了接口的匿名类</p>
+<p> <img src="http://ozv461xxi.bkt.clouddn.com/ThinkInJava-ch10.6-1.PNG" alt="ch10.6-1"></p>
+<p> 解释：</p>
+<ul>
+<li>创建一个继承自Contents的匿名类的对象</li>
+<li><p>通过new表达式返回的引用被自动向上转型为Contents的引用</p>
+<p>相当于：</p>
+<p><img src="http://ozv461xxi.bkt.clouddn.com/ThinkInJava-ch10.6-2.PNG" alt="ch10.6-2"></p>
+</li>
+</ul>
+</li>
+<li><p>一个匿名类，它扩展了非默认构造器的类</p>
+<ul>
+<li><p>如果基类需要一个有参数的构造器，而不是默认构造函数，只需要简单地传递合适的参数给基类构造器即可。</p>
+<p><img src="http://ozv461xxi.bkt.clouddn.com/ThinkInJava-ch10.6-3.PNG" alt="ch10.6-3"></p>
+<p><img src="http://ozv461xxi.bkt.clouddn.com/ThinkInJava-ch10.6-4.PNG" alt="ch10.6-4"></p>
+</li>
+</ul>
+</li>
+<li><p>一个匿名类，它执行字段初始化</p>
+<ul>
+<li><p>如果要在匿名内部类中，使用外部传入的对象（例如，利用外部对象进行内部类某些字段的初始化），那么这个外部对象必须是final的</p>
+<p><img src="http://ozv461xxi.bkt.clouddn.com/ThinkInJava-ch10.6-5.PNG" alt="ch10.6-5"></p>
+</li>
+</ul>
+</li>
+<li><p>一个匿名类，它通过实例初始化实现构造</p>
+<ul>
+<li>一个匿名类不可能有命名的构造器（因为它根本没有名字）</li>
+<li><p>但是通过<code>实例初始化块</code>，可以实现构造器的功能</p>
+<ul>
+<li><code>实例初始化块</code>不能重载，所以只能有一个这样的“构造器”</li>
+</ul>
+<p><img src="http://ozv461xxi.bkt.clouddn.com/ThinkInJava-ch10.6-6.PNG" alt="ch10.6-6"></p>
+</li>
+</ul>
+</li>
+<li><p>利用匿名内部类构造工厂模式</p>
+<ul>
+<li><p>用于<code>Checkers</code>和<code>Chess</code>类的构造函数可以为<code>private</code>了，可以利用匿名的工厂类来实现生成一个<code>Checkers对象</code>和<code>Chess对象</code></p>
+<p><img src="http://ozv461xxi.bkt.clouddn.com/ThinkInJava-ch10.6-7.PNG" alt="ch10.6-7"></p>
+</li>
+</ul>
+</li>
+</ol>
+<h2 id="10-7-嵌套类"><a href="#10-7-嵌套类" class="headerlink" title="10.7 嵌套类"></a>10.7 嵌套类</h2><ol>
+<li><p>嵌套类：如果不需要内部类对象与其外部类对象之间有联系，可以将内部类声明为static，这就是嵌套类</p>
+<ul>
+<li><p>普通内部类对象隐式的保存了一个引用，指向创建它的外围类对象，但是嵌套类意味着：</p>
+<ul>
+<li>要创建嵌套类对象，就不需要其外围类的对象</li>
+<li>不能从嵌套类的对象中访问非静态的外围类对象</li>
+</ul>
+</li>
+<li>普通的（非static）内部类不能有static数据和static字段<ul>
+<li>非静态内部类 依赖于一个外部类对象，而静态域/方法是不依赖与对象——仅与类相关</li>
+<li>细说了，就是加载静态域时，根本没有外部类对象</li>
+<li>因此，非静态内部类中不能定义静态域/方法，编译过不了</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>接口中的内部类</p>
+<ul>
+<li><p>2.1 正常情况下，不能在接口内部放置任何代码，但嵌套类可以作为接口的一部分。因为放在接口中的任何类都自动是<code>public static</code>的熟悉</p>
+</li>
+<li><p>2.2</p>
+<ul>
+<li>每个类都写一个main()函数的测试类，会在编译后的class文件中包含该部分的多余代码</li>
+<li>如果在被测试的类中添加一个static的类用于测试外部的被测类，那么，可利用内部类的可见性进行测试，同时在编译后，该静态类会被单独编译成一个文件，就实现了测试代码与被测代码的分离<br><img src="http://ozv461xxi.bkt.clouddn.com/ThinkInJava-ch10.7-1.PNG" alt="ch10.7-1"></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>多层嵌套类可访问所以它所嵌入的外围类的所有成员</li>
+</ol>
+<h2 id="10-8-为什么需要内部类"><a href="#10-8-为什么需要内部类" class="headerlink" title="10.8 为什么需要内部类"></a>10.8 为什么需要内部类</h2><ol>
+<li><p>核心原因：<strong>每个内部类都能独立地继承自一个（接口或普通类的）实现</strong>，所以无论外围类是否已经继承了某个接口（或普通类）的实现，对于内部都没有影响</p>
+<ul>
+<li><p>接口类解决了部分的多重继承的问题，但是内部类允许继承多个非接口类型（类或者抽象类型）</p>
+</li>
+<li><p><strong>如果拥有的是抽象的类或者具体的类，而不是接口，那就只能使用内部类来实现多重继承</strong></p>
+<p>  <img src="http://ozv461xxi.bkt.clouddn.com/ThinkInJava-ch10.8-1.PNG" alt="ch10.8-1"></p>
+</li>
+<li><p>内部类的一些特性：</p>
+<ul>
+<li>一个外部类可以有有多个内部类实例，每个实例都有自己的状态信息</li>
+<li>在单个外部类中，可以让多个内部类以不同的方式实现同一个接口，或继承同一个类</li>
+<li>创建内部类对象的时刻并不依赖与外部类对象的创建</li>
+<li>内部类没有令人迷惑的“is-a”关系，它就是一个独立的实体</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>闭包与回调</p>
+<blockquote>
+<p><strong>闭包</strong>:在计算机科学中，闭包（Closure）是词法闭包（Lexical Closure）的简称，是引用了自由变量的函数。这个被引用的自由变量将和这个函数一同存在，即使已经离开了创造它的环境也不例外。所以，有另一种说法认为闭包是<strong>由函数和与其相关的引用环境组合而成的实体</strong>。Peter J. Landin 在1964年将术语闭包定义为一种<strong>包含环境成分和控制成分的实体。</strong></p>
+</blockquote>
+<ul>
+<li>内部类是面向对象的闭包，因为它不仅包含外围类对象（创建内部类的作用域）的信息，还自动拥有一个指向次外围类对象的引用，在此作用域内，内部类有权操作所以的成员，包括<code>private</code>成员</li>
+<li>回调（callback）：通过回掉，对象能够携带一些信息，这个信息允许它在稍后的某个时刻调用初始的对象。（例如，用内部类对象回调外部类）</li>
+</ul>
+</li>
+<li><p>内部类与控制框架</p>
+<ul>
+<li>应用程序框架就是用于解决特定问题的一个类或一组类</li>
+<li><p><strong>在应用框架时，通常是继承一个或多个类，然后覆盖其中的某些方法</strong></p>
+</li>
+<li><p>实现控制框架的核心是：每种<code>Event</code>控制方法是不变的（run、addEvent），但是每个不同的<code>Event</code>在同一种控制方法中具体的响应又是不同的。设计的目的<strong>就是要把这种不变的控制方法与具体的变化的响应动作相互分离</strong></p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line">@startuml</span><br><span class="line">class Controller&#123;</span><br><span class="line">    - List&lt;Event&gt;</span><br><span class="line">    + addEvent(Event e)</span><br><span class="line">    + run()</span><br><span class="line">    + &#123;static&#125; main()</span><br><span class="line">&#125;</span><br><span class="line">class GreeenHouseController&#123;</span><br><span class="line">    + &#123;Inner Class&#125;LightOn implement Event</span><br><span class="line">    + &#123;Inner Class&#125;LightOff implement Event</span><br><span class="line">    + &#123;Inner Class&#125;WaterOn implement Event</span><br><span class="line">    + &#123;Inner Class&#125;WaterOff implement Event</span><br><span class="line"></span><br><span class="line">    + &#123;static&#125; main()</span><br><span class="line">&#125;</span><br><span class="line">class LightOn&#123;</span><br><span class="line">    + action()</span><br><span class="line">    + toString()</span><br><span class="line">&#125;</span><br><span class="line">class LightOff&#123;</span><br><span class="line">    + action()</span><br><span class="line">    + toString()</span><br><span class="line">&#125;</span><br><span class="line">class WaterOn&#123;</span><br><span class="line">    + action()</span><br><span class="line">    + toString()</span><br><span class="line">&#125;</span><br><span class="line">class WaterOff&#123;</span><br><span class="line">    + action()</span><br><span class="line">    + toString()</span><br><span class="line">&#125;</span><br><span class="line">abstract class Event&#123;</span><br><span class="line">    - endTime</span><br><span class="line">    + satrt()</span><br><span class="line">    + ready()</span><br><span class="line">    + &#123;abstract&#125; action()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Event &lt;|-- LightOn</span><br><span class="line">Event &lt;|-- LightOff</span><br><span class="line">Event &lt;|-- WaterOn</span><br><span class="line">Event &lt;|-- WaterOff</span><br><span class="line"></span><br><span class="line">Controller &lt;|-- GreeenHouseController</span><br><span class="line"></span><br><span class="line">GreeenHouseController *-- LightOn</span><br><span class="line">GreeenHouseController *-- LightOff</span><br><span class="line">GreeenHouseController *-- WaterOn</span><br><span class="line">GreeenHouseController *-- WaterOff</span><br><span class="line">@enduml</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ol>
+<ul>
+<li>解读：<ul>
+<li><code>GreeenHouseController</code>继承了<code>Controller</code>，就把通用的控制方法继承了，然后再<code>GreeenHouseController</code>内部由<code>LightOn</code>、<code>LightOff</code>、<code>WaterOn</code>、<code>WaterOff</code>等内部类继承了<code>Event</code>类，并在各内部类中分别实现了不同的<code>action</code>方法，从而实现了相同的控制方法和不同的响应方式的控制框架类</li>
+<li>并且，内部类可以轻易的访问外部类的成员，因此在<code>action</code>方法中可以任意的操作<code>List&lt;Event&gt;</code></li>
+</ul>
+</li>
+</ul>
+<h2 id="10-9-内部类的继承"><a href="#10-9-内部类的继承" class="headerlink" title="10.9 内部类的继承"></a>10.9 内部类的继承</h2><ol>
+<li><p>因为内部类的构造器必须要连接到指向外部类对象的引用，所必需在内部类的继承类的构造器中先传入一个外部类的引用，然后使用<code>enclosingClassReference.super()</code>来传递一个外部类的引用</p>
+<p> <img src="http://ozv461xxi.bkt.clouddn.com/ThinkInJava-ch10.9-1.PNG" alt="ch10.9-1"></p>
+</li>
+</ol>
+<h2 id="10-10-内部类可以被覆盖吗"><a href="#10-10-内部类可以被覆盖吗" class="headerlink" title="10.10 内部类可以被覆盖吗"></a>10.10 内部类可以被覆盖吗</h2><ol>
+<li><p>当外部类被继承时，在子外部类中写一个父外部类中同名的内部类是不能覆盖的</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">@startuml</span><br><span class="line">class Outter&#123;</span><br><span class="line">    + &#123;Inner Class&#125; class Inner&#123;void f()&#125;</span><br><span class="line">&#125;</span><br><span class="line">class NewOutter&#123;</span><br><span class="line">    + &#123;Inner Class&#125; class Inner&#123;void f()&#125;</span><br><span class="line">&#125;</span><br><span class="line">Outter &lt;|-- NewOutter</span><br><span class="line">@endluml</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>NewOutter</code>中的<code>Inner</code>并<strong>不能</strong>覆盖<code>Outter</code>中的<code>Inner</code></li>
+</ul>
+</li>
+<li><p>当外部类被继承时，在子外部类中生成一个内部类来继承基类中的内部类时，是可以被override的</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">@startuml</span><br><span class="line">class Outter&#123;</span><br><span class="line">    + &#123;Inner Class&#125; class Inner&#123;void f()&#125;</span><br><span class="line">&#125;</span><br><span class="line">class NewOutter&#123;</span><br><span class="line">    + &#123;Inner Class&#125; class Inner extends Outter.Inner&#123;void f()&#125;</span><br><span class="line">&#125;</span><br><span class="line">Outter &lt;|-- NewOutter</span><br><span class="line">@endluml</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>NewOutter</code>中的<code>Inner</code><strong>能覆盖</strong><code>Outter</code>中的<code>Inner</code></li>
+</ul>
+</li>
+</ol>
+<h2 id="10-11-局部内部类"><a href="#10-11-局部内部类" class="headerlink" title="10.11 局部内部类"></a>10.11 局部内部类</h2><ol>
+<li>在函数或其他代码块创建的内部类就是局部内部类</li>
+<li>局部内部类不能有访问说明符(<code>private</code>、<code>public</code>…)，因为<strong>它不是外部类的一部分</strong>，但是它却<strong>可以自由访问外部类的所有成员</strong></li>
+<li>使用局部内部类而不使用匿名内部类的原因就是：需要不止一个该内部类的对象（匿名内部类只能用户实例初始化，局部内部类可以重载构造器）</li>
+</ol>
+<h2 id="10-12-内部类标识符"><a href="#10-12-内部类标识符" class="headerlink" title="10.12 内部类标识符"></a>10.12 内部类标识符</h2><ol>
+<li>源码被编译后，每个类都会生成一个单独的<code>.class</code>文件，内部类也是如此。</li>
+<li><p>内部类的<code>.class</code>文件的命名规则就是</p>
+ <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Outter$Inner.class</span><br></pre></td></tr></table></figure>
+<p> 匿名内部类，编译器会简单的生成一个数字作为其标识符</p>
+ <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Outter$<span class="number">123456</span>.class</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h2 id="10-13-总结"><a href="#10-13-总结" class="headerlink" title="10.13 总结"></a>10.13 总结</h2><p>Java中的内部类和接口，间接的实现了<strong>多重继承</strong>的问题</p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    Last updated: <time datetime="2017-12-13T13:50:42.974Z" itemprop="dateUpdated">2017-12-13 21:50:42</time>
+</span><br>
+
+
+        
+        No one can guide you, except yourself!     self-link：<a href="/2017/12/13/Thinking-in-Java-第十章-内部类/" target="_blank" rel="external">http://matlabchina.cn/2017/12/13/Thinking-in-Java-第十章-内部类/</a>
+        
+    </div>
+    <footer>
+        <a href="http://matlabchina.cn">
+            <img src="/img/logo.jpg" alt="Quincey Svng">
+            Quincey Svng
+        </a>
+    </footer>
+</blockquote>
+
+        
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ThinkinJava/">ThinkinJava</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://matlabchina.cn/2017/12/13/Thinking-in-Java-第十章-内部类/&title=《Thinking in Java 第十章 内部类》 — Quincey&pic=http://matlabchina.cn/img/logo.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://matlabchina.cn/2017/12/13/Thinking-in-Java-第十章-内部类/&title=《Thinking in Java 第十章 内部类》 — Quincey&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://matlabchina.cn/2017/12/13/Thinking-in-Java-第十章-内部类/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Thinking in Java 第十章 内部类》 — Quincey&url=http://matlabchina.cn/2017/12/13/Thinking-in-Java-第十章-内部类/&via=http://matlabchina.cn" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://matlabchina.cn/2017/12/13/Thinking-in-Java-第十章-内部类/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2017/12/14/Thinking-in-Java-第十一章-持有对象/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">Thinking in Java 第十一章 持有对象</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2017/12/12/Thinking-in-java-第九章-接口/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">Thinking in java 第九章 接口</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+<section class="comments" id="comments">
+    <div id="gitment_thread"></div>
+    <link rel="stylesheet" href="//unpkg.com/gitment/style/default.css">
+    <script src="//unpkg.com/gitment/dist/gitment.browser.js"></script>
+    <script>
+        var gitment = new Gitment({
+            owner: 'SuperFireFoxy',
+            repo: 'superfirefoxy.github.io',
+            oauth: {
+                client_id: 'f79ac80faa3d2c58bf61',
+                client_secret: '655a9b1df478169a0c1f83cc4cc6b537873db4e3',
+            },
+        })
+        gitment.render('comments')
+    </script>
+</section>
+
+
+
+
+
+
+
+</article>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>This blog is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>Quincey Svng &copy; 2017 - 2018</span>
+            <span>
+                
+                <a href="http://www.miitbeian.gov.cn/" target="_blank">蜀ICP备16009264号-1</a><br>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://matlabchina.cn/2017/12/13/Thinking-in-Java-第十章-内部类/&title=《Thinking in Java 第十章 内部类》 — Quincey&pic=http://matlabchina.cn/img/logo.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://matlabchina.cn/2017/12/13/Thinking-in-Java-第十章-内部类/&title=《Thinking in Java 第十章 内部类》 — Quincey&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://matlabchina.cn/2017/12/13/Thinking-in-Java-第十章-内部类/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Thinking in Java 第十章 内部类》 — Quincey&url=http://matlabchina.cn/2017/12/13/Thinking-in-Java-第十章-内部类/&via=http://matlabchina.cn" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://matlabchina.cn/2017/12/13/Thinking-in-Java-第十章-内部类/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACpElEQVR42u3awW7DIBAE0Pz/T6fXHmpnZoEkqh6nyq0Jz5W8ZNjHIx7PXyP/7fN25J+Y3zUceHh4eAtLv5ouv9Iu8WrO+/mLB4eHh4d3jHf1Rr1fenLl/qHkf3+/nsvreHh4eF/Au9/azkpLvinHw8PD+0+8PGJo04OlNeDh4eEd4+VBwMomeLbtzosKHh4e3nt4+SnS9/x85HwPDw8Pb/lUPXnhzu5KGHkZuPxcPDw8vAO89YBg17HWrO0gav/Cw8PDO8DLJ20Di+TKfamYBSV4eHh4n+LtOuJqC0ne+NXOhoeHh7fOWzl8SjArjDzOeBFD4OHh4R3jtVvVtjWqvXdWbOrvB3h4eHgHeO1GdhbRtvMngQUeHh7eaV7yym5f9HvLQ9twgIeHh3eON2uimjUK5HHwrIT8URjw8PDwtvJmYW7eDrVSTnaFJnh4eHgnePlx1HC6JDgIisHsOA0PDw9vLy8PEfIIdXY8lkfA9X8JDw8P7wBvBmhj2ZVFt2EEHh4e3nt4bRgxiwza0tJu4i9Tajw8PLxNvFkM0TLaRZxoX8DDw8PbxWsP9XN8Gwe3G/comMDDw8M7wGuDgJVNcF4S2qYrPDw8vE/x8tdxu12etUytFxg8PDy89/Da1qi8UaA93FoJQfDw8PBO8/Iotn0EbZnJH0edTOPh4eEd4K00WuVR7ywgbkvFH4UBDw8P7zBvNl0b7O7KnosAFw8PD2+Zt7Loc7B8Q//iXjw8PLwDvHysTDqLIVYO4eqBh4eHV/JWXvQrMeusRSCJKvDw8PDew8tfyu2mua1Rw23xlQgPDw/vC3j1q/kW3MYcdQMBHh4e3hfw8kW3jQXr7G1bajw8PLxNOWeOmd27t+Tg4eHhnePVX+/LADfvgHp8auDh4eGl4wehPIi98HypPgAAAABJRU5ErkJggg==" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+
+
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = 'woops, lost connnection！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = 'bow, chaka bow boom!';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

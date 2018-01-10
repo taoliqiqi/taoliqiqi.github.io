@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    <title>Docker技术入门与实战-第九章 操作系统 | Quincey | mind in mind</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="Docker">
+    <meta name="description" content="9.1 Busybox(镜像) Busybox是一个集成了一百多个常用Linux命令和工具的软件工具箱 Busybox可运行于多款POSIX环境的操作系统中  9.2 Debian/Ubuntu Docker镜像为了精简镜像容量，默认删除了很多命令和工具，需要使用apt-get update，然后安装所需工具  9.3 CentOS/Fedora CentOS/Fedora都是基于Redhat的L">
+<meta name="keywords" content="Docker">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Docker技术入门与实战-第九章 操作系统">
+<meta property="og:url" content="http://matlabchina.cn/2017/12/27/Docker技术入门与实战-第九章-操作系统/index.html">
+<meta property="og:site_name" content="Quincey">
+<meta property="og:description" content="9.1 Busybox(镜像) Busybox是一个集成了一百多个常用Linux命令和工具的软件工具箱 Busybox可运行于多款POSIX环境的操作系统中  9.2 Debian/Ubuntu Docker镜像为了精简镜像容量，默认删除了很多命令和工具，需要使用apt-get update，然后安装所需工具  9.3 CentOS/Fedora CentOS/Fedora都是基于Redhat的L">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2017-12-27T02:29:10.858Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Docker技术入门与实战-第九章 操作系统">
+<meta name="twitter:description" content="9.1 Busybox(镜像) Busybox是一个集成了一百多个常用Linux命令和工具的软件工具箱 Busybox可运行于多款POSIX环境的操作系统中  9.2 Debian/Ubuntu Docker镜像为了精简镜像容量，默认删除了很多命令和工具，需要使用apt-get update，然后安装所需工具  9.3 CentOS/Fedora CentOS/Fedora都是基于Redhat的L">
+    
+        <link rel="alternate" type="application/atom+xml" title="Quincey" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/logo.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">Quincey Svng</h5>
+          <a href="mailto:salsa2010@foxmail.com" title="salsa2010@foxmail.com" class="mail">salsa2010@foxmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                Quincey Svng
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/SuperFireFoxy" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="http://www.weibo.com/salsa2010" target="_blank" >
+                <i class="icon icon-lg icon-weibo"></i>
+                Weibo
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://www.facebook.com/felix.song.79" target="_blank" >
+                <i class="icon icon-lg icon-link"></i>
+                facebook
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">Docker技术入门与实战-第九章 操作系统</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Search">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">Docker技术入门与实战-第九章 操作系统</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2017-12-27T02:11:16.000Z" itemprop="datePublished" class="page-time">
+  2017-12-27
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Docker/">Docker</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#9-1-Busybox-镜像"><span class="post-toc-number">1.</span> <span class="post-toc-text">9.1 Busybox(镜像)</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#9-2-Debian-Ubuntu"><span class="post-toc-number">2.</span> <span class="post-toc-text">9.2 Debian/Ubuntu</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#9-3-CentOS-Fedora"><span class="post-toc-number">3.</span> <span class="post-toc-text">9.3 CentOS/Fedora</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#9-4-CoreOS"><span class="post-toc-number">4.</span> <span class="post-toc-text">9.4 CoreOS</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#9-5-本章小结"><span class="post-toc-number">5.</span> <span class="post-toc-text">9.5 本章小结</span></a></li></ol>
+        </nav>
+    </aside>
+    
+<article id="post-Docker技术入门与实战-第九章-操作系统"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">Docker技术入门与实战-第九章 操作系统</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2017-12-27 10:11:16" datetime="2017-12-27T02:11:16.000Z"  itemprop="datePublished">2017-12-27</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Docker/">Docker</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h2 id="9-1-Busybox-镜像"><a href="#9-1-Busybox-镜像" class="headerlink" title="9.1 Busybox(镜像)"></a>9.1 Busybox(镜像)</h2><ol>
+<li>Busybox是一个集成了一百多个常用Linux命令和工具的软件工具箱</li>
+<li>Busybox可运行于多款POSIX环境的操作系统中</li>
+</ol>
+<h2 id="9-2-Debian-Ubuntu"><a href="#9-2-Debian-Ubuntu" class="headerlink" title="9.2 Debian/Ubuntu"></a>9.2 Debian/Ubuntu</h2><ol>
+<li>Docker镜像为了精简镜像容量，默认删除了很多命令和工具，需要使用<code>apt-get update</code>，然后安装所需工具</li>
+</ol>
+<h2 id="9-3-CentOS-Fedora"><a href="#9-3-CentOS-Fedora" class="headerlink" title="9.3 CentOS/Fedora"></a>9.3 CentOS/Fedora</h2><ol>
+<li>CentOS/Fedora都是基于Redhat的Linux发行版<ul>
+<li>CentOS是企业级服务器的常用选型</li>
+<li>Fedora主要面向个人用户</li>
+</ul>
+</li>
+</ol>
+<h2 id="9-4-CoreOS"><a href="#9-4-CoreOS" class="headerlink" title="9.4 CoreOS"></a>9.4 CoreOS</h2><ol>
+<li>CoreOS是一个基于Docker的Linux发行版</li>
+</ol>
+<h2 id="9-5-本章小结"><a href="#9-5-本章小结" class="headerlink" title="9.5 本章小结"></a>9.5 本章小结</h2><ol>
+<li>几乎所有带<strong>官方标志的操作系统都无法直接使用用户名和密码直接登录</strong>，而且一般都没有安装SSH服务</li>
+</ol>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    Last updated: <time datetime="2017-12-27T02:29:10.858Z" itemprop="dateUpdated">2017-12-27 10:29:10</time>
+</span><br>
+
+
+        
+        No one can guide you, except yourself!     self-link：<a href="/2017/12/27/Docker技术入门与实战-第九章-操作系统/" target="_blank" rel="external">http://matlabchina.cn/2017/12/27/Docker技术入门与实战-第九章-操作系统/</a>
+        
+    </div>
+    <footer>
+        <a href="http://matlabchina.cn">
+            <img src="/img/logo.jpg" alt="Quincey Svng">
+            Quincey Svng
+        </a>
+    </footer>
+</blockquote>
+
+        
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Docker/">Docker</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://matlabchina.cn/2017/12/27/Docker技术入门与实战-第九章-操作系统/&title=《Docker技术入门与实战-第九章 操作系统》 — Quincey&pic=http://matlabchina.cn/img/logo.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://matlabchina.cn/2017/12/27/Docker技术入门与实战-第九章-操作系统/&title=《Docker技术入门与实战-第九章 操作系统》 — Quincey&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://matlabchina.cn/2017/12/27/Docker技术入门与实战-第九章-操作系统/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Docker技术入门与实战-第九章 操作系统》 — Quincey&url=http://matlabchina.cn/2017/12/27/Docker技术入门与实战-第九章-操作系统/&via=http://matlabchina.cn" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://matlabchina.cn/2017/12/27/Docker技术入门与实战-第九章-操作系统/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2017/12/27/Docker技术入门与实战-第十章-创建支持SSH服务的镜像/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">Docker技术入门与实战-第十章 创建支持SSH服务的镜像</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2017/12/26/Docker技术入门与实战-第八章-使用Dockerfile创建镜像/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">Docker技术入门与实战-第八章 使用Dockerfile创建镜像</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+<section class="comments" id="comments">
+    <div id="gitment_thread"></div>
+    <link rel="stylesheet" href="//unpkg.com/gitment/style/default.css">
+    <script src="//unpkg.com/gitment/dist/gitment.browser.js"></script>
+    <script>
+        var gitment = new Gitment({
+            owner: 'SuperFireFoxy',
+            repo: 'superfirefoxy.github.io',
+            oauth: {
+                client_id: 'f79ac80faa3d2c58bf61',
+                client_secret: '655a9b1df478169a0c1f83cc4cc6b537873db4e3',
+            },
+        })
+        gitment.render('comments')
+    </script>
+</section>
+
+
+
+
+
+
+
+</article>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>This blog is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>Quincey Svng &copy; 2017 - 2018</span>
+            <span>
+                
+                <a href="http://www.miitbeian.gov.cn/" target="_blank">蜀ICP备16009264号-1</a><br>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://matlabchina.cn/2017/12/27/Docker技术入门与实战-第九章-操作系统/&title=《Docker技术入门与实战-第九章 操作系统》 — Quincey&pic=http://matlabchina.cn/img/logo.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://matlabchina.cn/2017/12/27/Docker技术入门与实战-第九章-操作系统/&title=《Docker技术入门与实战-第九章 操作系统》 — Quincey&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://matlabchina.cn/2017/12/27/Docker技术入门与实战-第九章-操作系统/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Docker技术入门与实战-第九章 操作系统》 — Quincey&url=http://matlabchina.cn/2017/12/27/Docker技术入门与实战-第九章-操作系统/&via=http://matlabchina.cn" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://matlabchina.cn/2017/12/27/Docker技术入门与实战-第九章-操作系统/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACs0lEQVR42u3aMW7DQAwEwPz/0wmQLjAk7x7v5BSjSohji3OFSJD8+oqv79/r9f7qL6+fXn3r9Zev/nL/lNGFh4eHtxT61XX/4PsjyK/7Y0rYl0eAh4eHd4yXJIP7gNoDWjumPGY8PDy8/8BL7nNAEm5e1uPh4eH9Z15b8ubtiXk8eHh4eE/ynmwT5I3gpEDf1mvBw8PDi3mTAdin7h+a7+Hh4eGVU/X7F27ekmhXB5IWRhQtHh4e3gHe2pApDy4fZa21J6IGBx4eHt5W3uRF3K4OtGsBeTyXx4GHh4d3jLf2+m5XtUaBLhXWeHh4eCd4yTiqbaTmiSFPLUlyuowTDw8Pbytv3oZok0SeSNYWFzZ3WfDw8PDK8vfNl+MxWNLyyJu2eZmOh4eH9yle23LNFwKiEAcJDA8PD+8cb60szpu8SUEcNWTb1IKHh4d3gDdZaWoXC9ZaG0U3Gg8PD+9xXltMz8f8u5Zi3xTreHh4eFt5LSNpobZrBJMVgTfJAw8PD+8Ab17sTkJp17AW8x4eHh7eVl7+im+HZ2sjtPxQopIdDw8P7xhvrUU7KYuLJmy5WFB/AQ8PD6/kTRqyuxYLct62Cw8PD2/M2NYYLRu4eTJYxOPh4eE9zlt7ZHsc8zIdDw8P70le+1pv1wvuWw/t2GytTYyHh4e3l5c3RpNw87WDtRRVHxAeHh7eI7z5KKtt1OZBt0kCDw8P7wSvfXAbbntf1/5rjV08PDy8AW+SEtoie20toH3uqKTGw8PDW69467DWjiNPEmuFOB4eHt45XpsM1sZm+f/PJ3h/PsXDw8M7xtvVmJi3GCZl+mViwMPDw/sQLy9/k3Qyb9TWQy88PDy8D/Hm46sTS12XR4aHh4d3jDcZeiW/sKsczw8LDw8P7xxvV3OhLbhbzN5DxMPDw1vi/QBzNpKXd5E4JQAAAABJRU5ErkJggg==" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+
+
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = 'woops, lost connnection！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = 'bow, chaka bow boom!';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

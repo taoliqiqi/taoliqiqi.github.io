@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    <title>Thinking in Java 第十三章 字符串 | Quincey | mind in mind</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="ThinkingInJava">
+    <meta name="description" content="13.1 不可变String 把String对象作为方法传参时，都会拷贝一份引用；一旦对该引用进行修改，那么该引用将会指向一个新的对象,并返回 upcase(String s)等方法并不会修改s所指的对象，而是返回一个新的String对象的引用  13.2 重载”+”与StringBuilder 用于’String’的“+”和“+=”是java中仅有的两种重载过的运算符 在while循环中使用如下">
+<meta name="keywords" content="ThinkingInJava">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Thinking in Java 第十三章 字符串">
+<meta property="og:url" content="http://matlabchina.cn/2017/12/18/Thinking-in-Java-第十三章-字符串/index.html">
+<meta property="og:site_name" content="Quincey">
+<meta property="og:description" content="13.1 不可变String 把String对象作为方法传参时，都会拷贝一份引用；一旦对该引用进行修改，那么该引用将会指向一个新的对象,并返回 upcase(String s)等方法并不会修改s所指的对象，而是返回一个新的String对象的引用  13.2 重载”+”与StringBuilder 用于’String’的“+”和“+=”是java中仅有的两种重载过的运算符 在while循环中使用如下">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="http://ozv461xxi.bkt.clouddn.com/ThinkInJava-ch13.3-1.PNG">
+<meta property="og:image" content="http://ozv461xxi.bkt.clouddn.com/ThinkInJava-ch13.6-1.PNG">
+<meta property="og:image" content="http://ozv461xxi.bkt.clouddn.com/ThinkInJava-ch13.6-2.PNG">
+<meta property="og:image" content="http://ozv461xxi.bkt.clouddn.com/ThinkInJava-ch13.7-1.PNG">
+<meta property="og:image" content="http://ozv461xxi.bkt.clouddn.com/ThinkInJava-ch13.7-2.PNG">
+<meta property="og:image" content="http://ozv461xxi.bkt.clouddn.com/ThinkInJava-ch13.7-3.PNG">
+<meta property="og:updated_time" content="2017-12-19T07:44:58.623Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Thinking in Java 第十三章 字符串">
+<meta name="twitter:description" content="13.1 不可变String 把String对象作为方法传参时，都会拷贝一份引用；一旦对该引用进行修改，那么该引用将会指向一个新的对象,并返回 upcase(String s)等方法并不会修改s所指的对象，而是返回一个新的String对象的引用  13.2 重载”+”与StringBuilder 用于’String’的“+”和“+=”是java中仅有的两种重载过的运算符 在while循环中使用如下">
+<meta name="twitter:image" content="http://ozv461xxi.bkt.clouddn.com/ThinkInJava-ch13.3-1.PNG">
+    
+        <link rel="alternate" type="application/atom+xml" title="Quincey" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/logo.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">Quincey Svng</h5>
+          <a href="mailto:salsa2010@foxmail.com" title="salsa2010@foxmail.com" class="mail">salsa2010@foxmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                Quincey Svng
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/SuperFireFoxy" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="http://www.weibo.com/salsa2010" target="_blank" >
+                <i class="icon icon-lg icon-weibo"></i>
+                Weibo
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://www.facebook.com/felix.song.79" target="_blank" >
+                <i class="icon icon-lg icon-link"></i>
+                facebook
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">Thinking in Java 第十三章 字符串</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Search">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">Thinking in Java 第十三章 字符串</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2017-12-18T09:40:50.000Z" itemprop="datePublished" class="page-time">
+  2017-12-18
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/ThinkingInJava/">ThinkingInJava</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#13-1-不可变String"><span class="post-toc-number">1.</span> <span class="post-toc-text">13.1 不可变String</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#13-2-重载”-”与StringBuilder"><span class="post-toc-number">2.</span> <span class="post-toc-text">13.2 重载”+”与StringBuilder</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#13-3-无意识的递归"><span class="post-toc-number">3.</span> <span class="post-toc-text">13.3 无意识的递归</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#13-4-String上的操作"><span class="post-toc-number">4.</span> <span class="post-toc-text">13.4 String上的操作</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#13-5-格式化输出"><span class="post-toc-number">5.</span> <span class="post-toc-text">13.5 格式化输出</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#13-6-正则表达式"><span class="post-toc-number">6.</span> <span class="post-toc-text">13.6 正则表达式</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#13-7-扫描输入"><span class="post-toc-number">7.</span> <span class="post-toc-text">13.7 扫描输入</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#13-8-StringTokenizer"><span class="post-toc-number">8.</span> <span class="post-toc-text">13.8 StringTokenizer</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#13-9-总结"><span class="post-toc-number">9.</span> <span class="post-toc-text">13.9 总结</span></a></li></ol>
+        </nav>
+    </aside>
+    
+<article id="post-Thinking-in-Java-第十三章-字符串"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">Thinking in Java 第十三章 字符串</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2017-12-18 17:40:50" datetime="2017-12-18T09:40:50.000Z"  itemprop="datePublished">2017-12-18</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/ThinkingInJava/">ThinkingInJava</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h2 id="13-1-不可变String"><a href="#13-1-不可变String" class="headerlink" title="13.1 不可变String"></a>13.1 不可变String</h2><ol>
+<li>把String对象作为方法传参时，都会拷贝一份引用；一旦对该引用进行修改，那么该引用将会指向一个新的对象,并返回</li>
+<li><code>upcase(String s)</code>等方法并不会修改s所指的对象，而是返回一个新的String对象的引用</li>
+</ol>
+<h2 id="13-2-重载”-”与StringBuilder"><a href="#13-2-重载”-”与StringBuilder" class="headerlink" title="13.2 重载”+”与StringBuilder"></a>13.2 重载”+”与StringBuilder</h2><ol>
+<li>用于’String’的“+”和“+=”是java中仅有的两种重载过的运算符</li>
+<li><p>在while循环中使用如下代码：</p>
+ <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span>(flag)&#123;</span><br><span class="line">    String s=<span class="string">"hello"</span>+<span class="string">" "</span>+<span class="string">"world"</span>+<span class="string">" ?"</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>jvm会自动给每次迭代产生一个<code>StringBuilder</code>用于生成字符串</li>
+</ul>
+</li>
+<li><p><code>javap -c ClassName</code>:反编译代码，<code>-c</code>：表示将生成JVM字节码</p>
+</li>
+<li><code>StringBuilder</code>是线程不安全的；<code>StringBuffer</code>是线程不安全的</li>
+</ol>
+<h2 id="13-3-无意识的递归"><a href="#13-3-无意识的递归" class="headerlink" title="13.3 无意识的递归"></a>13.3 无意识的递归</h2><ol>
+<li><p>编译器看到String对象后面接着一个“+”，编译器会将后面的对象试图转换为String，因此就会再一次调用<code>toString()</code>对象</p>
+<p> <img src="http://ozv461xxi.bkt.clouddn.com/ThinkInJava-ch13.3-1.PNG" alt="ch13.3-1"></p>
+<ul>
+<li>如果套打印出对象的内存地址，应该调用<code>super.toString()</code></li>
+</ul>
+</li>
+</ol>
+<h2 id="13-4-String上的操作"><a href="#13-4-String上的操作" class="headerlink" title="13.4 String上的操作"></a>13.4 String上的操作</h2><ol>
+<li>String类的方法都只会返回一个新的String对象。如果没有发生改变，String的方法只是返回指向原对象的引用。</li>
+</ol>
+<h2 id="13-5-格式化输出"><a href="#13-5-格式化输出" class="headerlink" title="13.5 格式化输出"></a>13.5 格式化输出</h2><ol>
+<li><p><code>System.out.format()</code>等价于<code>System.out.printf()</code></p>
+<ul>
+<li><p>可用于<code>PrintStream</code>和<code>PrintWriter</code>对象中，其中包括<code>System.out</code>对象</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">System.out.printf(<span class="string">"Row 1 [%d %d]"</span>,x,y);</span><br><span class="line">System.out.format(<span class="string">"Row 1 [%d %d]"</span>,x,y);</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p><code>Formatter</code>类</p>
+<ul>
+<li><p>2.1 java中，新的格式化功能店铺由java.util.Formatter类处理</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Formatter f=<span class="keyword">new</span> Formatter(System.out);</span><br><span class="line">f.format(<span class="string">"Row 1 [%d %d]"</span>,x,y);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>2.2 <code>Formatter</code>的构造函数重载接受输出到多个输出目的地，包括<code>PrintStream</code>、<code>OutputStream</code>、<code>File</code></p>
+</li>
+<li><p>2.3 格式化说明符：</p>
+<p>  格式:</p>
+  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">% [argument_index$][flags][width][presion]conversion</span><br></pre></td></tr></table></figure>
+<ul>
+<li>width:代表显示占位宽度</li>
+<li><p>presion：代表浮点数小数位数；String对象输出字符最大数量；对整数使用presion将会触发异常</p>
+</li>
+<li><p><strong>boolean和Boolean类型的值在转换时，只要不是<code>Null</code>，就一律转换为<code>true</code>，其中包括<code>0</code>;</strong></p>
+</li>
+</ul>
+</li>
+<li>2.4 String.format()<ul>
+<li>在<code>String.format()</code>内部，它也是创建一个<code>Formatter</code>对象，然后将你传入的参数传给<code>Formatter</code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<h2 id="13-6-正则表达式"><a href="#13-6-正则表达式" class="headerlink" title="13.6 正则表达式"></a>13.6 正则表达式</h2><ol>
+<li>基础<ul>
+<li>在java中, <code>\\</code>表示后面是一个正则表达式的反斜线；<code>\\\\</code>表示插入一个普通的反斜线</li>
+<li>换行，制表符之类的东西只需要使用单反斜线<code>\n\t</code></li>
+</ul>
+</li>
+<li><p>量词</p>
+<ul>
+<li>贪婪型：默认的都是贪婪型的。<strong>贪婪表达式会为所有可能的模式发现尽可能多的匹配</strong>。</li>
+<li>勉强型：用<code>?</code>来指定，这个量词匹配<strong>满足模式所需的最少字符</strong></li>
+<li><p>占有型：当正则表达式被应用于字符串时，它会产生相当多的状态，以便在匹配失败时可以回溯。<strong>而“占用的”量词并不保存这些中间状态，因此可以防止回溯。</strong>它们常常被用于防止正则表达式失控</p>
+<p><img src="http://ozv461xxi.bkt.clouddn.com/ThinkInJava-ch13.6-1.PNG" alt="ch13.6-1"></p>
+</li>
+</ul>
+</li>
+<li><p>Pattern和Matcher</p>
+ <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Pattern p=<span class="keyword">new</span> Pattern(regx);</span><br><span class="line">Matcher m=p.matcher(string);</span><br></pre></td></tr></table></figure>
+<ul>
+<li>Pattern常用方法：<ul>
+<li>boolean mathces()：判断整个输入字符串是否匹配正则表达式模式</li>
+<li>boolean lookingAt()：判断该字符串（不必是整个字符串）的始部分能够匹配模式</li>
+<li>boolean find()：在CharSequence中查找多个匹配</li>
+<li>boolean find(int start)：从第i个字符开始匹配</li>
+</ul>
+</li>
+<li>Matcher常用方法：<ul>
+<li>int groupCount():返回Matcher的模式中分组的数目，不包括0组</li>
+<li>String group():返回前一次匹配的第0组</li>
+<li>String group(int i):返回前一次匹配的第i组</li>
+<li>int start(int group):返回前一次匹配的第i组的起始位置</li>
+<li>int end(int group):返回前一次匹配的第i组的结束位置+1</li>
+</ul>
+</li>
+<li><p>Pattern标记</p>
+<ul>
+<li><p>Pattern.compile(String regx,int flag)方法接受一个标记参数</p>
+<p><img src="http://ozv461xxi.bkt.clouddn.com/ThinkInJava-ch13.6-2.PNG" alt="13.6.2"></p>
+</li>
+<li><p>此外，也可以将标记参数直接写在正则表达式里：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Pattern.compile(<span class="string">"(?m)(\\S+)\\s+"</span>);</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>split():将输入字符串断开成字符串数组</p>
+  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Pattern.compile(<span class="string">"!!"</span>).spilt(inputString);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>替换操作</p>
+  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">String.replaceFirst()</span><br><span class="line">String.replaceAll()</span><br></pre></td></tr></table></figure>
+  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Pattern p=<span class="keyword">new</span> Pattern(regx);</span><br><span class="line">Matcher m=p.matcher(string);</span><br><span class="line">m.repalceFirst(string);</span><br><span class="line">m.repalceAll(string);</span><br><span class="line"></span><br><span class="line">m.appendReplacement(StringBuffer sbuf, String replacement);<span class="comment">//执行迭代式的替换，替换结果写进sbuf</span></span><br><span class="line">m.appendTail(StringBuffer sbuf);<span class="comment">//执行一次或多次appendReplacement()后，调用此方法将输入字符串余下的部分复制到sbuf中</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>reset():Matcher对象调用reset方法后，可对新的字符串进行匹配</p>
+  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Matcher m=Pattern.compile(<span class="string">"[frb][aiu][gx]"</span>).matcher(<span class="string">"fix the rug with bags"</span>);</span><br><span class="line"><span class="keyword">while</span>(m.find())&#123;</span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">&#125;</span><br><span class="line">m.reset(<span class="string">"fix the rig with bags"</span>);</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ol>
+<h2 id="13-7-扫描输入"><a href="#13-7-扫描输入" class="headerlink" title="13.7 扫描输入"></a>13.7 扫描输入</h2><ol>
+<li>Scanner类<ul>
+<li>Scanner对象可以接受任何类型的输入对象，包括<code>File</code>、<code>InputStream</code>、<code>String</code>、具有read()方法的<code>Readable</code>对象。</li>
+<li>Scanner的常用方法<ul>
+<li>next()方法可对输入对象进行匹配，分隔；默认返回匹配的下一个String</li>
+<li>nextInt()：返回匹配的下一个整数</li>
+<li>hasnext():判断下一个输入分词是否所需的类型<br><img src="http://ozv461xxi.bkt.clouddn.com/ThinkInJava-ch13.7-1.PNG" alt="ch13.7-1"></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>定界符<ul>
+<li>默认Scanner对象根据空白字符进行分词，但是Scanner对象也可以指定自己所需的定界符<br><img src="http://ozv461xxi.bkt.clouddn.com/ThinkInJava-ch13.7-2.PNG" alt="ch13.7-2"></li>
+</ul>
+</li>
+<li>用正则表达式扫描<ul>
+<li>利用hasnext()方法进行迭代扫描<br><img src="http://ozv461xxi.bkt.clouddn.com/ThinkInJava-ch13.7-3.PNG" alt="ch13.7-3"></li>
+</ul>
+</li>
+</ol>
+<h2 id="13-8-StringTokenizer"><a href="#13-8-StringTokenizer" class="headerlink" title="13.8 StringTokenizer"></a>13.8 StringTokenizer</h2><ol>
+<li>Java引入正则表达式和Scanner类以前，分隔字符串的唯一方法是使用StringTokenizer来分词，但是功能很弱，现在已经不再使用</li>
+</ol>
+<h2 id="13-9-总结"><a href="#13-9-总结" class="headerlink" title="13.9 总结"></a>13.9 总结</h2><ol>
+<li>随着几个java版本的升级，Java对字符串的支持已经相当完善了。但是仍然要注意使用的细节，如<code>StringBuilder</code>等</li>
+</ol>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    Last updated: <time datetime="2017-12-19T07:44:58.623Z" itemprop="dateUpdated">2017-12-19 15:44:58</time>
+</span><br>
+
+
+        
+        No one can guide you, except yourself!     self-link：<a href="/2017/12/18/Thinking-in-Java-第十三章-字符串/" target="_blank" rel="external">http://matlabchina.cn/2017/12/18/Thinking-in-Java-第十三章-字符串/</a>
+        
+    </div>
+    <footer>
+        <a href="http://matlabchina.cn">
+            <img src="/img/logo.jpg" alt="Quincey Svng">
+            Quincey Svng
+        </a>
+    </footer>
+</blockquote>
+
+        
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ThinkingInJava/">ThinkingInJava</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://matlabchina.cn/2017/12/18/Thinking-in-Java-第十三章-字符串/&title=《Thinking in Java 第十三章 字符串》 — Quincey&pic=http://matlabchina.cn/img/logo.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://matlabchina.cn/2017/12/18/Thinking-in-Java-第十三章-字符串/&title=《Thinking in Java 第十三章 字符串》 — Quincey&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://matlabchina.cn/2017/12/18/Thinking-in-Java-第十三章-字符串/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Thinking in Java 第十三章 字符串》 — Quincey&url=http://matlabchina.cn/2017/12/18/Thinking-in-Java-第十三章-字符串/&via=http://matlabchina.cn" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://matlabchina.cn/2017/12/18/Thinking-in-Java-第十三章-字符串/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2017/12/19/Thinking-in-Java-第十四章-类型信息/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">Thinking in Java 第十四章 类型信息</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2017/12/15/Thinking-in-Java-第十二章-通过异常处理错误/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">Thinking in Java 第十二章 通过异常处理错误</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+<section class="comments" id="comments">
+    <div id="gitment_thread"></div>
+    <link rel="stylesheet" href="//unpkg.com/gitment/style/default.css">
+    <script src="//unpkg.com/gitment/dist/gitment.browser.js"></script>
+    <script>
+        var gitment = new Gitment({
+            owner: 'SuperFireFoxy',
+            repo: 'superfirefoxy.github.io',
+            oauth: {
+                client_id: 'f79ac80faa3d2c58bf61',
+                client_secret: '655a9b1df478169a0c1f83cc4cc6b537873db4e3',
+            },
+        })
+        gitment.render('comments')
+    </script>
+</section>
+
+
+
+
+
+
+
+</article>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>This blog is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>Quincey Svng &copy; 2017 - 2018</span>
+            <span>
+                
+                <a href="http://www.miitbeian.gov.cn/" target="_blank">蜀ICP备16009264号-1</a><br>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://matlabchina.cn/2017/12/18/Thinking-in-Java-第十三章-字符串/&title=《Thinking in Java 第十三章 字符串》 — Quincey&pic=http://matlabchina.cn/img/logo.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://matlabchina.cn/2017/12/18/Thinking-in-Java-第十三章-字符串/&title=《Thinking in Java 第十三章 字符串》 — Quincey&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://matlabchina.cn/2017/12/18/Thinking-in-Java-第十三章-字符串/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Thinking in Java 第十三章 字符串》 — Quincey&url=http://matlabchina.cn/2017/12/18/Thinking-in-Java-第十三章-字符串/&via=http://matlabchina.cn" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://matlabchina.cn/2017/12/18/Thinking-in-Java-第十三章-字符串/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACr0lEQVR42u3aQW7DMAwEwPz/0+2lhwKF7SUpBikwPgWuY2tcQFRWfL3i4+vXcX8m/3x15upbV1ceOPDw8PAGQ/973D/g6szkRVTHc3UNHh4e3jYvmZrz4d4Xg7z8VO+Jh4eH95m8pCT0rs/viYeHh/cfecmv/mowkRcDPDw8vE/gJT/+e6+gd01+5ljWgoeHhxfz8pjgcz6v7O/h4eHhjXfVkwk3X0ZXw4vJOH/uhoeHh7fAmwQNPXbvmt448fDw8DZ499tU1Z/6p0pIXgweNufw8PDwlnn5snjSRnC2HeHhteLh4eEt8KrIJFzIp/veIrvatoWHh4d3ltdcqsZzb3WJnLdSRWPDw8PDW+DdT/fVCboaTPSW0c3WKzw8PLw1Xt50lZeTybeq7V9RJIGHh4c34CWPnBSGZjoybkF46CnDw8PDG/B6haG3PZaExdU2gnLugoeHh3eIlw8rGfT8pRwuVHh4eHhHefn2/6Q1qtp8UF1wvybVDA8PD6/Iq8ajvaXtPHQ40KqFh4eHt8arFobqtln+xEn7V6EzAg8PD6/Im0z3k6V5HihMol48PDy8PV4vJsgLQ7Ulq1okCnt6eHh4eId4k237/G7viTPw8PDw3s+rbk2dovZi5Ye/4uHh4S3wenvuvVvnU3x1E653fzw8PLwJr9rqlAw9CWF7gW/5P4aHh4e3xsvLwHzQvVfcW5rj4eHh7fEmgWl1mz+f1ieLbzw8PLwN3lfxODBNF2OL3uvAw8PD2+OdihsmD84D2eoyHQ8PD2+Pl4ewBxqhirD8ueUwAg8PD2/My+Pds+HvJIaIXiseHh7eB/B622D5+XkUMioMeHh4eAu8XjibL5rzmDgqHnh4eHhrvDwIyKfmXrRRCBrywoCHh4d3lFf9ed9bUo8m9+0DDw8PLz2+ATw7u2AguCtfAAAAAElFTkSuQmCC" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+
+
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = 'woops, lost connnection！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = 'bow, chaka bow boom!';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

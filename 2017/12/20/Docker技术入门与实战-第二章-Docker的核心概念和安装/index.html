@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    <title>Docker技术入门与实战-第二章 Docker的核心概念和安装 | Quincey | mind in mind</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="Docker">
+    <meta name="description" content="2.1 核心概念 Docker镜像：类似于虚拟机镜像，可以将它理解为一个面向Docker引擎的只读模板，包含了文件系统 Docker容器：容器中可以运行Docker镜像，可以将其理解为简易版的Linux系统环境 镜像本身是只读的，镜像在容器中启动后，Docker会在镜像的最上层创建一个可写层，镜像本身保持不变   Docker仓库：是Docker集中存放镜像文件的场所 注册服务器（Registry">
+<meta name="keywords" content="Docker">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Docker技术入门与实战-第二章 Docker的核心概念和安装">
+<meta property="og:url" content="http://matlabchina.cn/2017/12/20/Docker技术入门与实战-第二章-Docker的核心概念和安装/index.html">
+<meta property="og:site_name" content="Quincey">
+<meta property="og:description" content="2.1 核心概念 Docker镜像：类似于虚拟机镜像，可以将它理解为一个面向Docker引擎的只读模板，包含了文件系统 Docker容器：容器中可以运行Docker镜像，可以将其理解为简易版的Linux系统环境 镜像本身是只读的，镜像在容器中启动后，Docker会在镜像的最上层创建一个可写层，镜像本身保持不变   Docker仓库：是Docker集中存放镜像文件的场所 注册服务器（Registry">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="http://cdn.docker.matlabchina.cn/Docker-ch2.1-1.PNG">
+<meta property="og:updated_time" content="2017-12-20T13:19:50.629Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Docker技术入门与实战-第二章 Docker的核心概念和安装">
+<meta name="twitter:description" content="2.1 核心概念 Docker镜像：类似于虚拟机镜像，可以将它理解为一个面向Docker引擎的只读模板，包含了文件系统 Docker容器：容器中可以运行Docker镜像，可以将其理解为简易版的Linux系统环境 镜像本身是只读的，镜像在容器中启动后，Docker会在镜像的最上层创建一个可写层，镜像本身保持不变   Docker仓库：是Docker集中存放镜像文件的场所 注册服务器（Registry">
+<meta name="twitter:image" content="http://cdn.docker.matlabchina.cn/Docker-ch2.1-1.PNG">
+    
+        <link rel="alternate" type="application/atom+xml" title="Quincey" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/logo.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">Quincey Svng</h5>
+          <a href="mailto:salsa2010@foxmail.com" title="salsa2010@foxmail.com" class="mail">salsa2010@foxmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                Quincey Svng
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/SuperFireFoxy" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="http://www.weibo.com/salsa2010" target="_blank" >
+                <i class="icon icon-lg icon-weibo"></i>
+                Weibo
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://www.facebook.com/felix.song.79" target="_blank" >
+                <i class="icon icon-lg icon-link"></i>
+                facebook
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">Docker技术入门与实战-第二章 Docker的核心概念和安装</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Search">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">Docker技术入门与实战-第二章 Docker的核心概念和安装</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2017-12-20T12:54:36.000Z" itemprop="datePublished" class="page-time">
+  2017-12-20
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Docker/">Docker</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#2-1-核心概念"><span class="post-toc-number">1.</span> <span class="post-toc-text">2.1 核心概念</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#2-2-安装Docker"><span class="post-toc-number">2.</span> <span class="post-toc-text">2.2 安装Docker</span></a></li></ol>
+        </nav>
+    </aside>
+    
+<article id="post-Docker技术入门与实战-第二章-Docker的核心概念和安装"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">Docker技术入门与实战-第二章 Docker的核心概念和安装</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2017-12-20 20:54:36" datetime="2017-12-20T12:54:36.000Z"  itemprop="datePublished">2017-12-20</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Docker/">Docker</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h2 id="2-1-核心概念"><a href="#2-1-核心概念" class="headerlink" title="2.1 核心概念"></a>2.1 核心概念</h2><ol>
+<li>Docker镜像：类似于虚拟机镜像，可以将它理解为一个<strong>面向Docker引擎的只读模板</strong>，包含了文件系统</li>
+<li>Docker容器：容器中可以运行Docker镜像，可以将其理解为简易版的Linux系统环境<ul>
+<li>镜像本身是只读的，镜像在容器中启动后，<strong>Docker会在镜像的最上层创建一个可写层，镜像本身保持不变</strong></li>
+</ul>
+</li>
+<li>Docker仓库：是Docker集中存放镜像文件的场所<ul>
+<li>注册服务器（Registry）是存放仓库的地方，一个注册服务器包含多个仓库</li>
+<li>每个仓库都集中存放着某一类镜像，每个镜像通过标签(tag)来区分（例如：Ubuntu仓库里，通过14.04，12.04这些标签来区分）<br><img src="http://cdn.docker.matlabchina.cn/Docker-ch2.1-1.PNG" alt="ch2.1-1"></li>
+</ul>
+</li>
+</ol>
+<h2 id="2-2-安装Docker"><a href="#2-2-安装Docker" class="headerlink" title="2.2 安装Docker"></a>2.2 安装Docker</h2><ol>
+<li>Docker支持在Ubuntu、CentOS、Windows以及MacOS系统上使用<ul>
+<li>Ubuntu：<ul>
+<li>14.04以上的版本已经在官方软件源中自带了Docker包</li>
+<li>14.04以下的版本需要先更新内核</li>
+</ul>
+</li>
+<li>CentOS：支持CentOS6及以后的版本<ul>
+<li>CentOS 6：可以从EPEL库安装Docker</li>
+<li>CentOS 7：CentOS-Extras源已经内置Docker，可以直接安装</li>
+</ul>
+</li>
+<li>Windows：由于Docker使用了Linux内核特性，因此Windows上运行需要额外的一个虚拟机来提供Linux支持。推荐使用<code>Boot2Docker</code>工具，它将依次安装<code>VirtualBox</code>、<code>MSYS-git</code>、<code>boot2docker Linux ISO镜像</code></li>
+<li>MacOS: 同样需要使用<code>Boot2Docker工具</code></li>
+</ul>
+</li>
+</ol>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    Last updated: <time datetime="2017-12-20T13:19:50.629Z" itemprop="dateUpdated">2017-12-20 21:19:50</time>
+</span><br>
+
+
+        
+        No one can guide you, except yourself!     self-link：<a href="/2017/12/20/Docker技术入门与实战-第二章-Docker的核心概念和安装/" target="_blank" rel="external">http://matlabchina.cn/2017/12/20/Docker技术入门与实战-第二章-Docker的核心概念和安装/</a>
+        
+    </div>
+    <footer>
+        <a href="http://matlabchina.cn">
+            <img src="/img/logo.jpg" alt="Quincey Svng">
+            Quincey Svng
+        </a>
+    </footer>
+</blockquote>
+
+        
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Docker/">Docker</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://matlabchina.cn/2017/12/20/Docker技术入门与实战-第二章-Docker的核心概念和安装/&title=《Docker技术入门与实战-第二章 Docker的核心概念和安装》 — Quincey&pic=http://matlabchina.cn/img/logo.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://matlabchina.cn/2017/12/20/Docker技术入门与实战-第二章-Docker的核心概念和安装/&title=《Docker技术入门与实战-第二章 Docker的核心概念和安装》 — Quincey&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://matlabchina.cn/2017/12/20/Docker技术入门与实战-第二章-Docker的核心概念和安装/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Docker技术入门与实战-第二章 Docker的核心概念和安装》 — Quincey&url=http://matlabchina.cn/2017/12/20/Docker技术入门与实战-第二章-Docker的核心概念和安装/&via=http://matlabchina.cn" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://matlabchina.cn/2017/12/20/Docker技术入门与实战-第二章-Docker的核心概念和安装/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2017/12/23/Docker技术入门与实战-第三章-镜像/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">Docker技术入门与实战-第三章 镜像</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2017/12/20/Docker技术入门与实战-第一章-初识Docker/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">Docker技术入门与实战-第一章 初识Docker</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+<section class="comments" id="comments">
+    <div id="gitment_thread"></div>
+    <link rel="stylesheet" href="//unpkg.com/gitment/style/default.css">
+    <script src="//unpkg.com/gitment/dist/gitment.browser.js"></script>
+    <script>
+        var gitment = new Gitment({
+            owner: 'SuperFireFoxy',
+            repo: 'superfirefoxy.github.io',
+            oauth: {
+                client_id: 'f79ac80faa3d2c58bf61',
+                client_secret: '655a9b1df478169a0c1f83cc4cc6b537873db4e3',
+            },
+        })
+        gitment.render('comments')
+    </script>
+</section>
+
+
+
+
+
+
+
+</article>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>This blog is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>Quincey Svng &copy; 2017 - 2018</span>
+            <span>
+                
+                <a href="http://www.miitbeian.gov.cn/" target="_blank">蜀ICP备16009264号-1</a><br>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://matlabchina.cn/2017/12/20/Docker技术入门与实战-第二章-Docker的核心概念和安装/&title=《Docker技术入门与实战-第二章 Docker的核心概念和安装》 — Quincey&pic=http://matlabchina.cn/img/logo.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://matlabchina.cn/2017/12/20/Docker技术入门与实战-第二章-Docker的核心概念和安装/&title=《Docker技术入门与实战-第二章 Docker的核心概念和安装》 — Quincey&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://matlabchina.cn/2017/12/20/Docker技术入门与实战-第二章-Docker的核心概念和安装/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Docker技术入门与实战-第二章 Docker的核心概念和安装》 — Quincey&url=http://matlabchina.cn/2017/12/20/Docker技术入门与实战-第二章-Docker的核心概念和安装/&via=http://matlabchina.cn" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://matlabchina.cn/2017/12/20/Docker技术入门与实战-第二章-Docker的核心概念和安装/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAPYAAAD2CAAAAADAeSUUAAADJ0lEQVR42u3aQW6DQAwF0Nz/0nRbqYJ+20QKzmNVtQTmTRa/Y/v1iq/jz/X792f3n91z/amz+5N33XxhY2NjP4R9XF7XjOsFVTfuKF7VJ2BjY2PvZichdP2CnHpvdFUDFRsbGxs7OWAkf+1FETY2Njb2hJ2EWb7oaiBhY2NjY1+zk8JN/tdqBFbflUfjDbU0bGxs7I9n513Rz//5Lf1tbGxs7A9mH4Mr2aD3jeOM2sPY2NjYi9jVkOiBJ2Wg64NHchA6fRc2Njb2anYCzsd0eo2EarA1DyTY2NjYD2fnj84XV20JJEM5eRBG242NjY29jj0pzSSHkzyc5mWsQmcbGxsbewW7+m99/u9+0gboFbMmT8bGxsbex54EyWQp12X9JJZGAz3Y2NjYi9h5jOWFp94oTx5j+ZcUrQEbGxv74exqoadcuGltTd5Cbr4RGxsbex27OuWSvHgejZPg/CcUsbGxsRexqwFwbxloUu7vNZgL3w82Njb2Q9jRqGLcTsif2SsMJeuMqmjY2NjY69h5AFTLPXngTd5ePZxgY2Njb2VXH50EzxFc1XJSb1WntTRsbGzsFexJOL1jHKc5c5RvHzY2NvZS9uTwUB3BmTR3qyWwaFnY2NjYj2X3Cjp5KX9yzMhbxXkYY2NjY38bu7rcagMgZ1RDN3k+NjY29g52XvTJtykvUc15vSMKNjY29iZ2r4Fa3aYjvq6bB9UCU7PMhI2Njf0odu/DCW/SKk6OE6PnYGNjYy9i9+JqMmrzviZx7yiFjY2N/XR23nDNl3LX/b0Gc7QF2NjY2IvYyYt7wz150b83SJR/PaefxcbGxl7Bro7O9AJj8oRJcSrKbWxsbOyHs8uVp7zsHtdw7h0JSiIWGxsbexP7KF53tRN6wzeTRnLzFIWNjY398exJ27W30Oo9k4b0DY1nbGxs7Iewe0upxklOysG9shc2Njb2Vnav6J8vqBqQ+dDP6JiBjY2N/WXsyShPvn15kajXNsDGxsb+Zna+uHywJsfMGxjY2NjYu9mTotIkWqrBUy1snW4ENjY29iJ272W9kKu2b/OlV1sR2NjY2CvYP+aDd8tjeOwBAAAAAElFTkSuQmCC" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+
+
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = 'woops, lost connnection！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = 'bow, chaka bow boom!';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>
