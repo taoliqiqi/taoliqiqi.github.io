@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://matlabchina.cn/"/>
-  <updated>2018-01-10T16:23:04.618Z</updated>
+  <updated>2018-01-13T03:13:52.676Z</updated>
   <id>http://matlabchina.cn/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>sprint 001: 图解HTTP</title>
+    <link href="http://matlabchina.cn/2018/01/13/sprint-001-%E5%9B%BE%E8%A7%A3HTTP/"/>
+    <id>http://matlabchina.cn/2018/01/13/sprint-001-图解HTTP/</id>
+    <published>2018-01-13T02:55:59.000Z</published>
+    <updated>2018-01-13T03:13:52.676Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;blockquote&gt;
+&lt;p&gt;&lt;em&gt;生是一场遇见，活是一次经验；为他人生，为自己活；生不厌世，活不弃志.&lt;/em&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h1 id=&quot;Review&quot;&gt;&lt;a href=&quot;#Review&quot; class=&quot;headerlink&quot;
+        
+      
+    
+    </summary>
+    
+    
+  </entry>
   
   <entry>
     <title>神经网络与深度学习 第二章 构造神经网络</title>
@@ -527,33 +552,6 @@
         
           &lt;h2 id=&quot;4-1-创建容器&quot;&gt;&lt;a href=&quot;#4-1-创建容器&quot; class=&quot;headerlink&quot; title=&quot;4.1 创建容器&quot;&gt;&lt;/a&gt;4.1 创建容器&lt;/h2&gt;&lt;ol&gt;
 &lt;li&gt;&lt;p&gt;创建容器：&lt;code&gt;docker
-        
-      
-    
-    </summary>
-    
-      <category term="Docker" scheme="http://matlabchina.cn/categories/Docker/"/>
-    
-    
-      <category term="Docker" scheme="http://matlabchina.cn/tags/Docker/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Docker技术入门与实战-第三章 镜像</title>
-    <link href="http://matlabchina.cn/2017/12/23/Docker%E6%8A%80%E6%9C%AF%E5%85%A5%E9%97%A8%E4%B8%8E%E5%AE%9E%E6%88%98-%E7%AC%AC%E4%B8%89%E7%AB%A0-%E9%95%9C%E5%83%8F/"/>
-    <id>http://matlabchina.cn/2017/12/23/Docker技术入门与实战-第三章-镜像/</id>
-    <published>2017-12-23T06:49:27.000Z</published>
-    <updated>2017-12-23T09:43:18.251Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;h2 id=&quot;3-1-获取镜像&quot;&gt;&lt;a href=&quot;#3-1-获取镜像&quot; class=&quot;headerlink&quot; title=&quot;3.1 获取镜像&quot;&gt;&lt;/a&gt;3.1 获取镜像&lt;/h2&gt;&lt;ul&gt;
-&lt;li&gt;指定标签：&lt;code&gt;sudo docker pull
         
       
     

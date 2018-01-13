@@ -161,6 +161,63 @@
     <ul class="post-list">
     
         <li class="post-list-item fade">
+            <article id="post-Docker技术入门与实战-第十三章-编程语言"
+  class="article-card article-type-post" itemprop="blogPost">
+
+    <div class="post-meta">
+        <time class="post-time" title="2017-12-30 20:33:45" datetime="2017-12-30T12:33:45.000Z"  itemprop="datePublished">2017-12-30</time>
+
+        
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Docker/">Docker</a></li></ul>
+
+
+
+    </div>
+
+    
+
+
+  
+    <h3 class="post-title" itemprop="name">
+      <a class="post-title-link" href="/2017/12/30/Docker技术入门与实战-第十三章-编程语言/">Docker技术入门与实战-第十三章 编程语言</a>
+    </h3>
+  
+
+
+
+
+    <div class="post-content" id="post-content" itemprop="postContent">
+
+    
+        13.1 PHP
+php是一种动态脚本语言。
+
+优点：随着网站的PV/UV的增长，需要支持更大的并发的时候，基于原有的PHP系统进行分层优化和业务整合相对容易。
+php的哲学是quick and dirty(快速有效为先)，十分适合对交付速度要求很高的场景
+
+
+使用官方镜像
+
+Dockerfile
+123456FROM php:latestCOPY myapp.php /usr/src/ap...
+    
+
+        <a href="/2017/12/30/Docker技术入门与实战-第十三章-编程语言/" class="post-more waves-effect waves-button">
+            Continue reading...
+        </a>
+    </div>
+    
+    <div class="post-footer">
+        
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Docker/">Docker</a></li></ul>
+
+    </div>
+    
+</article>
+
+        </li>
+    
+        <li class="post-list-item fade">
             <article id="post-Docker技术入门与实战-第十二章-数据库应用"
   class="article-card article-type-post" itemprop="blogPost">
 
@@ -692,59 +749,6 @@ docker ps -a
     
 
         <a href="/2017/12/23/Docker技术入门与实战-第四章-容器/" class="post-more waves-effect waves-button">
-            Continue reading...
-        </a>
-    </div>
-    
-    <div class="post-footer">
-        
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Docker/">Docker</a></li></ul>
-
-    </div>
-    
-</article>
-
-        </li>
-    
-        <li class="post-list-item fade">
-            <article id="post-Docker技术入门与实战-第三章-镜像"
-  class="article-card article-type-post" itemprop="blogPost">
-
-    <div class="post-meta">
-        <time class="post-time" title="2017-12-23 14:49:27" datetime="2017-12-23T06:49:27.000Z"  itemprop="datePublished">2017-12-23</time>
-
-        
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Docker/">Docker</a></li></ul>
-
-
-
-    </div>
-
-    
-
-
-  
-    <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/2017/12/23/Docker技术入门与实战-第三章-镜像/">Docker技术入门与实战-第三章 镜像</a>
-    </h3>
-  
-
-
-
-
-    <div class="post-content" id="post-content" itemprop="postContent">
-
-    
-        3.1 获取镜像
-指定标签：sudo docker pull ubuntu：14.04
-指定仓库：sudo docker pull dl.dockerpool.com:5000/ubuntu
-
-3.2 查看镜像信息
-列出已有镜像：sduo docker images
-为本地镜像打标签：sudo docker tag originRepoName:originTag newRepoName:n...
-    
-
-        <a href="/2017/12/23/Docker技术入门与实战-第三章-镜像/" class="post-more waves-effect waves-button">
             Continue reading...
         </a>
     </div>
