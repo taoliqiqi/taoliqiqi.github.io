@@ -161,6 +161,58 @@
     <ul class="post-list">
     
         <li class="post-list-item fade">
+            <article id="post-Docker技术入门与实战-第十四章-使用私有仓库"
+  class="article-card article-type-post" itemprop="blogPost">
+
+    <div class="post-meta">
+        <time class="post-time" title="2018-01-01 13:20:36" datetime="2018-01-01T05:20:36.000Z"  itemprop="datePublished">2018-01-01</time>
+
+        
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Docker/">Docker</a></li></ul>
+
+
+
+    </div>
+
+    
+
+
+  
+    <h3 class="post-title" itemprop="name">
+      <a class="post-title-link" href="/2018/01/01/Docker技术入门与实战-第十四章-使用私有仓库/">Docker技术入门与实战-第十四章 使用私有仓库</a>
+    </h3>
+  
+
+
+
+
+    <div class="post-content" id="post-content" itemprop="postContent">
+
+    
+        14.1 使用docker-registry
+docker-registry是一个基于Python的开源项目，可以用于构建私有的镜像注册服务
+
+14.1.1 基于容器运行
+获取并运行官方registry镜像sudo docker run -d -P registry
+指定本地路径(如：/home/user/registry-conf)下的配置文件sudo docker run -d -p 5...
+    
+
+        <a href="/2018/01/01/Docker技术入门与实战-第十四章-使用私有仓库/" class="post-more waves-effect waves-button">
+            Continue reading...
+        </a>
+    </div>
+    
+    <div class="post-footer">
+        
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Docker/">Docker</a></li></ul>
+
+    </div>
+    
+</article>
+
+        </li>
+    
+        <li class="post-list-item fade">
             <article id="post-Docker技术入门与实战-第十三章-编程语言"
   class="article-card article-type-post" itemprop="blogPost">
 
@@ -684,71 +736,6 @@ sudo docker -it -P -...
     
 
         <a href="/2017/12/23/Docker技术入门与实战-第五章-仓库/" class="post-more waves-effect waves-button">
-            Continue reading...
-        </a>
-    </div>
-    
-    <div class="post-footer">
-        
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Docker/">Docker</a></li></ul>
-
-    </div>
-    
-</article>
-
-        </li>
-    
-        <li class="post-list-item fade">
-            <article id="post-Docker技术入门与实战-第四章-容器"
-  class="article-card article-type-post" itemprop="blogPost">
-
-    <div class="post-meta">
-        <time class="post-time" title="2017-12-23 15:40:34" datetime="2017-12-23T07:40:34.000Z"  itemprop="datePublished">2017-12-23</time>
-
-        
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Docker/">Docker</a></li></ul>
-
-
-
-    </div>
-
-    
-
-
-  
-    <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/2017/12/23/Docker技术入门与实战-第四章-容器/">Docker技术入门与实战-第四章 容器</a>
-    </h3>
-  
-
-
-
-
-    <div class="post-content" id="post-content" itemprop="postContent">
-
-    
-        4.1 创建容器
-创建容器：docker create
-
-eg：docker create -it ubuntu:latest
--t：让docker分配一个伪终端并绑定到标准输出上
--i：让容器在标准输入保持打开
-
-
-
-
-查看所有容器进程
-docker ps -a
-
-
-创建并启动容器
-
-启动容器：docker start ubuntu
-创建并启动容器: docker run ubuntu
- ...
-    
-
-        <a href="/2017/12/23/Docker技术入门与实战-第四章-容器/" class="post-more waves-effect waves-button">
             Continue reading...
         </a>
     </div>

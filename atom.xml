@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://matlabchina.cn/"/>
-  <updated>2018-01-13T03:13:52.676Z</updated>
+  <updated>2018-01-20T05:01:53.696Z</updated>
   <id>http://matlabchina.cn/</id>
   
   <author>
@@ -15,6 +15,32 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>sprint-001-b1 python script for Jumper</title>
+    <link href="http://matlabchina.cn/2018/01/13/sprint-001-b1-python-script-for-Jumper/"/>
+    <id>http://matlabchina.cn/2018/01/13/sprint-001-b1-python-script-for-Jumper/</id>
+    <published>2018-01-13T05:08:49.000Z</published>
+    <updated>2018-01-20T05:01:53.696Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h2 id=&quot;Steps&quot;&gt;&lt;a href=&quot;#Steps&quot; class=&quot;headerlink&quot; title=&quot;Steps&quot;&gt;&lt;/a&gt;Steps&lt;/h2&gt;&lt;h3 id=&quot;Connect-the-Android-Device-with-ADB&quot;&gt;&lt;a
+        
+      
+    
+    </summary>
+    
+      <category term="python" scheme="http://matlabchina.cn/categories/python/"/>
+    
+    
+      <category term="Jumper" scheme="http://matlabchina.cn/tags/Jumper/"/>
+    
+  </entry>
   
   <entry>
     <title>sprint 001: 图解HTTP</title>
@@ -46,7 +72,7 @@
     <link href="http://matlabchina.cn/2018/01/09/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%B8%8E%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-%E7%AC%AC%E4%BA%8C%E7%AB%A0-%E6%9E%84%E9%80%A0%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/"/>
     <id>http://matlabchina.cn/2018/01/09/神经网络与深度学习-第二章-构造神经网络/</id>
     <published>2018-01-09T13:14:52.000Z</published>
-    <updated>2018-01-10T16:23:04.618Z</updated>
+    <updated>2018-01-20T08:10:02.934Z</updated>
     
     <summary type="html">
     
@@ -54,7 +80,9 @@
       
         
         
-          &lt;h2 id=&quot;2-1-构造一个神经元&quot;&gt;&lt;a href=&quot;#2-1-构造一个神经元&quot; class=&quot;headerlink&quot; title=&quot;2.1 构造一个神经元&quot;&gt;&lt;/a&gt;2.1 构造一个神经元&lt;/h2&gt;&lt;p&gt;1.&lt;br&gt;    &lt;img
+          &lt;h2 id=&quot;2-1-构造一个神经元&quot;&gt;&lt;a href=&quot;#2-1-构造一个神经元&quot; class=&quot;headerlink&quot; title=&quot;2.1 构造一个神经元&quot;&gt;&lt;/a&gt;2.1 构造一个神经元&lt;/h2&gt;&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;神经网络基本组成：&lt;/p&gt;
+&lt;p&gt; &lt;img
         
       
     
@@ -525,33 +553,6 @@
 &lt;li&gt;注意：注册服务器(Registery)是存放仓库的具体服务器&lt;ul&gt;
 &lt;li&gt;例如：仓库地址”dl.dockerpool.com/ubuntu”，其中“dl.dockerpool.com”就是Registery地址，“ubuntu”是仓库名&lt;/li&gt;
 &lt;/ul&gt;
-        
-      
-    
-    </summary>
-    
-      <category term="Docker" scheme="http://matlabchina.cn/categories/Docker/"/>
-    
-    
-      <category term="Docker" scheme="http://matlabchina.cn/tags/Docker/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Docker技术入门与实战-第四章 容器</title>
-    <link href="http://matlabchina.cn/2017/12/23/Docker%E6%8A%80%E6%9C%AF%E5%85%A5%E9%97%A8%E4%B8%8E%E5%AE%9E%E6%88%98-%E7%AC%AC%E5%9B%9B%E7%AB%A0-%E5%AE%B9%E5%99%A8/"/>
-    <id>http://matlabchina.cn/2017/12/23/Docker技术入门与实战-第四章-容器/</id>
-    <published>2017-12-23T07:40:34.000Z</published>
-    <updated>2017-12-23T09:46:36.826Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;h2 id=&quot;4-1-创建容器&quot;&gt;&lt;a href=&quot;#4-1-创建容器&quot; class=&quot;headerlink&quot; title=&quot;4.1 创建容器&quot;&gt;&lt;/a&gt;4.1 创建容器&lt;/h2&gt;&lt;ol&gt;
-&lt;li&gt;&lt;p&gt;创建容器：&lt;code&gt;docker
         
       
     

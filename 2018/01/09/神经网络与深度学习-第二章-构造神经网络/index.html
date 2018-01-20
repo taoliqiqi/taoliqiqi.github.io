@@ -20,20 +20,31 @@
     
     
     <meta name="keywords" content="神经网络与深度学习">
-    <meta name="description" content="2.1 构造一个神经元1.      净输入：输入函数的输出 输出函数： 受到收到实打实啊实打实    $T(n) = \Theta(n)$  123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263import java">
+    <meta name="description" content="2.1 构造一个神经元 神经网络基本组成：    信号处理：可以简单的描述为:接受输入信号并汇总输出 $s=p{1}w{1}+p{2}w{2}+p{3}w{3}+\cdot \cdot \cdot +p{n}w{n}+b$ $b$代表神经元本身的特性     传递函数：将信号处理的结果进行格式化输出    2.3 感知机学习 感知机 感知机的学习规则也是一种训练方法，目的是修改神经网络的权值和偏置">
 <meta name="keywords" content="神经网络与深度学习">
 <meta property="og:type" content="article">
 <meta property="og:title" content="神经网络与深度学习 第二章 构造神经网络">
 <meta property="og:url" content="http://matlabchina.cn/2018/01/09/神经网络与深度学习-第二章-构造神经网络/index.html">
 <meta property="og:site_name" content="Quincey">
-<meta property="og:description" content="2.1 构造一个神经元1.      净输入：输入函数的输出 输出函数： 受到收到实打实啊实打实    $T(n) = \Theta(n)$  123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263import java">
+<meta property="og:description" content="2.1 构造一个神经元 神经网络基本组成：    信号处理：可以简单的描述为:接受输入信号并汇总输出 $s=p{1}w{1}+p{2}w{2}+p{3}w{3}+\cdot \cdot \cdot +p{n}w{n}+b$ $b$代表神经元本身的特性     传递函数：将信号处理的结果进行格式化输出    2.3 感知机学习 感知机 感知机的学习规则也是一种训练方法，目的是修改神经网络的权值和偏置">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="http://cdn.matlabchina.cn/NNandDL/NN-ch2.1-1.PNG">
-<meta property="og:image" content="http://www.plantuml.com/plantuml/svg/SyfFqhLppCbCJbMmKiX8pSd91m00">
-<meta property="og:updated_time" content="2018-01-10T16:23:04.618Z">
+<meta property="og:image" content="http://cdn.matlabchina.cn/NNandDL/NN-ch2.4-1.PNG">
+<meta property="og:image" content="http://cdn.matlabchina.cn/NNandDL/NN-ch2.4-2.PNG">
+<meta property="og:image" content="http://www.plantuml.com/plantuml/svg/POrB2i9044JtSufU6iGBp4e82DcuyWBZs4AWxPR-hCIxHuU1IAnTFHvLH_EY7WzAbOePd35K-9NWamFC_0mVXHchpyAMOIrTOVJfQsMuILm9EvRmVuYgeXlMBax1RJF3z5kxubhOxgYhTTcG9kwX5gf1nN4tfFS2">
+<meta property="og:image" content="http://cdn.matlabchina.cn/NNandDL/NN-ch2.4-4.png">
+<meta property="og:image" content="http://cdn.matlabchina.cn/NNandDL/NN-ch2.4-5.PNG">
+<meta property="og:image" content="http://cdn.matlabchina.cn/NNandDL/NN-ch2.5-1.PNG">
+<meta property="og:image" content="http://cdn.matlabchina.cn/NNandDL/NN-ch2.5-2.PNG">
+<meta property="og:image" content="http://cdn.matlabchina.cn/NNandDL/NN-ch2.5-3.PNG">
+<meta property="og:image" content="http://cdn.matlabchina.cn/NNandDL/NN-ch2.5-4.PNG">
+<meta property="og:image" content="http://cdn.matlabchina.cn/NNandDL/NN-ch2.5-5.PNG">
+<meta property="og:image" content="http://cdn.matlabchina.cn/NNandDL/NN-ch2.5-6.PNG">
+<meta property="og:image" content="http://cdn.matlabchina.cn/NNandDL/NN-ch2.5-7.PNG">
+<meta property="og:updated_time" content="2018-01-20T08:10:02.934Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="神经网络与深度学习 第二章 构造神经网络">
-<meta name="twitter:description" content="2.1 构造一个神经元1.      净输入：输入函数的输出 输出函数： 受到收到实打实啊实打实    $T(n) = \Theta(n)$  123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263import java">
+<meta name="twitter:description" content="2.1 构造一个神经元 神经网络基本组成：    信号处理：可以简单的描述为:接受输入信号并汇总输出 $s=p{1}w{1}+p{2}w{2}+p{3}w{3}+\cdot \cdot \cdot +p{n}w{n}+b$ $b$代表神经元本身的特性     传递函数：将信号处理的结果进行格式化输出    2.3 感知机学习 感知机 感知机的学习规则也是一种训练方法，目的是修改神经网络的权值和偏置">
 <meta name="twitter:image" content="http://cdn.matlabchina.cn/NNandDL/NN-ch2.1-1.PNG">
     
         <link rel="alternate" type="application/atom+xml" title="Quincey" href="/atom.xml">
@@ -176,7 +187,7 @@
     <aside class="post-widget">
         <nav class="post-toc-wrap" id="post-toc">
             <h4>TOC</h4>
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#2-1-构造一个神经元"><span class="post-toc-number">1.</span> <span class="post-toc-text">2.1 构造一个神经元</span></a></li></ol>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#2-1-构造一个神经元"><span class="post-toc-number">1.</span> <span class="post-toc-text">2.1 构造一个神经元</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#2-3-感知机学习"><span class="post-toc-number">2.</span> <span class="post-toc-text">2.3 感知机学习</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#2-4-用代码实现一个感知机"><span class="post-toc-number">3.</span> <span class="post-toc-text">2.4 用代码实现一个感知机</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#2-5-构造一个神经网络"><span class="post-toc-number">4.</span> <span class="post-toc-text">2.5 构造一个神经网络</span></a></li></ol>
         </nav>
     </aside>
     
@@ -201,24 +212,167 @@
 
         </div>
         <div class="post-content" id="post-content" itemprop="postContent">
-            <h2 id="2-1-构造一个神经元"><a href="#2-1-构造一个神经元" class="headerlink" title="2.1 构造一个神经元"></a>2.1 构造一个神经元</h2><p>1.<br>    <img src="http://cdn.matlabchina.cn/NNandDL/NN-ch2.1-1.PNG" alt="ch2.1-1"></p>
-<ol>
-<li>净输入：输入函数的输出<ul>
-<li>输出函数：</li>
-<li>受到收到实打实啊实打实</li>
+            <h2 id="2-1-构造一个神经元"><a href="#2-1-构造一个神经元" class="headerlink" title="2.1 构造一个神经元"></a>2.1 构造一个神经元</h2><ol>
+<li><p>神经网络基本组成：</p>
+<p> <img src="http://cdn.matlabchina.cn/NNandDL/NN-ch2.1-1.PNG" alt="ch2.1-1"></p>
+<ul>
+<li>信号处理：可以简单的描述为:接受输入信号并汇总输出<ul>
+<li>$s=p<em>{1}w</em>{1}+p<em>{2}w</em>{2}+p<em>{3}w</em>{3}+\cdot \cdot \cdot +p<em>{n}w</em>{n}+b$<ul>
+<li>$b$代表神经元本身的特性</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>传递函数：将信号处理的结果进行格式化输出</li>
 </ul>
 </li>
 </ol>
-<p>$T(n) = \Theta(n)$</p>
-<img src="http://www.plantuml.com/plantuml/svg/SyfFqhLppCbCJbMmKiX8pSd91m00">
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.Arrays;</span><br><span class="line"><span class="keyword">import</span> org.neuroph.core.NeuralNetwork;</span><br><span class="line"><span class="keyword">import</span> org.neuroph.core.data.DataSet;</span><br><span class="line"><span class="keyword">import</span> org.neuroph.core.data.DataSetRow;</span><br><span class="line"><span class="keyword">import</span> org.neuroph.nnet.Perceptron;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">NeurophLearning</span> </span>&#123;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="comment">/**</span></span><br><span class="line"><span class="comment">         * test AND</span></span><br><span class="line"><span class="comment">         */</span></span><br><span class="line">        <span class="comment">//set up AND training data set</span></span><br><span class="line">        DataSet trainAndSet = <span class="keyword">new</span> DataSet(<span class="number">2</span>, <span class="number">1</span>);</span><br><span class="line">        trainAndSet.addRow(<span class="keyword">new</span> DataSetRow(<span class="keyword">new</span> <span class="keyword">double</span>[]&#123;<span class="number">0</span>, <span class="number">1</span>&#125;, <span class="keyword">new</span> <span class="keyword">double</span>[]&#123;<span class="number">0</span>&#125;));</span><br><span class="line">        trainAndSet.addRow(<span class="keyword">new</span> DataSetRow(<span class="keyword">new</span> <span class="keyword">double</span>[]&#123;<span class="number">1</span>, <span class="number">0</span>&#125;, <span class="keyword">new</span> <span class="keyword">double</span>[]&#123;<span class="number">0</span>&#125;));</span><br><span class="line">        trainAndSet.addRow(<span class="keyword">new</span> DataSetRow(<span class="keyword">new</span> <span class="keyword">double</span>[]&#123;<span class="number">1</span>, <span class="number">1</span>&#125;, <span class="keyword">new</span> <span class="keyword">double</span>[]&#123;<span class="number">1</span>&#125;));</span><br><span class="line">        trainAndSet.addRow(<span class="keyword">new</span> DataSetRow(<span class="keyword">new</span> <span class="keyword">double</span>[]&#123;<span class="number">0</span>, <span class="number">0</span>&#125;, <span class="keyword">new</span> <span class="keyword">double</span>[]&#123;<span class="number">0</span>&#125;));</span><br><span class="line"></span><br><span class="line">        <span class="comment">// set up perceptron</span></span><br><span class="line">        NeuralNetwork myPerceptron = <span class="keyword">new</span> Perceptron(<span class="number">2</span>, <span class="number">1</span>);</span><br><span class="line">        <span class="comment">//start to learn</span></span><br><span class="line">        System.out.print(<span class="string">"start training AND: "</span>);</span><br><span class="line">        myPerceptron.learn(trainAndSet);</span><br><span class="line">        myPerceptron.save(<span class="string">"AND_learn_result.nnet"</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//add new rows for testing</span></span><br><span class="line">        trainAndSet.addRow(<span class="keyword">new</span> DataSetRow(<span class="keyword">new</span> <span class="keyword">double</span>[]&#123;<span class="number">2</span>, <span class="number">3</span>&#125;, <span class="keyword">new</span> <span class="keyword">double</span>[]&#123;<span class="number">0</span>&#125;));</span><br><span class="line">        testNeuralNetwork(myPerceptron, trainAndSet);</span><br><span class="line"></span><br><span class="line">        <span class="comment">/**</span></span><br><span class="line"><span class="comment">         * test XOR</span></span><br><span class="line"><span class="comment">         * can't finish, cause the perceptron can't process the</span></span><br><span class="line"><span class="comment">         */</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">//set up XOR training data set</span></span><br><span class="line">        DataSet trainXorSet = <span class="keyword">new</span> DataSet(<span class="number">2</span>, <span class="number">1</span>);</span><br><span class="line">        trainXorSet.addRow(<span class="keyword">new</span> DataSetRow(<span class="keyword">new</span> <span class="keyword">double</span>[]&#123;<span class="number">0</span>, <span class="number">0</span>&#125;, <span class="keyword">new</span> <span class="keyword">double</span>[]&#123;<span class="number">0</span>&#125;));</span><br><span class="line">        trainXorSet.addRow(<span class="keyword">new</span> DataSetRow(<span class="keyword">new</span> <span class="keyword">double</span>[]&#123;<span class="number">0</span>, <span class="number">1</span>&#125;, <span class="keyword">new</span> <span class="keyword">double</span>[]&#123;<span class="number">1</span>&#125;));</span><br><span class="line">        trainXorSet.addRow(<span class="keyword">new</span> DataSetRow(<span class="keyword">new</span> <span class="keyword">double</span>[]&#123;<span class="number">1</span>, <span class="number">0</span>&#125;, <span class="keyword">new</span> <span class="keyword">double</span>[]&#123;<span class="number">1</span>&#125;));</span><br><span class="line">        trainXorSet.addRow(<span class="keyword">new</span> DataSetRow(<span class="keyword">new</span> <span class="keyword">double</span>[]&#123;<span class="number">1</span>, <span class="number">1</span>&#125;, <span class="keyword">new</span> <span class="keyword">double</span>[]&#123;<span class="number">0</span>&#125;));</span><br><span class="line"></span><br><span class="line">        <span class="comment">// add training set to perceptron</span></span><br><span class="line">        System.out.print(<span class="string">"start training XOR: "</span>);</span><br><span class="line">        myPerceptron.learn(trainXorSet);</span><br><span class="line">        myPerceptron.save(<span class="string">"XOR_learn_result.nnet"</span>);</span><br><span class="line">        testNeuralNetwork(myPerceptron, trainXorSet);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">testNeuralNetwork</span><span class="params">(NeuralNetwork nnet, DataSet tset)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (DataSetRow dataRow : tset.getRows()) &#123;</span><br><span class="line"></span><br><span class="line">            nnet.setInput(dataRow.getInput());</span><br><span class="line">            nnet.calculate();</span><br><span class="line">            <span class="keyword">double</span>[] networkOutput = nnet.getOutput();</span><br><span class="line">            System.out.print(<span class="string">"Input: "</span> + Arrays.toString(dataRow.getInput()));</span><br><span class="line">            System.out.println(<span class="string">" Output: "</span> + Arrays.toString(networkOutput));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="2-3-感知机学习"><a href="#2-3-感知机学习" class="headerlink" title="2.3 感知机学习"></a>2.3 感知机学习</h2><ol>
+<li>感知机<ul>
+<li>感知机的学习规则也是一种训练方法，目的是修改神经网络的权值和偏置<ul>
+<li>$$ w<em>{new}=w</em>{old}+ep $$</li>
+<li>$$ b<em>{new}=b</em>{old}+e $$</li>
+<li>$e$表示误差，$e=t-a$，$t$为期望输出，$a$为实际输出</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<h2 id="2-4-用代码实现一个感知机"><a href="#2-4-用代码实现一个感知机" class="headerlink" title="2.4 用代码实现一个感知机"></a>2.4 用代码实现一个感知机</h2><ol>
+<li><p>Neuroph：一个基于Java的神经网络框架</p>
+<ul>
+<li><p>1.1 Neuroph基本框架</p>
+<p>  <img src="http://cdn.matlabchina.cn/NNandDL/NN-ch2.4-1.PNG" alt="ch2.4-1"></p>
+<ul>
+<li>由两部分组成：一部分是由基于Java开发的API组成；另一部分是图形工具，能直接通过简单的图形化工具构造一个神经网络</li>
+</ul>
+</li>
+<li><p>1.2 Neuroph API的基本框架</p>
+<p>  <img src="http://cdn.matlabchina.cn/NNandDL/NN-ch2.4-2.PNG" alt="ch2.4-2"></p>
+<ul>
+<li>Neuroph Java API主要分成三块：<ul>
+<li>NeuralNetWork</li>
+<li>LearningRule</li>
+<li>Layer</li>
+</ul>
+</li>
+<li>工作原理：<ul>
+<li>(1) 神经网络和学习规则对应，神经网络按照一定的学习规则训练相应的数据集</li>
+<li>(2) 神经网络由基础的层(Layer)组成，按照结构分为输入层、隐藏层和输出层</li>
+<li>(3) 神经网络的每层由最基础的神经元组成</li>
+<li>(4) 训练规则包含一个训练集，允许有多个训练集，训练集由单个训练元素组成</li>
+</ul>
+</li>
+<li><p>Neuroph中的Neuron类，它表示单个神经元的构造</p>
+  <img src="http://www.plantuml.com/plantuml/svg/POrB2i9044JtSufU6iGBp4e82DcuyWBZs4AWxPR-hCIxHuU1IAnTFHvLH_EY7WzAbOePd35K-9NWamFC_0mVXHchpyAMOIrTOVJfQsMuILm9EvRmVuYgeXlMBax1RJF3z5kxubhOxgYhTTcG9kwX5gf1nN4tfFS2">
+<ul>
+<li>inputConnections：表示神经元的输入连接，一个神经元可以有多个输入</li>
+<li>inputFunction: 表示输入函数，通常选择加权求和</li>
+<li>netInput：表示净输入,输入函数的输出</li>
+<li>output：表示神经元的输入</li>
+<li>transferFunction：表示传输函数</li>
+<li>error: 神经元的误差</li>
+</ul>
+<p><img src="http://cdn.matlabchina.cn/NNandDL/NN-ch2.4-4.png" alt="ch2.4-4"></p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>基于Neuroph构造一个感知机（神经元）</p>
+<p> <img src="http://cdn.matlabchina.cn/NNandDL/NN-ch2.4-5.PNG" alt="ch2.4-5"></p>
+</li>
+<li><p>基于Neuroph的感知机学习一个简单逻辑运算</p>
+ <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.Arrays;</span><br><span class="line"><span class="keyword">import</span> org.neuroph.core.NeuralNetwork;</span><br><span class="line"><span class="keyword">import</span> org.neuroph.core.data.DataSet;</span><br><span class="line"><span class="keyword">import</span> org.neuroph.core.data.DataSetRow;</span><br><span class="line"><span class="keyword">import</span> org.neuroph.nnet.Perceptron;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">NeurophLearning</span> </span>&#123;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="comment">/**</span></span><br><span class="line"><span class="comment">        * test AND</span></span><br><span class="line"><span class="comment">        */</span></span><br><span class="line">        <span class="comment">//set up AND training data set</span></span><br><span class="line">        DataSet trainAndSet = <span class="keyword">new</span> DataSet(<span class="number">2</span>, <span class="number">1</span>);</span><br><span class="line">        trainAndSet.addRow(<span class="keyword">new</span> DataSetRow(<span class="keyword">new</span> <span class="keyword">double</span>[]&#123;<span class="number">0</span>, <span class="number">1</span>&#125;, <span class="keyword">new</span> <span class="keyword">double</span>[]&#123;<span class="number">0</span>&#125;));</span><br><span class="line">        trainAndSet.addRow(<span class="keyword">new</span> DataSetRow(<span class="keyword">new</span> <span class="keyword">double</span>[]&#123;<span class="number">1</span>, <span class="number">0</span>&#125;, <span class="keyword">new</span> <span class="keyword">double</span>[]&#123;<span class="number">0</span>&#125;));</span><br><span class="line">        trainAndSet.addRow(<span class="keyword">new</span> DataSetRow(<span class="keyword">new</span> <span class="keyword">double</span>[]&#123;<span class="number">1</span>, <span class="number">1</span>&#125;, <span class="keyword">new</span> <span class="keyword">double</span>[]&#123;<span class="number">1</span>&#125;));</span><br><span class="line">        trainAndSet.addRow(<span class="keyword">new</span> DataSetRow(<span class="keyword">new</span> <span class="keyword">double</span>[]&#123;<span class="number">0</span>, <span class="number">0</span>&#125;, <span class="keyword">new</span> <span class="keyword">double</span>[]&#123;<span class="number">0</span>&#125;));</span><br><span class="line"></span><br><span class="line">        <span class="comment">// set up perceptron</span></span><br><span class="line">        NeuralNetwork myPerceptron = <span class="keyword">new</span> Perceptron(<span class="number">2</span>, <span class="number">1</span>);</span><br><span class="line">        <span class="comment">//start to learn</span></span><br><span class="line">        System.out.print(<span class="string">"start training AND: "</span>);</span><br><span class="line">        myPerceptron.learn(trainAndSet);</span><br><span class="line">        myPerceptron.save(<span class="string">"AND_learn_result.nnet"</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//add new rows for testing</span></span><br><span class="line">        trainAndSet.addRow(<span class="keyword">new</span> DataSetRow(<span class="keyword">new</span> <span class="keyword">double</span>[]&#123;<span class="number">2</span>, <span class="number">3</span>&#125;, <span class="keyword">new</span> <span class="keyword">double</span>[]&#123;<span class="number">0</span>&#125;));</span><br><span class="line">        testNeuralNetwork(myPerceptron, trainAndSet);</span><br><span class="line"></span><br><span class="line">        <span class="comment">/**</span></span><br><span class="line"><span class="comment">        * test XOR</span></span><br><span class="line"><span class="comment">        * can't finish, cause the perceptron can't process the</span></span><br><span class="line"><span class="comment">        */</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">//set up XOR training data set</span></span><br><span class="line">        DataSet trainXorSet = <span class="keyword">new</span> DataSet(<span class="number">2</span>, <span class="number">1</span>);</span><br><span class="line">        trainXorSet.addRow(<span class="keyword">new</span> DataSetRow(<span class="keyword">new</span> <span class="keyword">double</span>[]&#123;<span class="number">0</span>, <span class="number">0</span>&#125;, <span class="keyword">new</span> <span class="keyword">double</span>[]&#123;<span class="number">0</span>&#125;));</span><br><span class="line">        trainXorSet.addRow(<span class="keyword">new</span> DataSetRow(<span class="keyword">new</span> <span class="keyword">double</span>[]&#123;<span class="number">0</span>, <span class="number">1</span>&#125;, <span class="keyword">new</span> <span class="keyword">double</span>[]&#123;<span class="number">1</span>&#125;));</span><br><span class="line">        trainXorSet.addRow(<span class="keyword">new</span> DataSetRow(<span class="keyword">new</span> <span class="keyword">double</span>[]&#123;<span class="number">1</span>, <span class="number">0</span>&#125;, <span class="keyword">new</span> <span class="keyword">double</span>[]&#123;<span class="number">1</span>&#125;));</span><br><span class="line">        trainXorSet.addRow(<span class="keyword">new</span> DataSetRow(<span class="keyword">new</span> <span class="keyword">double</span>[]&#123;<span class="number">1</span>, <span class="number">1</span>&#125;, <span class="keyword">new</span> <span class="keyword">double</span>[]&#123;<span class="number">0</span>&#125;));</span><br><span class="line"></span><br><span class="line">        <span class="comment">// add training set to perceptron</span></span><br><span class="line">        System.out.print(<span class="string">"start training XOR: "</span>);</span><br><span class="line">        myPerceptron.learn(trainXorSet);</span><br><span class="line">        myPerceptron.save(<span class="string">"XOR_learn_result.nnet"</span>);</span><br><span class="line">        testNeuralNetwork(myPerceptron, trainXorSet);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">testNeuralNetwork</span><span class="params">(NeuralNetwork nnet, DataSet tset)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (DataSetRow dataRow : tset.getRows()) &#123;</span><br><span class="line"></span><br><span class="line">            nnet.setInput(dataRow.getInput());</span><br><span class="line">            nnet.calculate();</span><br><span class="line">            <span class="keyword">double</span>[] networkOutput = nnet.getOutput();</span><br><span class="line">            System.out.print(<span class="string">"Input: "</span> + Arrays.toString(dataRow.getInput()));</span><br><span class="line">            System.out.println(<span class="string">" Output: "</span> + Arrays.toString(networkOutput));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>Output：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">start training AND: Input: [0.0, 1.0] Output: [0.0]</span><br><span class="line">Input: [1.0, 0.0] Output: [0.0]</span><br><span class="line">Input: [1.0, 1.0] Output: [1.0]</span><br><span class="line">Input: [0.0, 0.0] Output: [0.0]</span><br><span class="line">Input: [2.0, 3.0] Output: [1.0]</span><br><span class="line">start training XOR: Disconnected from the target VM, address: &apos;127.0.0.1:49507&apos;, transport: &apos;socket&apos;</span><br><span class="line"></span><br><span class="line">Process finished with exit code 1</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>可以看到网络已经正确的记忆了AND逻辑，并成功的预测了Input= [2.0, 3.0] 时的结果</p>
+</li>
+<li>但是当使用该感知机对XOR逻辑进行学习时，程序却未能成功输出正确结果</li>
+</ul>
+</li>
+</ol>
+<h2 id="2-5-构造一个神经网络"><a href="#2-5-构造一个神经网络" class="headerlink" title="2.5 构造一个神经网络"></a>2.5 构造一个神经网络</h2><ol>
+<li>单个神经元有不同的作用，当这些不同种类的神经元依据某种结构联系起来时，就成为神经网络</li>
+<li><p>线性不可分</p>
+<p> <img src="http://cdn.matlabchina.cn/NNandDL/NN-ch2.5-1.PNG" alt="ch2.5-1"></p>
+<ul>
+<li>可以看到AND逻辑和OR逻辑都可以用一条直线区分两类事物，而XOR逻辑无法用一条直线进行区分</li>
+</ul>
+</li>
+<li><p>解决XOR逻辑问题–多层神经网络</p>
+<ul>
+<li>3.1 在神经网络上多加一层，并且利用“后向传播”学习方法，可以解决XOR问题</li>
+<li><p>3.2 神经网络分层的概念</p>
+<ul>
+<li>(1) 感知器：一种双层神经网络模型：一层为输入层（即：输入刺激，也就是输入节点不参与计算）；另一层具有计算单元，可以通过监督学习建立模式判别的能力</li>
+<li>(2) 多层神经网络–前馈神经网络<ul>
+<li>特点：前馈网络的各神经元接受前一级输入，并输出到下一级，无反馈</li>
+<li>节点：输入节点、输出节点</li>
+</ul>
+</li>
+<li>(3) 计算单元：可以有任意个输入，但是只有一个输出，输出可耦合到任意多额其他输入节点</li>
+<li><p>(4) 层：可见层–输入和输出节点；隐层–中间层</p>
+<p>  <img src="http://cdn.matlabchina.cn/NNandDL/NN-ch2.5-2.PNG" alt="ch2.5-2"></p>
+</li>
+</ul>
+</li>
+<li><p>3.3 解决XOR逻辑问题:</p>
+<ul>
+<li><p>构造如下图所示的两层神经网络：</p>
+<p>  <img src="http://cdn.matlabchina.cn/NNandDL/NN-ch2.5-3.PNG" alt="ch2.5-3"></p>
+<ul>
+<li><p>第一层上侧的神经元</p>
+<ul>
+<li>净输入为：$2p<em>{1}+2p</em>{2}-1$</li>
+<li><p>净输入与$p<em>{1}$和$p</em>{2}$的关系为：</p>
+<p>  <img src="http://cdn.matlabchina.cn/NNandDL/NN-ch2.5-4.PNG" alt="ch2.5-4"></p>
+</li>
+<li><p>该结果亦可表示为：</p>
+<p>  <img src="http://cdn.matlabchina.cn/NNandDL/NN-ch2.5-5.PNG" alt="ch2.5-5"></p>
+</li>
+</ul>
+</li>
+<li><p>第一层下侧的神经元</p>
+<ul>
+<li>净输入为：$-2p<em>{1}-2p</em>{2}+3$</li>
+<li><p>净输入与$p<em>{1}$和$p</em>{2}$的关系为：</p>
+<p>  <img src="http://cdn.matlabchina.cn/NNandDL/NN-ch2.5-6.PNG" alt="ch2.5-6"></p>
+</li>
+<li><p>该结果亦可表示为：</p>
+<p>  <img src="http://cdn.matlabchina.cn/NNandDL/NN-ch2.5-7.PNG" alt="ch2.5-7"></p>
+</li>
+</ul>
+</li>
+<li>最后，由输出神经元对两个神经元的数据进行整合，这里使用AND逻辑操作，得到如下图所示的正确的XOR运算结果<pre><code>![ch2.5-8](http://cdn.matlabchina.cn/NNandDL/NN-ch2.5-8.PNG)
+</code></pre></li>
+</ul>
+</li>
+<li><p>3.4 XOR问题的代码实现</p>
+<ul>
+<li><p>用Neuroph实现多层感知机，也就是多层神经网络，只需要调用MultiLayerPerceptron类，并设定好层数和每层的神经元数量就能实现一个多层神经网络</p>
+  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">NeurophLearning</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="comment">/**</span></span><br><span class="line"><span class="comment">        * test XOR with multi layer perceptron</span></span><br><span class="line"><span class="comment">        * info: multi layer perceptron have multi rules to sort the output</span></span><br><span class="line"><span class="comment">        */</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">/**</span></span><br><span class="line"><span class="comment">        * define multiLayerPerceptron</span></span><br><span class="line"><span class="comment">        * transmission function: TransferFunctionType.TANH</span></span><br><span class="line"><span class="comment">        * input neuron num: 2</span></span><br><span class="line"><span class="comment">        * hidden neuron num: 3</span></span><br><span class="line"><span class="comment">        * output neuron num: 1</span></span><br><span class="line"><span class="comment">        */</span></span><br><span class="line">        MultiLayerPerceptron multiLayerPerceptron = <span class="keyword">new</span> MultiLayerPerceptron(TransferFunctionType.TANH, <span class="number">2</span>, <span class="number">30</span>, <span class="number">1</span>);</span><br><span class="line">        System.out.print(<span class="string">"start training XOR with multi layer: "</span>);</span><br><span class="line">        multiLayerPerceptron.learn(trainXorSet);</span><br><span class="line">        multiLayerPerceptron.save(<span class="string">"Multi_Layer_XOR_learn_result.nnet"</span>);</span><br><span class="line">        testNeuralNetwork(multiLayerPerceptron, trainXorSet);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">testNeuralNetwork</span><span class="params">(NeuralNetwork nnet, DataSet tset)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (DataSetRow dataRow : tset.getRows()) &#123;</span><br><span class="line"></span><br><span class="line">            nnet.setInput(dataRow.getInput());</span><br><span class="line">            nnet.calculate();</span><br><span class="line">            <span class="keyword">double</span>[] networkOutput = nnet.getOutput();</span><br><span class="line">            System.out.print(<span class="string">"Input: "</span> + Arrays.toString(dataRow.getInput()));</span><br><span class="line">            System.out.println(<span class="string">" Output: "</span> + Arrays.toString(networkOutput));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>OutPut：</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">start training XOR with multi layer: Input: [0.0, 0.0] Output: [0.054516757895040555]</span><br><span class="line">Input: [0.0, 1.0] Output: [0.8398140650473199]</span><br><span class="line">Input: [1.0, 0.0] Output: [0.8300494421275931]</span><br><span class="line">Input: [1.0, 1.0] Output: [-0.043845105754237494]</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+
         </div>
 
         <blockquote class="post-copyright">
     <div class="content">
         
 <span class="post-time">
-    Last updated: <time datetime="2018-01-10T16:23:04.618Z" itemprop="dateUpdated">2018-01-11 00:23:04</time>
+    Last updated: <time datetime="2018-01-20T08:10:02.934Z" itemprop="dateUpdated">2018-01-20 16:10:02</time>
 </span><br>
 
 
