@@ -20,13 +20,13 @@
     
     
     <meta name="keywords" content="神经网络与深度学习">
-    <meta name="description" content="2.1 构造一个神经元 神经网络基本组成：    信号处理：可以简单的描述为:接受输入信号并汇总输出 $s=p{1}w{1}+p{2}w{2}+p{3}w{3}+…+p{n}w{n}+b$ $b$代表神经元本身的特性     传递函数：将信号处理的结果进行格式化输出    2.3 感知机学习 感知机 感知机的学习规则也是一种训练方法，目的是修改神经网络的权值和偏置 $w_{new}=w_{old}">
+    <meta name="description" content="2.1 构造一个神经元 神经网络基本组成：    信号处理：可以简单的描述为:接受输入信号并汇总输出 $s=p_{1}w_{1}+p_{2}w_{2}+p_{3}w_{3}+…+p_{n}w_{n}+b$ $b$代表神经元本身的特性     传递函数：将信号处理的结果进行格式化输出    2.3 感知机学习 感知机 感知机的学习规则也是一种训练方法，目的是修改神经网络的权值和偏置 $w_{new}">
 <meta name="keywords" content="神经网络与深度学习">
 <meta property="og:type" content="article">
 <meta property="og:title" content="神经网络与深度学习 第二章 构造神经网络">
 <meta property="og:url" content="http://matlabchina.cn/2018/01/09/神经网络与深度学习-第二章-构造神经网络/index.html">
 <meta property="og:site_name" content="Quincey">
-<meta property="og:description" content="2.1 构造一个神经元 神经网络基本组成：    信号处理：可以简单的描述为:接受输入信号并汇总输出 $s=p{1}w{1}+p{2}w{2}+p{3}w{3}+…+p{n}w{n}+b$ $b$代表神经元本身的特性     传递函数：将信号处理的结果进行格式化输出    2.3 感知机学习 感知机 感知机的学习规则也是一种训练方法，目的是修改神经网络的权值和偏置 $w_{new}=w_{old}">
+<meta property="og:description" content="2.1 构造一个神经元 神经网络基本组成：    信号处理：可以简单的描述为:接受输入信号并汇总输出 $s=p_{1}w_{1}+p_{2}w_{2}+p_{3}w_{3}+…+p_{n}w_{n}+b$ $b$代表神经元本身的特性     传递函数：将信号处理的结果进行格式化输出    2.3 感知机学习 感知机 感知机的学习规则也是一种训练方法，目的是修改神经网络的权值和偏置 $w_{new}">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="http://cdn.matlabchina.cn/NNandDL/NN-ch2.1-1.PNG">
 <meta property="og:image" content="http://cdn.matlabchina.cn/NNandDL/NN-ch2.4-1.PNG">
@@ -42,10 +42,10 @@
 <meta property="og:image" content="http://cdn.matlabchina.cn/NNandDL/NN-ch2.5-6.PNG">
 <meta property="og:image" content="http://cdn.matlabchina.cn/NNandDL/NN-ch2.5-7.PNG">
 <meta property="og:image" content="http://cdn.matlabchina.cn/NNandDL/NN-ch2.5-8.PNG">
-<meta property="og:updated_time" content="2018-01-20T09:10:14.315Z">
+<meta property="og:updated_time" content="2018-01-20T09:12:33.305Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="神经网络与深度学习 第二章 构造神经网络">
-<meta name="twitter:description" content="2.1 构造一个神经元 神经网络基本组成：    信号处理：可以简单的描述为:接受输入信号并汇总输出 $s=p{1}w{1}+p{2}w{2}+p{3}w{3}+…+p{n}w{n}+b$ $b$代表神经元本身的特性     传递函数：将信号处理的结果进行格式化输出    2.3 感知机学习 感知机 感知机的学习规则也是一种训练方法，目的是修改神经网络的权值和偏置 $w_{new}=w_{old}">
+<meta name="twitter:description" content="2.1 构造一个神经元 神经网络基本组成：    信号处理：可以简单的描述为:接受输入信号并汇总输出 $s=p_{1}w_{1}+p_{2}w_{2}+p_{3}w_{3}+…+p_{n}w_{n}+b$ $b$代表神经元本身的特性     传递函数：将信号处理的结果进行格式化输出    2.3 感知机学习 感知机 感知机的学习规则也是一种训练方法，目的是修改神经网络的权值和偏置 $w_{new}">
 <meta name="twitter:image" content="http://cdn.matlabchina.cn/NNandDL/NN-ch2.1-1.PNG">
     
         <link rel="alternate" type="application/atom+xml" title="Quincey" href="/atom.xml">
@@ -218,7 +218,7 @@
 <p> <img src="http://cdn.matlabchina.cn/NNandDL/NN-ch2.1-1.PNG" alt="ch2.1-1"></p>
 <ul>
 <li>信号处理：可以简单的描述为:接受输入信号并汇总输出<ul>
-<li>$s=p<em>{1}w</em>{1}+p<em>{2}w</em>{2}+p<em>{3}w</em>{3}+…+p<em>{n}w</em>{n}+b$<ul>
+<li>$s=p_{1}w_{1}+p_{2}w_{2}+p_{3}w_{3}+…+p_{n}w_{n}+b$<ul>
 <li>$b$代表神经元本身的特性</li>
 </ul>
 </li>
@@ -327,8 +327,8 @@
 <ul>
 <li><p>第一层上侧的神经元</p>
 <ul>
-<li>净输入为：$2p<em>{1}+2p</em>{2}-1$</li>
-<li><p>净输入与$p<em>{1}$和$p</em>{2}$的关系为：</p>
+<li>净输入为：$2p_{1}+2p_{2}-1$</li>
+<li><p>净输入与$p_{1}$和$p_{2}$的关系为：</p>
 <p>  <img src="http://cdn.matlabchina.cn/NNandDL/NN-ch2.5-4.PNG" alt="ch2.5-4"></p>
 </li>
 <li><p>该结果亦可表示为：</p>
@@ -338,8 +338,8 @@
 </li>
 <li><p>第一层下侧的神经元</p>
 <ul>
-<li>净输入为：$-2p<em>{1}-2p</em>{2}+3$</li>
-<li><p>净输入与$p<em>{1}$和$p</em>{2}$的关系为：</p>
+<li>净输入为：$-2p_{1}-2p_{2}+3$</li>
+<li><p>净输入与$p_{1}$和$p_{2}$的关系为：</p>
 <p>  <img src="http://cdn.matlabchina.cn/NNandDL/NN-ch2.5-6.PNG" alt="ch2.5-6"></p>
 </li>
 <li><p>该结果亦可表示为：</p>
@@ -374,7 +374,7 @@
     <div class="content">
         
 <span class="post-time">
-    Last updated: <time datetime="2018-01-20T09:10:14.315Z" itemprop="dateUpdated">2018-01-20 17:10:14</time>
+    Last updated: <time datetime="2018-01-20T09:12:33.305Z" itemprop="dateUpdated">2018-01-20 17:12:33</time>
 </span><br>
 
 
