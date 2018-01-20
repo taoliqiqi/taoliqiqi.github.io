@@ -161,55 +161,6 @@
     <ul class="post-list">
     
         <li class="post-list-item fade">
-            <article id="post-Docker技术入门与实战-第十六章-在公有云上使用Docker"
-  class="article-card article-type-post" itemprop="blogPost">
-
-    <div class="post-meta">
-        <time class="post-time" title="2018-01-01 21:01:52" datetime="2018-01-01T13:01:52.000Z"  itemprop="datePublished">2018-01-01</time>
-
-        
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Docker/">Docker</a></li></ul>
-
-
-
-    </div>
-
-    
-
-
-  
-    <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/2018/01/01/Docker技术入门与实战-第十六章-在公有云上使用Docker/">Docker技术入门与实战-第十六章 在公有云上使用Docker</a>
-    </h3>
-  
-
-
-
-
-    <div class="post-content" id="post-content" itemprop="postContent">
-
-    
-        16.1 公有云上安装Docker
-安装前检查内核
- 123456789101112131415161718192021222324252627282930313233343536373839404142434445464748felix@felix-ubuntu17:~/docker/docker-registry$ lxc-checkconfigKernel configuration ...
-    
-
-        <a href="/2018/01/01/Docker技术入门与实战-第十六章-在公有云上使用Docker/" class="post-more waves-effect waves-button">
-            Continue reading...
-        </a>
-    </div>
-    
-    <div class="post-footer">
-        
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Docker/">Docker</a></li></ul>
-
-    </div>
-    
-</article>
-
-        </li>
-    
-        <li class="post-list-item fade">
             <article id="post-Docker技术入门与实战-第十五章-构建Docker容器集群"
   class="article-card article-type-post" itemprop="blogPost">
 
@@ -700,6 +651,81 @@ sudo docker -it -P -...
     
 
         <a href="/2017/12/26/Docker技术入门与实战-第七章-网络基础配置/" class="post-more waves-effect waves-button">
+            Continue reading...
+        </a>
+    </div>
+    
+    <div class="post-footer">
+        
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Docker/">Docker</a></li></ul>
+
+    </div>
+    
+</article>
+
+        </li>
+    
+        <li class="post-list-item fade">
+            <article id="post-Docker技术入门与实战-第六章-数据管理"
+  class="article-card article-type-post" itemprop="blogPost">
+
+    <div class="post-meta">
+        <time class="post-time" title="2017-12-26 14:06:06" datetime="2017-12-26T06:06:06.000Z"  itemprop="datePublished">2017-12-26</time>
+
+        
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Docker/">Docker</a></li></ul>
+
+
+
+    </div>
+
+    
+
+
+  
+    <h3 class="post-title" itemprop="name">
+      <a class="post-title-link" href="/2017/12/26/Docker技术入门与实战-第六章-数据管理/">Docker技术入门与实战-第六章 数据管理</a>
+    </h3>
+  
+
+
+
+
+    <div class="post-content" id="post-content" itemprop="postContent">
+
+    
+        
+
+6.1 数据卷
+6.2 数据卷容器
+6.3 利用数据卷容器迁移数据
+
+
+
+容器中管理数据的方式有两种：
+数据卷
+数据卷容器
+
+
+
+6.1 数据卷
+数据卷特性：
+
+数据卷可以在容器之间共享和重用
+对数据卷的修改会立马生效
+对数据卷的更新，不会影响镜像
+卷会一直存在，直到没有容器使用它
+数据卷的使用，类似于Linux下对目录或文件进行mount操作
+
+
+
+
+在容器内创建一个数据卷
+
+使用-v...
+    
+
+        <a href="/2017/12/26/Docker技术入门与实战-第六章-数据管理/" class="post-more waves-effect waves-button">
             Continue reading...
         </a>
     </div>

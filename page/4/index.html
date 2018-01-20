@@ -161,62 +161,6 @@
     <ul class="post-list">
     
         <li class="post-list-item fade">
-            <article id="post-Thinking-in-Java-第十章-内部类"
-  class="article-card article-type-post" itemprop="blogPost">
-
-    <div class="post-meta">
-        <time class="post-time" title="2017-12-13 09:49:44" datetime="2017-12-13T01:49:44.000Z"  itemprop="datePublished">2017-12-13</time>
-
-        
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/ThinkinJava/">ThinkinJava</a></li></ul>
-
-
-
-    </div>
-
-    
-
-
-  
-    <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/2017/12/13/Thinking-in-Java-第十章-内部类/">Thinking in Java 第十章 内部类</a>
-    </h3>
-  
-
-
-
-
-    <div class="post-content" id="post-content" itemprop="postContent">
-
-    
-        
-内部类允许吧一些逻辑相关联的类组织在一起，并控制位于内部的类的可见性
-内部类了解外部类，并能与之通信；而且用内部类写出的代码更加优雅而清晰
-
-10.1 创建内部类
-内部类：把类的定义放在另一个类的内部
-
-10.2 链接到外部类
-当生成一个内部类对象时，此对象与制造它的外围对象就有一种联系，所以它能访问其外围类对象的所有成员
-当通过某个外围类的对象创建了一个内部类对象时，此内部类对象必定会秘...
-    
-
-        <a href="/2017/12/13/Thinking-in-Java-第十章-内部类/" class="post-more waves-effect waves-button">
-            Continue reading...
-        </a>
-    </div>
-    
-    <div class="post-footer">
-        
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ThinkinJava/">ThinkinJava</a></li></ul>
-
-    </div>
-    
-</article>
-
-        </li>
-    
-        <li class="post-list-item fade">
             <article id="post-Thinking-in-java-第九章-接口"
   class="article-card article-type-post" itemprop="blogPost">
 
@@ -722,6 +666,61 @@ equals()：默认的行为是比较引用，所以对自定义的类的对象进
     <div class="post-footer">
         
 	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java运算符/">Java运算符</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ThinkinJava/">ThinkinJava</a></li></ul>
+
+    </div>
+    
+</article>
+
+        </li>
+    
+        <li class="post-list-item fade">
+            <article id="post-Value取值为NULL的解决方案"
+  class="article-card article-type-post" itemprop="blogPost">
+
+    <div class="post-meta">
+        <time class="post-time" title="2017-11-21 00:02:11" datetime="2017-11-20T16:02:11.000Z"  itemprop="datePublished">2017-11-21</time>
+
+        
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Spring/">Spring</a></li></ul>
+
+
+
+    </div>
+
+    
+
+
+  
+    <h3 class="post-title" itemprop="name">
+      <a class="post-title-link" href="/2017/11/21/Value取值为NULL的解决方案/">Spring注解@Value取值为NULL的解决方案</a>
+    </h3>
+  
+
+
+
+
+    <div class="post-content" id="post-content" itemprop="postContent">
+
+    
+        在spring mvc架构中，如果希望在程序中直接使用properties中定义的配置值，通常使用一下方式来获取：
+@Value(&quot;${tag}&quot;)
+private String tagValue;
+但是取值时，有时这个tagvalue为NULL，可能原因有：
+
+使用static或final修饰了tagValue，如下：
+
+
+private static String t...
+    
+
+        <a href="/2017/11/21/Value取值为NULL的解决方案/" class="post-more waves-effect waves-button">
+            Continue reading...
+        </a>
+    </div>
+    
+    <div class="post-footer">
+        
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Annotation/">@Annotation</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Spring/">Spring</a></li></ul>
 
     </div>
     
