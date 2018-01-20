@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://matlabchina.cn/"/>
-  <updated>2018-01-20T05:01:53.696Z</updated>
+  <updated>2018-01-20T12:51:00.649Z</updated>
   <id>http://matlabchina.cn/</id>
   
   <author>
@@ -15,6 +15,32 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>神经网络与深度学习 第三章 深度学习是个什么东西</title>
+    <link href="http://matlabchina.cn/2018/01/20/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%B8%8E%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-%E7%AC%AC%E4%B8%89%E7%AB%A0-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E6%98%AF%E4%B8%AA%E4%BB%80%E4%B9%88%E4%B8%9C%E8%A5%BF/"/>
+    <id>http://matlabchina.cn/2018/01/20/神经网络与深度学习-第三章-深度学习是个什么东西/</id>
+    <published>2018-01-20T10:45:33.000Z</published>
+    <updated>2018-01-20T12:51:00.649Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h2 id=&quot;3-1-机器学习&quot;&gt;&lt;a href=&quot;#3-1-机器学习&quot; class=&quot;headerlink&quot; title=&quot;3.1 机器学习&quot;&gt;&lt;/a&gt;3.1
+        
+      
+    
+    </summary>
+    
+      <category term="神经网络和深度学习" scheme="http://matlabchina.cn/categories/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E5%92%8C%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
+    
+    
+      <category term="神经网络与深度学习" scheme="http://matlabchina.cn/tags/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%B8%8E%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
+    
+  </entry>
   
   <entry>
     <title>sprint-001-b1 python script for Jumper</title>
@@ -524,35 +550,6 @@
 &lt;li&gt;&lt;a href=&quot;#61-数据卷&quot;&gt;6.1 数据卷&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&quot;#62-数据卷容器&quot;&gt;6.2 数据卷容器&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&quot;#63-利用数据卷容器迁移数据&quot;&gt;6.3
-        
-      
-    
-    </summary>
-    
-      <category term="Docker" scheme="http://matlabchina.cn/categories/Docker/"/>
-    
-    
-      <category term="Docker" scheme="http://matlabchina.cn/tags/Docker/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Docker技术入门与实战-第五章 仓库</title>
-    <link href="http://matlabchina.cn/2017/12/23/Docker%E6%8A%80%E6%9C%AF%E5%85%A5%E9%97%A8%E4%B8%8E%E5%AE%9E%E6%88%98-%E7%AC%AC%E4%BA%94%E7%AB%A0-%E4%BB%93%E5%BA%93/"/>
-    <id>http://matlabchina.cn/2017/12/23/Docker技术入门与实战-第五章-仓库/</id>
-    <published>2017-12-23T09:54:36.000Z</published>
-    <updated>2017-12-23T10:15:40.737Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;ul&gt;
-&lt;li&gt;注意：注册服务器(Registery)是存放仓库的具体服务器&lt;ul&gt;
-&lt;li&gt;例如：仓库地址”dl.dockerpool.com/ubuntu”，其中“dl.dockerpool.com”就是Registery地址，“ubuntu”是仓库名&lt;/li&gt;
-&lt;/ul&gt;
         
       
     
