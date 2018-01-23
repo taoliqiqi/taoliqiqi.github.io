@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    <title>Thinking in Java 第十五章 泛型 | Quincey | mind in mind</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="ThinkingInJava">
+    <meta name="description" content="15.1 与C++的比较 了解C++模板的某些方面，有助于理解泛型的基础 了解java中泛型的局限性，也就是他的边界。只有了解了边界所在才能够称为程序高手（原因是不必在死胡同打转）  15.2 简单泛型泛型出现的原因之一就是为了创造容器类，泛型出现之前都是利用Object来存储不同的对象，当使用的时候在进行强制转换，这种做法是不安全的，无法保证强制转换的时候不出错。通常情况下，我们的容器中只存一种">
+<meta name="keywords" content="ThinkingInJava">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Thinking in Java 第十五章 泛型">
+<meta property="og:url" content="http://matlabchina.cn/2018/01/23/Thinking-in-Java-第十五章-泛型/index.html">
+<meta property="og:site_name" content="Quincey">
+<meta property="og:description" content="15.1 与C++的比较 了解C++模板的某些方面，有助于理解泛型的基础 了解java中泛型的局限性，也就是他的边界。只有了解了边界所在才能够称为程序高手（原因是不必在死胡同打转）  15.2 简单泛型泛型出现的原因之一就是为了创造容器类，泛型出现之前都是利用Object来存储不同的对象，当使用的时候在进行强制转换，这种做法是不安全的，无法保证强制转换的时候不出错。通常情况下，我们的容器中只存一种">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="http://matlabchina.cn/2018/01/23/Thinking-in-Java-第十五章-泛型/img/ThinkInJava-ch15.8-1.PNG">
+<meta property="og:updated_time" content="2018-01-23T07:26:11.787Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Thinking in Java 第十五章 泛型">
+<meta name="twitter:description" content="15.1 与C++的比较 了解C++模板的某些方面，有助于理解泛型的基础 了解java中泛型的局限性，也就是他的边界。只有了解了边界所在才能够称为程序高手（原因是不必在死胡同打转）  15.2 简单泛型泛型出现的原因之一就是为了创造容器类，泛型出现之前都是利用Object来存储不同的对象，当使用的时候在进行强制转换，这种做法是不安全的，无法保证强制转换的时候不出错。通常情况下，我们的容器中只存一种">
+<meta name="twitter:image" content="http://matlabchina.cn/2018/01/23/Thinking-in-Java-第十五章-泛型/img/ThinkInJava-ch15.8-1.PNG">
+    
+        <link rel="alternate" type="application/atom+xml" title="Quincey" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/logo.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">Quincey Svng</h5>
+          <a href="mailto:salsa2010@foxmail.com" title="salsa2010@foxmail.com" class="mail">salsa2010@foxmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                Quincey Svng
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/SuperFireFoxy" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="http://www.weibo.com/salsa2010" target="_blank" >
+                <i class="icon icon-lg icon-weibo"></i>
+                Weibo
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://www.facebook.com/felix.song.79" target="_blank" >
+                <i class="icon icon-lg icon-link"></i>
+                facebook
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">Thinking in Java 第十五章 泛型</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Search">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">Thinking in Java 第十五章 泛型</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2018-01-23T02:04:08.000Z" itemprop="datePublished" class="page-time">
+  2018-01-23
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/ThinkingInJava/">ThinkingInJava</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#15-1-与C-的比较"><span class="post-toc-number">1.</span> <span class="post-toc-text">15.1 与C++的比较</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#15-2-简单泛型"><span class="post-toc-number">2.</span> <span class="post-toc-text">15.2 简单泛型</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#15-3-泛型接口"><span class="post-toc-number">3.</span> <span class="post-toc-text">15.3 泛型接口</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#15-4-泛型方法"><span class="post-toc-number">4.</span> <span class="post-toc-text">15.4 泛型方法</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#杠杆利用类型参数推断"><span class="post-toc-number">4.1.</span> <span class="post-toc-text">杠杆利用类型参数推断</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#显式的类型说明"><span class="post-toc-number">4.2.</span> <span class="post-toc-text">显式的类型说明</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#可变参数与泛型方法"><span class="post-toc-number">4.3.</span> <span class="post-toc-text">可变参数与泛型方法</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#用于Gnerator的泛型方法"><span class="post-toc-number">4.4.</span> <span class="post-toc-text">用于Gnerator的泛型方法</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#一个通用的Generator"><span class="post-toc-number">4.5.</span> <span class="post-toc-text">一个通用的Generator</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#简化元组的使用"><span class="post-toc-number">4.6.</span> <span class="post-toc-text">简化元组的使用</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#一个Set实用工具"><span class="post-toc-number">4.7.</span> <span class="post-toc-text">一个Set实用工具</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#15-5-匿名内部类"><span class="post-toc-number">5.</span> <span class="post-toc-text">15.5 匿名内部类</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#15-6-构建复杂模型"><span class="post-toc-number">6.</span> <span class="post-toc-text">15.6 构建复杂模型</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#15-7-擦除的神秘之处"><span class="post-toc-number">7.</span> <span class="post-toc-text">15.7 擦除的神秘之处</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#C-的方式"><span class="post-toc-number">7.1.</span> <span class="post-toc-text">C++的方式</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#java的方式"><span class="post-toc-number">7.2.</span> <span class="post-toc-text">java的方式</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#迁移兼容性"><span class="post-toc-number">7.3.</span> <span class="post-toc-text">迁移兼容性</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#擦除的问题"><span class="post-toc-number">7.4.</span> <span class="post-toc-text">擦除的问题</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#边界处的动作"><span class="post-toc-number">7.5.</span> <span class="post-toc-text">边界处的动作</span></a></li></ol></li></ol>
+        </nav>
+    </aside>
+    
+<article id="post-Thinking-in-Java-第十五章-泛型"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">Thinking in Java 第十五章 泛型</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2018-01-23 10:04:08" datetime="2018-01-23T02:04:08.000Z"  itemprop="datePublished">2018-01-23</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/ThinkingInJava/">ThinkingInJava</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h2 id="15-1-与C-的比较"><a href="#15-1-与C-的比较" class="headerlink" title="15.1 与C++的比较"></a>15.1 与C++的比较</h2><ol>
+<li>了解C++模板的某些方面，有助于理解泛型的基础</li>
+<li>了解java中泛型的局限性，也就是他的边界。只有了解了边界所在才能够称为程序高手（原因是不必在死胡同打转）</li>
+</ol>
+<h2 id="15-2-简单泛型"><a href="#15-2-简单泛型" class="headerlink" title="15.2 简单泛型"></a>15.2 简单泛型</h2><p>泛型出现的原因之一就是<strong>为了创造容器类</strong>，泛型出现之前都是利用Object来存储不同的对象，当使用的时候在进行强制转换，这种做法是不安全的，无法保证强制转换的时候不出错。通常情况下，我们的容器中只存一种元素，泛型的主要目的之一就是指定容器要持有什么类型的对象，并且由编译器来保证类型的正确性。</p>
+<p><strong>当使用的时候我们倾向于先不指定什么类型，然后稍后再决定使用什么类型，要达到这个目的，可以适用类型参数</strong>：需要使用的类型参数放到类的后边用尖括号括起来，再类的内部定义的时候我们可以用类型参数T来替代，当实例化这个类的时候，在用实际的类型来替代。代码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Holder3</span>&lt;<span class="title">T</span>&gt; </span>&#123;</span><br><span class="line">     <span class="keyword">private</span> T a;</span><br><span class="line">     <span class="function"><span class="keyword">public</span> <span class="title">Holder3</span><span class="params">(T a)</span></span>&#123;<span class="keyword">this</span>.a = a ;&#125;</span><br><span class="line">     <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">set</span><span class="params">(T a )</span></span>&#123; <span class="keyword">this</span>.a = a ;&#125;</span><br><span class="line">     <span class="function"><span class="keyword">public</span> T <span class="title">get</span><span class="params">()</span></span>&#123;<span class="keyword">return</span> <span class="keyword">this</span> .a ;&#125;</span><br><span class="line">     <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">          Holder3&lt;Automobile&gt; holder3 = <span class="keyword">new</span> Holder3&lt;Automobile&gt;(<span class="keyword">new</span> Automobile());</span><br><span class="line">           holder3.set( <span class="keyword">new</span> Automobile());</span><br><span class="line">          Automobile automobile = holder3 .get();</span><br><span class="line">     &#125;</span><br><span class="line">     <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">Automobile</span></span>&#123; &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol>
+<li>一个元组类库</li>
+</ol>
+<p>元组：元组就是将一组对象直接打包存储进一个单一对象，这个容器只允许存，不允许放入新的对象（这个概念也成为数据传送对象或信使）。可以解决想在一个return语句中返回多个对象的问题。泛型可以让我们很容易的创建元组下面是利用泛型实现元组的一个实例：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TwoTuple</span>&lt;<span class="title">A</span>,<span class="title">B</span>&gt; </span>&#123;</span><br><span class="line">     <span class="keyword">public</span> <span class="keyword">final</span> A first ;</span><br><span class="line">     <span class="keyword">public</span> <span class="keyword">final</span> B second ;</span><br><span class="line">     <span class="function"><span class="keyword">public</span> <span class="title">TwoTuple</span><span class="params">(A first,B second)</span></span>&#123;</span><br><span class="line">           <span class="keyword">this</span>.first = first ;</span><br><span class="line">           <span class="keyword">this</span>.second = second ;</span><br><span class="line">     &#125;</span><br><span class="line">     <span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123; <span class="keyword">return</span> first +<span class="string">","</span> +second ;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol>
+<li>一个堆栈类</li>
+</ol>
+<p>不用LinkedList，自己实现的内部链式存储机制：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LinkedStack</span>&lt;<span class="title">T</span>&gt; </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">Node</span>&lt;<span class="title">U</span>&gt; </span>&#123;</span><br><span class="line">        U item;</span><br><span class="line">        Node&lt;U&gt; next;</span><br><span class="line">        Node() &#123;</span><br><span class="line">            item = <span class="keyword">null</span>;</span><br><span class="line">            next = <span class="keyword">null</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        Node(U item, Node&lt;U&gt; next) &#123;</span><br><span class="line">            <span class="keyword">this</span>.item = item;</span><br><span class="line">            <span class="keyword">this</span>.next = next;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="function"><span class="keyword">boolean</span> <span class="title">end</span><span class="params">()</span> </span>&#123;</span><br><span class="line">            <span class="keyword">return</span> item == <span class="keyword">null</span> &amp;&amp; next == <span class="keyword">null</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> Node&lt;T&gt; top = <span class="keyword">new</span> Node&lt;T&gt;();</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">push</span><span class="params">(T item)</span> </span>&#123;</span><br><span class="line">        top = <span class="keyword">new</span> Node&lt;T&gt;(item, top);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> T <span class="title">pop</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        T result = top.item;</span><br><span class="line">        <span class="keyword">if</span> (!top.end()) &#123;</span><br><span class="line">            top = top.next;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol>
+<li>另一个例子RandomList：假设我们需要一个持有特定类型对象的列表，每次调用其上的select()方法时，它可以随机地选取一个元素：</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">RandomList</span>&lt;<span class="title">T</span>&gt; </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> ArrayList&lt;T&gt; storage = <span class="keyword">new</span> ArrayList&lt;T&gt;();</span><br><span class="line">    <span class="keyword">private</span> Random rand = <span class="keyword">new</span> Random(<span class="number">47</span>);</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">add</span><span class="params">(T t)</span> </span>&#123;</span><br><span class="line">        storage.add(t);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> T <span class="title">select</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> storage.get(rand.nextInt()storage.size());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="15-3-泛型接口"><a href="#15-3-泛型接口" class="headerlink" title="15.3 泛型接口"></a>15.3 泛型接口</h2><p>接口使用泛型和类使用泛型没有什么不同。下面展示一个泛型接口的应用：生成器</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Generator</span>&lt;<span class="title">T</span>&gt; </span>&#123;</span><br><span class="line">    <span class="function">T <span class="title">next</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Fibonacci</span> <span class="keyword">implements</span> <span class="title">Generator</span>&lt;<span class="title">Integer</span>&gt;</span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> count = <span class="number">0</span>;</span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">int</span> <span class="title">fib</span><span class="params">(<span class="keyword">int</span> n )</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (n &lt; <span class="number">2</span>)&#123;<span class="keyword">return</span> <span class="number">1</span>;&#125;</span><br><span class="line">        <span class="keyword">return</span> fib(n -<span class="number">2</span>)+fib(n -<span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Integer <span class="title">next</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> fib(count ++);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Fibonacci fibonacci = <span class="keyword">new</span> Fibonacci();</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>;i &lt;<span class="number">100</span>;i ++)&#123;</span><br><span class="line">            System. out.print(fibonacci .next()+<span class="string">" "</span> );</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>泛型中，基本类型无法作为类型参数。不过Java SE5具备了自动打包和自动拆包的功能，可以很方便地在基本类型和其相应的包装器类型之间进行转换</p>
+</blockquote>
+<h2 id="15-4-泛型方法"><a href="#15-4-泛型方法" class="headerlink" title="15.4 泛型方法"></a>15.4 泛型方法</h2><ol>
+<li>可以在类中包含参数化方法，而这个方法所在的类可以是泛型类，也可以不是泛型类。也就是说，是否拥有泛型方法，与其所在的类是否是泛型没有关系。</li>
+<li>指导原则：如果使用泛型方法可以取代将整个类泛型化，那么就应该只使用泛型方法，</li>
+<li>对于一个static方法而言，无法访问泛型类的类型参数，所以如果static方法需要使用泛型能力，就必须使其成为泛型方法。</li>
+<li>要定义泛型方法，只需将泛型参数列表置于返回值之前：</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> &lt;T&gt; <span class="function"><span class="keyword">void</span> <span class="title">f</span><span class="params">(T x)</span> </span>&#123;</span><br><span class="line">    System.out.println(x.getClass().getName());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>如果调用f()时传入的是基本类型，自动打包机制就会介入其中，将基本类型的值包装为对应的对象。</p>
+<h3 id="杠杆利用类型参数推断"><a href="#杠杆利用类型参数推断" class="headerlink" title="杠杆利用类型参数推断"></a>杠杆利用类型参数推断</h3><p>当使用泛型类时，必须在创建对象时指定类型参数的值，而使用泛型方法的时候，通常不必指定参数类型。因为编译器会为我们找出具体的类型，这称为类型参数推断</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">New</span> </span>&#123;</span><br><span class="line">  <span class="keyword">public</span> <span class="keyword">static</span> &lt;K,V&gt; <span class="function">Map&lt;K,V&gt; <span class="title">map</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> HashMap&lt;K,V&gt;();</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">public</span> <span class="keyword">static</span> &lt;T&gt; <span class="function">List&lt;T&gt; <span class="title">list</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> ArrayList&lt;T&gt;();</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">public</span> <span class="keyword">static</span> &lt;T&gt; <span class="function">LinkedList&lt;T&gt; <span class="title">lList</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> LinkedList&lt;T&gt;();</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">public</span> <span class="keyword">static</span> &lt;T&gt; <span class="function">Set&lt;T&gt; <span class="title">set</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> HashSet&lt;T&gt;();</span><br><span class="line">  &#125;	</span><br><span class="line">  <span class="keyword">public</span> <span class="keyword">static</span> &lt;T&gt; <span class="function">Queue&lt;T&gt; <span class="title">queue</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> LinkedList&lt;T&gt;();</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// Examples:</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">    <span class="comment">//根据被赋值的类型推断含税的类型参数</span></span><br><span class="line">    Map&lt;String, List&lt;String&gt;&gt; sls = New.map();</span><br><span class="line">    List&lt;String&gt; ls = New.list();</span><br><span class="line">    LinkedList&lt;String&gt; lls = New.lList();</span><br><span class="line">    Set&lt;String&gt; ss = New.set();</span><br><span class="line">    Queue&lt;String&gt; qs = New.queue();</span><br><span class="line">  &#125;</span><br><span class="line">&#125; <span class="comment">///:~</span></span><br></pre></td></tr></table></figure>
+<h3 id="显式的类型说明"><a href="#显式的类型说明" class="headerlink" title="显式的类型说明"></a>显式的类型说明</h3><p>在泛型方法中，可以显式地指明类型，不过这种语法很少使用，要显式地指明类型，必须要在点操作符与方法名之间插入尖括号，然后把类型置于尖括号内，</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ExplicitTypeSpecification</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">f</span><span class="params">(Map&lt;Person, List&lt;Pet&gt;&gt; petPeople)</span> </span>&#123;&#125;</span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">    f(New.&lt;Person, List&lt;Pet&gt;&gt;map());</span><br><span class="line">  &#125;</span><br><span class="line">&#125; <span class="comment">///:~</span></span><br></pre></td></tr></table></figure>
+<h3 id="可变参数与泛型方法"><a href="#可变参数与泛型方法" class="headerlink" title="可变参数与泛型方法"></a>可变参数与泛型方法</h3><p>泛型方法与可变参数列表可以很好的共存：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">GenericVarargs</span> </span>&#123;</span><br><span class="line">  <span class="comment">//泛型方法 &amp; 可变参数列表</span></span><br><span class="line">  <span class="keyword">public</span> <span class="keyword">static</span> &lt;T&gt; <span class="function">List&lt;T&gt; <span class="title">makeList</span><span class="params">(T... args)</span> </span>&#123;</span><br><span class="line">    List&lt;T&gt; result = <span class="keyword">new</span> ArrayList&lt;T&gt;();</span><br><span class="line">    <span class="keyword">for</span>(T item : args)</span><br><span class="line">      result.add(item);</span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">    List&lt;String&gt; ls = makeList(<span class="string">"A"</span>);</span><br><span class="line">    System.out.println(ls);</span><br><span class="line">    ls = makeList(<span class="string">"A"</span>, <span class="string">"B"</span>, <span class="string">"C"</span>);</span><br><span class="line">    System.out.println(ls);</span><br><span class="line">    ls = makeList(<span class="string">"ABCDEFFHIJKLMNOPQRSTUVWXYZ"</span>.split(<span class="string">""</span>));</span><br><span class="line">    System.out.println(ls);</span><br><span class="line">  &#125;</span><br><span class="line">&#125; <span class="comment">/* Output:</span></span><br><span class="line"><span class="comment">[A]</span></span><br><span class="line"><span class="comment">[A, B, C]</span></span><br><span class="line"><span class="comment">[, A, B, C, D, E, F, F, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z]</span></span><br><span class="line"><span class="comment">*/</span><span class="comment">//:~</span></span><br></pre></td></tr></table></figure>
+<h3 id="用于Gnerator的泛型方法"><a href="#用于Gnerator的泛型方法" class="headerlink" title="用于Gnerator的泛型方法"></a>用于Gnerator的泛型方法</h3><p>利用生成器，可以很方便地填充一个Collection，而泛型化这种操作是具有实际操作意义的</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Generators</span> </span>&#123;</span><br><span class="line">  <span class="keyword">public</span> <span class="keyword">static</span> &lt;T&gt; Collection&lt;T&gt;</span><br><span class="line">  fill(Collection&lt;T&gt; coll, Generator&lt;T&gt; gen, <span class="keyword">int</span> n) &#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++)</span><br><span class="line">      coll.add(gen.next());</span><br><span class="line">    <span class="keyword">return</span> coll;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 调用fill()方法时，由ArrayList&lt;Coffee&gt;()，推断出类型参数T为Coffee类型</span></span><br><span class="line">    Collection&lt;Coffee&gt; coffee = fill(</span><br><span class="line">      <span class="keyword">new</span> ArrayList&lt;Coffee&gt;(), <span class="keyword">new</span> CoffeeGenerator(), <span class="number">4</span>);</span><br><span class="line">    <span class="keyword">for</span>(Coffee c : coffee)</span><br><span class="line">      System.out.println(c);</span><br><span class="line">    Collection&lt;Integer&gt; fnumbers = fill(</span><br><span class="line">      <span class="keyword">new</span> ArrayList&lt;Integer&gt;(), <span class="keyword">new</span> Fibonacci(), <span class="number">12</span>);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i : fnumbers)</span><br><span class="line">      System.out.print(i + <span class="string">", "</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125; <span class="comment">/* Output:</span></span><br><span class="line"><span class="comment">Americano 0</span></span><br><span class="line"><span class="comment">Latte 1</span></span><br><span class="line"><span class="comment">Americano 2</span></span><br><span class="line"><span class="comment">Mocha 3</span></span><br><span class="line"><span class="comment">1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144,</span></span><br><span class="line"><span class="comment">*/</span><span class="comment">//:~</span></span><br></pre></td></tr></table></figure>
+<h3 id="一个通用的Generator"><a href="#一个通用的Generator" class="headerlink" title="一个通用的Generator"></a>一个通用的Generator</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BasicGenerator</span>&lt;<span class="title">T</span>&gt; <span class="keyword">implements</span> <span class="title">Generator</span>&lt;<span class="title">T</span>&gt; </span>&#123;</span><br><span class="line">  <span class="keyword">private</span> Class&lt;T&gt; type;</span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="title">BasicGenerator</span><span class="params">(Class&lt;T&gt; type)</span></span>&#123; <span class="keyword">this</span>.type = type; &#125;</span><br><span class="line">  <span class="function"><span class="keyword">public</span> T <span class="title">next</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">      <span class="comment">// Assumes type is a public class:</span></span><br><span class="line">      <span class="keyword">return</span> type.newInstance();</span><br><span class="line">    &#125; <span class="keyword">catch</span>(Exception e) &#123;</span><br><span class="line">      <span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException(e);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// Produce a Default generator given a type token:</span></span><br><span class="line">  <span class="keyword">public</span> <span class="keyword">static</span> &lt;T&gt; <span class="function">Generator&lt;T&gt; <span class="title">create</span><span class="params">(Class&lt;T&gt; type)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> BasicGenerator&lt;T&gt;(type);</span><br><span class="line">  &#125;</span><br><span class="line">&#125; <span class="comment">///:~</span></span><br></pre></td></tr></table></figure>
+<p>使用该BasicGenerator类的类必须具备以下两个特点：</p>
+<ol>
+<li>它必须声明为public，因为BasicGenerator与处理的类在不同的包里</li>
+<li>必须具有默认的构造器（无参构造器）。要创建这样的BasicGenerator对象，只需要调用create()方法执行BasicGenerator.create(MyType.class)，而不必执行麻烦的new BasicGenerator((MyType))(MyType.class)</li>
+</ol>
+<h3 id="简化元组的使用"><a href="#简化元组的使用" class="headerlink" title="简化元组的使用"></a>简化元组的使用</h3><p>利用参数推断，和static方法，重新实现元组工具</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TwoTuple</span>&lt;<span class="title">A</span>,<span class="title">B</span>&gt; </span>&#123;</span><br><span class="line">  <span class="keyword">public</span> <span class="keyword">final</span> A first;</span><br><span class="line">  <span class="keyword">public</span> <span class="keyword">final</span> B second;</span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="title">TwoTuple</span><span class="params">(A a, B b)</span> </span>&#123; first = a; second = b; &#125;</span><br><span class="line">  <span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">"("</span> + first + <span class="string">", "</span> + second + <span class="string">")"</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125; <span class="comment">///:~</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Tuple</span> </span>&#123;</span><br><span class="line">  <span class="keyword">public</span> <span class="keyword">static</span> &lt;A,B&gt; <span class="function">TwoTuple&lt;A,B&gt; <span class="title">tuple</span><span class="params">(A a, B b)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> TwoTuple&lt;A,B&gt;(a, b);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">public</span> <span class="keyword">static</span> &lt;A,B,C&gt; ThreeTuple&lt;A,B,C&gt;</span><br><span class="line">  tuple(A a, B b, C c) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> ThreeTuple&lt;A,B,C&gt;(a, b, c);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">public</span> <span class="keyword">static</span> &lt;A,B,C,D&gt; FourTuple&lt;A,B,C,D&gt;</span><br><span class="line">  tuple(A a, B b, C c, D d) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> FourTuple&lt;A,B,C,D&gt;(a, b, c, d);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">public</span> <span class="keyword">static</span> &lt;A,B,C,D,E&gt;</span><br><span class="line">  <span class="function">FiveTuple&lt;A,B,C,D,E&gt; <span class="title">tuple</span><span class="params">(A a, B b, C c, D d, E e)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> FiveTuple&lt;A,B,C,D,E&gt;(a, b, c, d, e);</span><br><span class="line">  &#125;</span><br><span class="line">&#125; <span class="comment">///:~</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TupleTest2</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">static</span> TwoTuple&lt;String,Integer&gt; <span class="title">f</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> tuple(<span class="string">"hi"</span>, <span class="number">47</span>);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="function"><span class="keyword">static</span> TwoTuple <span class="title">f2</span><span class="params">()</span> </span>&#123; <span class="keyword">return</span> tuple(<span class="string">"hi"</span>, <span class="number">47</span>); &#125;</span><br><span class="line">  <span class="function"><span class="keyword">static</span> ThreeTuple&lt;Amphibian,String,Integer&gt; <span class="title">g</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> tuple(<span class="keyword">new</span> Amphibian(), <span class="string">"hi"</span>, <span class="number">47</span>);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">static</span></span><br><span class="line">  <span class="function">FourTuple&lt;Vehicle,Amphibian,String,Integer&gt; <span class="title">h</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> tuple(<span class="keyword">new</span> Vehicle(), <span class="keyword">new</span> Amphibian(), <span class="string">"hi"</span>, <span class="number">47</span>);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">static</span></span><br><span class="line">  <span class="function">FiveTuple&lt;Vehicle,Amphibian,String,Integer,Double&gt; <span class="title">k</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> tuple(<span class="keyword">new</span> Vehicle(), <span class="keyword">new</span> Amphibian(),</span><br><span class="line">      <span class="string">"hi"</span>, <span class="number">47</span>, <span class="number">11.1</span>);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// f()返回的是一个参数化的TwoTuple对象</span></span><br><span class="line">    TwoTuple&lt;String,Integer&gt; ttsi = f();</span><br><span class="line">    System.out.println(ttsi);</span><br><span class="line">    <span class="comment">// f2()返回的是一个非参数化的TwoTuple对象。</span></span><br><span class="line">    <span class="comment">//在某种意义上，它被“向上转型”为一个非参数化得TwoTuple对象。</span></span><br><span class="line">    <span class="comment">//但是，如果试图将f2()的返回值转型为参数化的TwoTuple，编译器就会发出警告</span></span><br><span class="line">    System.out.println(f2());</span><br><span class="line">    System.out.println(g());</span><br><span class="line">    System.out.println(h());</span><br><span class="line">    System.out.println(k());</span><br><span class="line">  &#125;</span><br><span class="line">&#125; <span class="comment">/* Output: (80% match)</span></span><br><span class="line"><span class="comment">(hi, 47)</span></span><br><span class="line"><span class="comment">(hi, 47)</span></span><br><span class="line"><span class="comment">(Amphibian@7d772e, hi, 47)</span></span><br><span class="line"><span class="comment">(Vehicle@757aef, Amphibian@d9f9c3, hi, 47)</span></span><br><span class="line"><span class="comment">(Vehicle@1a46e30, Amphibian@3e25a5, hi, 47, 11.1)</span></span><br><span class="line"><span class="comment">*/</span><span class="comment">//:~</span></span><br></pre></td></tr></table></figure>
+<h3 id="一个Set实用工具"><a href="#一个Set实用工具" class="headerlink" title="一个Set实用工具"></a>一个Set实用工具</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Sets</span> </span>&#123;</span><br><span class="line">  <span class="keyword">public</span> <span class="keyword">static</span> &lt;T&gt; <span class="function">Set&lt;T&gt; <span class="title">union</span><span class="params">(Set&lt;T&gt; a, Set&lt;T&gt; b)</span> </span>&#123;</span><br><span class="line">    <span class="comment">//将传入的参数复制一份，然后在新的HashSet对象中操作</span></span><br><span class="line">    Set&lt;T&gt; result = <span class="keyword">new</span> HashSet&lt;T&gt;(a);</span><br><span class="line">    result.addAll(b);</span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">public</span> <span class="keyword">static</span> &lt;T&gt;</span><br><span class="line">  <span class="function">Set&lt;T&gt; <span class="title">intersection</span><span class="params">(Set&lt;T&gt; a, Set&lt;T&gt; b)</span> </span>&#123;</span><br><span class="line">    Set&lt;T&gt; result = <span class="keyword">new</span> HashSet&lt;T&gt;(a);</span><br><span class="line">    result.retainAll(b);</span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">  &#125;	</span><br><span class="line">  <span class="comment">// Subtract subset from superset:</span></span><br><span class="line">  <span class="keyword">public</span> <span class="keyword">static</span> &lt;T&gt; Set&lt;T&gt;</span><br><span class="line">  difference(Set&lt;T&gt; superset, Set&lt;T&gt; subset) &#123;</span><br><span class="line">    Set&lt;T&gt; result = <span class="keyword">new</span> HashSet&lt;T&gt;(superset);</span><br><span class="line">    result.removeAll(subset);</span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// Reflexive--everything not in the intersection:</span></span><br><span class="line">  <span class="keyword">public</span> <span class="keyword">static</span> &lt;T&gt; <span class="function">Set&lt;T&gt; <span class="title">complement</span><span class="params">(Set&lt;T&gt; a, Set&lt;T&gt; b)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> difference(union(a, b), intersection(a, b));</span><br><span class="line">  &#125;</span><br><span class="line">&#125; <span class="comment">///:~</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">enum</span> Watercolors &#123;</span><br><span class="line">  ZINC, LEMON_YELLOW, MEDIUM_YELLOW, DEEP_YELLOW, ORANGE,</span><br><span class="line">  BRILLIANT_RED, CRIMSON, MAGENTA, ROSE_MADDER, VIOLET,</span><br><span class="line">  CERULEAN_BLUE_HUE, PHTHALO_BLUE, ULTRAMARINE,</span><br><span class="line">  COBALT_BLUE_HUE, PERMANENT_GREEN, VIRIDIAN_HUE,</span><br><span class="line">  SAP_GREEN, YELLOW_OCHRE, BURNT_SIENNA, RAW_UMBER,</span><br><span class="line">  BURNT_UMBER, PAYNES_GRAY, IVORY_BLACK</span><br><span class="line">&#125; <span class="comment">///:~</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">WatercolorSets</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">    Set&lt;Watercolors&gt; set1 =</span><br><span class="line">      EnumSet.range(BRILLIANT_RED, VIRIDIAN_HUE);</span><br><span class="line">    Set&lt;Watercolors&gt; set2 =</span><br><span class="line">      EnumSet.range(CERULEAN_BLUE_HUE, BURNT_UMBER);</span><br><span class="line">    print(<span class="string">"set1: "</span> + set1);</span><br><span class="line">    print(<span class="string">"set2: "</span> + set2);</span><br><span class="line">    print(<span class="string">"union(set1, set2): "</span> + union(set1, set2));</span><br><span class="line">    Set&lt;Watercolors&gt; subset = intersection(set1, set2);</span><br><span class="line">    print(<span class="string">"intersection(set1, set2): "</span> + subset);</span><br><span class="line">    print(<span class="string">"difference(set1, subset): "</span> +</span><br><span class="line">      difference(set1, subset));	</span><br><span class="line">    print(<span class="string">"difference(set2, subset): "</span> +</span><br><span class="line">      difference(set2, subset));</span><br><span class="line">    print(<span class="string">"complement(set1, set2): "</span> +</span><br><span class="line">      complement(set1, set2));</span><br><span class="line">  &#125;	</span><br><span class="line">&#125; <span class="comment">/* Output: (Sample)</span></span><br><span class="line"><span class="comment">set1: [BRILLIANT_RED, CRIMSON, MAGENTA, ROSE_MADDER, VIOLET, CERULEAN_BLUE_HUE, PHTHALO_BLUE, ULTRAMARINE, COBALT_BLUE_HUE, PERMANENT_GREEN, VIRIDIAN_HUE]</span></span><br><span class="line"><span class="comment">set2: [CERULEAN_BLUE_HUE, PHTHALO_BLUE, ULTRAMARINE, COBALT_BLUE_HUE, PERMANENT_GREEN, VIRIDIAN_HUE, SAP_GREEN, YELLOW_OCHRE, BURNT_SIENNA, RAW_UMBER, BURNT_UMBER]</span></span><br><span class="line"><span class="comment">union(set1, set2): [SAP_GREEN, ROSE_MADDER, YELLOW_OCHRE, PERMANENT_GREEN, BURNT_UMBER, COBALT_BLUE_HUE, VIOLET, BRILLIANT_RED, RAW_UMBER, ULTRAMARINE, BURNT_SIENNA, CRIMSON, CERULEAN_BLUE_HUE, PHTHALO_BLUE, MAGENTA, VIRIDIAN_HUE]</span></span><br><span class="line"><span class="comment">intersection(set1, set2): [ULTRAMARINE, PERMANENT_GREEN, COBALT_BLUE_HUE, PHTHALO_BLUE, CERULEAN_BLUE_HUE, VIRIDIAN_HUE]</span></span><br><span class="line"><span class="comment">difference(set1, subset): [ROSE_MADDER, CRIMSON, VIOLET, MAGENTA, BRILLIANT_RED]</span></span><br><span class="line"><span class="comment">difference(set2, subset): [RAW_UMBER, SAP_GREEN, YELLOW_OCHRE, BURNT_SIENNA, BURNT_UMBER]</span></span><br><span class="line"><span class="comment">complement(set1, set2): [SAP_GREEN, ROSE_MADDER, YELLOW_OCHRE, BURNT_UMBER, VIOLET, BRILLIANT_RED, RAW_UMBER, BURNT_SIENNA, CRIMSON, MAGENTA]</span></span><br><span class="line"><span class="comment">*/</span><span class="comment">//:~</span></span><br></pre></td></tr></table></figure>
+<p>EnumSet可以从enum直接创建Set, EnumSet.ranger(StartEnum, EndEnum)返回从StartEnum到EndEnum的所有Enum组成的EnumSet</p>
+<h2 id="15-5-匿名内部类"><a href="#15-5-匿名内部类" class="headerlink" title="15.5 匿名内部类"></a>15.5 匿名内部类</h2><p>泛型还可以用于内部类以及匿名类。下面的示例使用匿名内部类实现了Gneerator接口：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Customer</span> </span>&#123;</span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">long</span> counter = <span class="number">1</span>;</span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">long</span> id = counter++;</span><br><span class="line">  <span class="function"><span class="keyword">private</span> <span class="title">Customer</span><span class="params">()</span> </span>&#123;&#125;</span><br><span class="line">  <span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123; <span class="keyword">return</span> <span class="string">"Customer "</span> + id; &#125;</span><br><span class="line">  <span class="comment">// A method to produce Generator objects:</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Generator&lt;Customer&gt; <span class="title">generator</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">//匿名内部类实现泛型接口</span></span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> Generator&lt;Customer&gt;() &#123;</span><br><span class="line">      <span class="function"><span class="keyword">public</span> Customer <span class="title">next</span><span class="params">()</span> </span>&#123; <span class="keyword">return</span> <span class="keyword">new</span> Customer(); &#125;</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;	</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Teller</span> </span>&#123;</span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">long</span> counter = <span class="number">1</span>;</span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">long</span> id = counter++;</span><br><span class="line">  <span class="function"><span class="keyword">private</span> <span class="title">Teller</span><span class="params">()</span> </span>&#123;&#125;</span><br><span class="line">  <span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123; <span class="keyword">return</span> <span class="string">"Teller "</span> + id; &#125;</span><br><span class="line">  <span class="comment">// A single Generator object:</span></span><br><span class="line">  <span class="keyword">public</span> <span class="keyword">static</span> Generator&lt;Teller&gt; generator =</span><br><span class="line">    <span class="comment">////匿名内部类实现泛型接口</span></span><br><span class="line">    <span class="keyword">new</span> Generator&lt;Teller&gt;() &#123;</span><br><span class="line">      <span class="function"><span class="keyword">public</span> Teller <span class="title">next</span><span class="params">()</span> </span>&#123; <span class="keyword">return</span> <span class="keyword">new</span> Teller(); &#125;</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;	</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BankTeller</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">serve</span><span class="params">(Teller t, Customer c)</span> </span>&#123;</span><br><span class="line">    System.out.println(t + <span class="string">" serves "</span> + c);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">    Random rand = <span class="keyword">new</span> Random(<span class="number">47</span>);</span><br><span class="line">    Queue&lt;Customer&gt; line = <span class="keyword">new</span> LinkedList&lt;Customer&gt;();</span><br><span class="line">    Generators.fill(line, Customer.generator(), <span class="number">15</span>);</span><br><span class="line">    List&lt;Teller&gt; tellers = <span class="keyword">new</span> ArrayList&lt;Teller&gt;();</span><br><span class="line">    Generators.fill(tellers, Teller.generator, <span class="number">4</span>);</span><br><span class="line">    <span class="keyword">for</span>(Customer c : line)</span><br><span class="line">      serve(tellers.get(rand.nextInt(tellers.size())), c);</span><br><span class="line">  &#125;	</span><br><span class="line">&#125; <span class="comment">/* Output:</span></span><br><span class="line"><span class="comment">Teller 3 serves Customer 1</span></span><br><span class="line"><span class="comment">Teller 2 serves Customer 2</span></span><br><span class="line"><span class="comment">Teller 3 serves Customer 3</span></span><br><span class="line"><span class="comment">Teller 1 serves Customer 4</span></span><br><span class="line"><span class="comment">Teller 1 serves Customer 5</span></span><br><span class="line"><span class="comment">Teller 3 serves Customer 6</span></span><br><span class="line"><span class="comment">Teller 1 serves Customer 7</span></span><br><span class="line"><span class="comment">Teller 2 serves Customer 8</span></span><br><span class="line"><span class="comment">Teller 3 serves Customer 9</span></span><br><span class="line"><span class="comment">Teller 3 serves Customer 10</span></span><br><span class="line"><span class="comment">Teller 2 serves Customer 11</span></span><br><span class="line"><span class="comment">Teller 4 serves Customer 12</span></span><br><span class="line"><span class="comment">Teller 2 serves Customer 13</span></span><br><span class="line"><span class="comment">Teller 1 serves Customer 14</span></span><br><span class="line"><span class="comment">Teller 1 serves Customer 15</span></span><br><span class="line"><span class="comment">*/</span><span class="comment">//:~</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="15-6-构建复杂模型"><a href="#15-6-构建复杂模型" class="headerlink" title="15.6 构建复杂模型"></a>15.6 构建复杂模型</h2><p>泛型的一个重要好处是简单而安全地创建复杂的模型。例如，我们可以很容易地创建List元组</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TupleList</span>&lt;<span class="title">A</span>,<span class="title">B</span>,<span class="title">C</span>,<span class="title">D</span>&gt;</span></span><br><span class="line"><span class="class"><span class="keyword">extends</span> <span class="title">ArrayList</span>&lt;<span class="title">FourTuple</span>&lt;<span class="title">A</span>,<span class="title">B</span>,<span class="title">C</span>,<span class="title">D</span>&gt;&gt; </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">    TupleList&lt;Vehicle, Amphibian, String, Integer&gt; tl =</span><br><span class="line">      <span class="keyword">new</span> TupleList&lt;Vehicle, Amphibian, String, Integer&gt;();</span><br><span class="line">    tl.add(TupleTest.h());</span><br><span class="line">    tl.add(TupleTest.h());</span><br><span class="line">    <span class="keyword">for</span>(FourTuple&lt;Vehicle,Amphibian,String,Integer&gt; i: tl)</span><br><span class="line">      System.out.println(i);</span><br><span class="line">  &#125;</span><br><span class="line">&#125; <span class="comment">/* Output: (75% match)</span></span><br><span class="line"><span class="comment">(Vehicle@11b86e7, Amphibian@35ce36, hi, 47)</span></span><br><span class="line"><span class="comment">(Vehicle@757aef, Amphibian@d9f9c3, hi, 47)</span></span><br><span class="line"><span class="comment">*/</span><span class="comment">//:~</span></span><br></pre></td></tr></table></figure>
+<p>使用泛型类型来构建复杂模型十分简单。即使每个类都作为一个构件块创建，但是其整个还是包含了许多部分</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">@startuml</span><br><span class="line">class ArrayList</span><br><span class="line">class Store</span><br><span class="line">class Aisle</span><br><span class="line">class Shelf</span><br><span class="line">class Product</span><br><span class="line">class Checkout</span><br><span class="line">class Office</span><br><span class="line"></span><br><span class="line">ArrayList &lt;|-- Store</span><br><span class="line">ArrayList &lt;|-- Aisle</span><br><span class="line">ArrayList &lt;|-- Shelf</span><br><span class="line">ArrayList &lt;|-- Product</span><br><span class="line">Store *-- Checkout</span><br><span class="line">Store *-- Office</span><br><span class="line">Shelf *-- Product</span><br><span class="line">Aisle *-- Shelf</span><br><span class="line">Store *-- Aisle</span><br><span class="line">@enduml</span><br></pre></td></tr></table></figure>
+<h2 id="15-7-擦除的神秘之处"><a href="#15-7-擦除的神秘之处" class="headerlink" title="15.7 擦除的神秘之处"></a>15.7 擦除的神秘之处</h2><p><strong>在泛型代码内部，无法获取任何有关泛型参数类型的信息</strong>：泛型的Class对象只会保留目标类型的第一边界的类型信息</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ErasedTypeEquivalence</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">    Class c1 = <span class="keyword">new</span> ArrayList&lt;String&gt;().getClass();</span><br><span class="line">    Class c2 = <span class="keyword">new</span> ArrayList&lt;Integer&gt;().getClass();</span><br><span class="line">    System.out.println(c1 == c2);</span><br><span class="line">  &#125;</span><br><span class="line">&#125; <span class="comment">/* Output:</span></span><br><span class="line"><span class="comment">true</span></span><br><span class="line"><span class="comment">*/</span><span class="comment">//:~</span></span><br></pre></td></tr></table></figure>
+<p>ArrayList<string>和ArrayList<integer>被类型擦除后，其类型都是ArrayList</integer></string></p>
+<p>Class.getTypeParameters()将“返回一个TypeVariable对象数组，表示有泛型声明所声明的<strong>类型参数T,V…</strong>不是实际类型”，你能够发现的只是用作占位符的标识符，这并非有用信息</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Frob</span> </span>&#123;&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Fnorkle</span> </span>&#123;&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Quark</span>&lt;<span class="title">Q</span>&gt; </span>&#123;&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Particle</span>&lt;<span class="title">POSITION</span>,<span class="title">MOMENTUM</span>&gt; </span>&#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LostInformation</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">    List&lt;Frob&gt; list = <span class="keyword">new</span> ArrayList&lt;Frob&gt;();</span><br><span class="line">    Map&lt;Frob,Fnorkle&gt; map = <span class="keyword">new</span> HashMap&lt;Frob,Fnorkle&gt;();</span><br><span class="line">    Quark&lt;Fnorkle&gt; quark = <span class="keyword">new</span> Quark&lt;Fnorkle&gt;();</span><br><span class="line">    Particle&lt;Long,Double&gt; p = <span class="keyword">new</span> Particle&lt;Long,Double&gt;();</span><br><span class="line">    System.out.println(Arrays.toString(</span><br><span class="line">      list.getClass().getTypeParameters()));</span><br><span class="line">    System.out.println(Arrays.toString(</span><br><span class="line">      map.getClass().getTypeParameters()));</span><br><span class="line">    System.out.println(Arrays.toString(</span><br><span class="line">      quark.getClass().getTypeParameters()));</span><br><span class="line">    System.out.println(Arrays.toString(</span><br><span class="line">      p.getClass().getTypeParameters()));</span><br><span class="line">  &#125;</span><br><span class="line">&#125; <span class="comment">/* Output:</span></span><br><span class="line"><span class="comment">[E]</span></span><br><span class="line"><span class="comment">[K, V]</span></span><br><span class="line"><span class="comment">[Q]</span></span><br><span class="line"><span class="comment">[POSITION, MOMENTUM]</span></span><br><span class="line"><span class="comment">*/</span><span class="comment">//:~</span></span><br></pre></td></tr></table></figure>
+<p>因此，Java的泛型中，你只能知道<strong>参数标识符</strong>和<strong>泛型类边界</strong>这两个信息，任何具体的类型信息都将被擦除，你唯一知道的就是你在使用一个对象</p>
+<h3 id="C-的方式"><a href="#C-的方式" class="headerlink" title="C++的方式"></a>C++的方式</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//: generics/Templates.cpp</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span>&lt;<span class="class"><span class="keyword">class</span> <span class="title">T</span>&gt; <span class="title">class</span> <span class="title">Manipulator</span> &#123;</span></span><br><span class="line">  T obj;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">  Manipulator(T x) &#123; obj = x; &#125;</span><br><span class="line">  <span class="function"><span class="keyword">void</span> <span class="title">manipulate</span><span class="params">()</span> </span>&#123; obj.f(); &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">HasF</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">  <span class="function"><span class="keyword">void</span> <span class="title">f</span><span class="params">()</span> </span>&#123; <span class="built_in">cout</span> &lt;&lt; <span class="string">"HasF::f()"</span> &lt;&lt; <span class="built_in">endl</span>; &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  HasF hf;</span><br><span class="line">  Manipulator&lt;HasF&gt; manipulator(hf);</span><br><span class="line">  manipulator.manipulate();</span><br><span class="line">&#125; <span class="comment">/* Output:</span></span><br><span class="line"><span class="comment">HasF::f()</span></span><br><span class="line"><span class="comment">///:~</span></span><br></pre></td></tr></table></figure>
+<p>C++中，Manipulator类存储了一个类型T的对象，在manipulate()方法中，它在obj上调用方法f()。它怎么知道T中有一个f()方法呢？实际上，在Manipulator<hasf>被实例化的时候，它检查到HasF拥有一个方法f()。如果情况并非如此，就会得到一个编译期错误，这样类型安全就得到保障。</hasf></p>
+<h3 id="java的方式"><a href="#java的方式" class="headerlink" title="java的方式"></a>java的方式</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Manipulator</span>&lt;<span class="title">T</span>&gt; </span>&#123;</span><br><span class="line">  <span class="keyword">private</span> T obj;</span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="title">Manipulator</span><span class="params">(T x)</span> </span>&#123; obj = x; &#125;</span><br><span class="line">  <span class="comment">// Error: cannot find symbol: method f():</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">manipulate</span><span class="params">()</span> </span>&#123; obj.f(); &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Manipulation</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">    HasF hf = <span class="keyword">new</span> HasF();</span><br><span class="line">    Manipulator&lt;HasF&gt; manipulator =</span><br><span class="line">      <span class="keyword">new</span> Manipulator&lt;HasF&gt;(hf);</span><br><span class="line">    manipulator.manipulate();</span><br><span class="line">  &#125;</span><br><span class="line">&#125; <span class="comment">///:~</span></span><br></pre></td></tr></table></figure>
+<p>由于有类型擦除，Java编译器无法将manipulate()必须能够在obj上调用f()这一需求隐射到HasF拥有f()这一事实上。因此将无法通过编译。</p>
+<p>为了解决这个问题，java中可以定义泛型类的边界，以此告诉编译器只能接受遵循这个边界的类型，这里重用了extends关键字</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Manipulator2</span>&lt;<span class="title">T</span> <span class="keyword">extends</span> <span class="title">HasF</span>&gt; </span>&#123;</span><br><span class="line">  <span class="keyword">private</span> T obj;</span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="title">Manipulator2</span><span class="params">(T x)</span> </span>&#123; obj = x; &#125;</span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">manipulate</span><span class="params">()</span> </span>&#123; obj.f(); &#125;</span><br><span class="line">&#125; <span class="comment">///:~</span></span><br></pre></td></tr></table></figure>
+<p><t extends="" hasf="">声明了T必须具有类型HasF或者HasF导出的类型</t></p>
+<p>泛型类型参数将擦除到它的第一个边界（它可能会有多个边界）。编译器实际上会把类型参数替换为它的擦除。就像上例所示一样，T擦除到了HasF，就像在类的声明中用HasF替换T一样</p>
+<p>什么情况使用泛型？<br>当你希望使用的类型参数比某个具体类型（以及它的所有子类型）更加泛化时——<strong>也就是说，当你希望代码能够跨越多个类工作时，使用泛型才有帮助</strong></p>
+<h3 id="迁移兼容性"><a href="#迁移兼容性" class="headerlink" title="迁移兼容性"></a>迁移兼容性</h3><p>为什么要擦除类型？</p>
+<p>在基于擦除的实现中，泛型类型被当做第二类类型进行处理，即不能再某些重要的上下文环境中使用的类型。泛型类型只有在静态类型检查期间才出现，在此之后，程序中的所有泛型类型都将被擦除，替换为它们的非泛型上界。<strong>例如List<t>这样的类型注解将被擦除为List，而普通的类型变量在未指定边界的情况下将被擦除为Object</t></strong></p>
+<p>为了使Java泛型不仅必须<strong>支持向后兼容性</strong>，即现有的代码和类文件仍旧合法。并且<strong>当某个类库变为泛型时，不会破坏依赖于它的代码和应用程序</strong>。</p>
+<p>因此，为了实现迁移兼容性，每个类库和应用程序都必须与其他所有部分使用了泛型无关。这样，<strong>它们必须不具备探测其他类库是否使用了泛型的能力。因此，某个特定类库使用了泛型的证据必须被擦除。</strong></p>
+<h3 id="擦除的问题"><a href="#擦除的问题" class="headerlink" title="擦除的问题"></a>擦除的问题</h3><ol>
+<li>擦除的主要理由是：<strong>从非泛化代码到泛化代码的转变过程，以及在不破坏现有类库的情况下，将泛型融入java语言</strong></li>
+<li>擦除的代价: 泛型将不能用于显式地引用运行时类型的操作之中，例如转型、instanceof操作和new表达式</li>
+</ol>
+<h3 id="边界处的动作"><a href="#边界处的动作" class="headerlink" title="边界处的动作"></a>边界处的动作</h3><p>泛型最令人困惑的方面源自：可以表示没有任何意义的事物</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ArrayMaker</span>&lt;<span class="title">T</span>&gt; </span>&#123;</span><br><span class="line">  <span class="keyword">private</span> Class&lt;T&gt; kind;</span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="title">ArrayMaker</span><span class="params">(Class&lt;T&gt; kind)</span> </span>&#123; <span class="keyword">this</span>.kind = kind; &#125;</span><br><span class="line">  <span class="meta">@SuppressWarnings</span>(<span class="string">"unchecked"</span>)</span><br><span class="line">  T[] create(<span class="keyword">int</span> size) &#123;</span><br><span class="line">    <span class="keyword">return</span> (T[])Array.newInstance(kind, size);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">    ArrayMaker&lt;String&gt; stringMaker =</span><br><span class="line">      <span class="keyword">new</span> ArrayMaker&lt;String&gt;(String.class);</span><br><span class="line">    String[] stringArray = stringMaker.create(<span class="number">9</span>);</span><br><span class="line">    System.out.println(Arrays.toString(stringArray));</span><br><span class="line">  &#125;</span><br><span class="line">&#125; <span class="comment">/* Output:</span></span><br><span class="line"><span class="comment">[null, null, null, null, null, null, null, null, null]</span></span><br><span class="line"><span class="comment">*/</span><span class="comment">//:~</span></span><br></pre></td></tr></table></figure>
+<p>即使kind被存储为Class<t>，擦除也意味着呗存储为Class，没有任何参数。因此，当你在使用它时，例如在创建数组时，<strong>Array.newInstance()</strong>实际上并未拥有kind所蕴含的类型信息，因此这不会产生具体的结果，所有必须转型，这将产生一条令你无法满意的警告</t></p>
+<p>如果是创建一个泛型的容器而不是泛型的数组：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ListMaker</span>&lt;<span class="title">T</span>&gt; </span>&#123;</span><br><span class="line">  <span class="function">List&lt;T&gt; <span class="title">create</span><span class="params">()</span> </span>&#123; <span class="keyword">return</span> <span class="keyword">new</span> ArrayList&lt;T&gt;(); &#125;</span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">    ListMaker&lt;String&gt; stringMaker= <span class="keyword">new</span> ListMaker&lt;String&gt;();</span><br><span class="line">    List&lt;String&gt; stringList = stringMaker.create();</span><br><span class="line">  &#125;</span><br><span class="line">&#125; <span class="comment">///:~</span></span><br></pre></td></tr></table></figure>
+<p>编译器不会有任何的警告，尽管我们知道在create()内部的new ArrayList<t>中的<t>被移除了–在运行时，这个类的内部没有任何的<t>，因此这看起来毫无意义。<strong>但是你如果遵从这种思路，并将表达式改为new ArrayList()，编译器就会给出警告。</strong></t></t></t></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FilledListMaker</span>&lt;<span class="title">T</span>&gt; </span>&#123;</span><br><span class="line">  <span class="function">List&lt;T&gt; <span class="title">create</span><span class="params">(T t, <span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">    List&lt;T&gt; result = <span class="keyword">new</span> ArrayList&lt;T&gt;();</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++)</span><br><span class="line">      result.add(t);</span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">    FilledListMaker&lt;String&gt; stringMaker =</span><br><span class="line">      <span class="keyword">new</span> FilledListMaker&lt;String&gt;();</span><br><span class="line">    List&lt;String&gt; list = stringMaker.create(<span class="string">"Hello"</span>, <span class="number">4</span>);</span><br><span class="line">    System.out.println(list);</span><br><span class="line">  &#125;</span><br><span class="line">&#125; <span class="comment">/* Output:</span></span><br><span class="line"><span class="comment">[Hello, Hello, Hello, Hello]</span></span><br><span class="line"><span class="comment">*/</span><span class="comment">//:~</span></span><br></pre></td></tr></table></figure>
+<p>即使编译器无法知道有关create()中的T的任何信息，但是<strong>它仍旧可在编译器确保你放置到result中的对象具有T类型</strong>，时期适合ArrayLit<t>。因此，即使擦除在方法或类内部移除了有关实际类型的信息，<strong>编译器仍旧可以确保在方法或类中使用的类型的内部一致性</strong></t></p>
+<p>擦除在方法体重移除了类型信息，而这些动作将发生在运行时的调用边界：即对象进入和离开方法的地点。这些正是<strong>编译器在编译期执行类型检查并插入转型代码的地点</strong>。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">GenericHolder</span>&lt;<span class="title">T</span>&gt; </span>&#123;</span><br><span class="line">  <span class="keyword">private</span> T obj;</span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">set</span><span class="params">(T obj)</span> </span>&#123; <span class="keyword">this</span>.obj = obj; &#125;</span><br><span class="line">  <span class="function"><span class="keyword">public</span> T <span class="title">get</span><span class="params">()</span> </span>&#123; <span class="keyword">return</span> obj; &#125;</span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">    GenericHolder&lt;String&gt; holder =</span><br><span class="line">      <span class="keyword">new</span> GenericHolder&lt;String&gt;();</span><br><span class="line">    holder.set(<span class="string">"Item"</span>);</span><br><span class="line">    String s = holder.get();</span><br><span class="line">  &#125;</span><br><span class="line">&#125; <span class="comment">///:~</span></span><br></pre></td></tr></table></figure>
+<p>javap -c GenericHolder，反编译这个类，得到：</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="img/ThinkInJava-ch15.8-1.PNG" alt="ch15.8-1" title="">
+                </div>
+                <div class="image-caption">ch15.8-1</div>
+            </figure>
+<p>可以看到set()和get()方法执行时是直接存储和产生值的，而转型是在调用get()的时候接受类型检查的</p>
+<p>进入set()的类型进行检查是不需要的，因为这将由编译器执行。而这对从get()返回的值进行转型仍旧是需要的。</p>
+<p><strong>在泛型中，所有的动作都发生在边界处–对传递进来的值进行额外的编译期检查，并插入对传递出去的值的转型。</strong></p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    Last updated: <time datetime="2018-01-23T07:26:11.787Z" itemprop="dateUpdated">2018-01-23 15:26:11</time>
+</span><br>
+
+
+        
+        No one can guide you, except yourself!     self-link：<a href="/2018/01/23/Thinking-in-Java-第十五章-泛型/" target="_blank" rel="external">http://matlabchina.cn/2018/01/23/Thinking-in-Java-第十五章-泛型/</a>
+        
+    </div>
+    <footer>
+        <a href="http://matlabchina.cn">
+            <img src="/img/logo.jpg" alt="Quincey Svng">
+            Quincey Svng
+        </a>
+    </footer>
+</blockquote>
+
+        
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ThinkingInJava/">ThinkingInJava</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://matlabchina.cn/2018/01/23/Thinking-in-Java-第十五章-泛型/&title=《Thinking in Java 第十五章 泛型》 — Quincey&pic=http://matlabchina.cn/img/logo.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://matlabchina.cn/2018/01/23/Thinking-in-Java-第十五章-泛型/&title=《Thinking in Java 第十五章 泛型》 — Quincey&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://matlabchina.cn/2018/01/23/Thinking-in-Java-第十五章-泛型/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Thinking in Java 第十五章 泛型》 — Quincey&url=http://matlabchina.cn/2018/01/23/Thinking-in-Java-第十五章-泛型/&via=http://matlabchina.cn" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://matlabchina.cn/2018/01/23/Thinking-in-Java-第十五章-泛型/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between flex-row-reverse">
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2018/01/20/神经网络与深度学习-第三章-深度学习是个什么东西/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">神经网络与深度学习 第三章 深度学习是个什么东西</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+<section class="comments" id="comments">
+    <div id="gitment_thread"></div>
+    <link rel="stylesheet" href="//unpkg.com/gitment/style/default.css">
+    <script src="//unpkg.com/gitment/dist/gitment.browser.js"></script>
+    <script>
+        var gitment = new Gitment({
+            owner: 'SuperFireFoxy',
+            repo: 'superfirefoxy.github.io',
+            oauth: {
+                client_id: 'f79ac80faa3d2c58bf61',
+                client_secret: '655a9b1df478169a0c1f83cc4cc6b537873db4e3',
+            },
+        })
+        gitment.render('comments')
+    </script>
+</section>
+
+
+
+
+
+
+
+</article>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>This blog is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>Quincey Svng &copy; 2017 - 2018</span>
+            <span>
+                
+                <a href="http://www.miitbeian.gov.cn/" target="_blank">蜀ICP备16009264号-1</a><br>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://matlabchina.cn/2018/01/23/Thinking-in-Java-第十五章-泛型/&title=《Thinking in Java 第十五章 泛型》 — Quincey&pic=http://matlabchina.cn/img/logo.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://matlabchina.cn/2018/01/23/Thinking-in-Java-第十五章-泛型/&title=《Thinking in Java 第十五章 泛型》 — Quincey&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://matlabchina.cn/2018/01/23/Thinking-in-Java-第十五章-泛型/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Thinking in Java 第十五章 泛型》 — Quincey&url=http://matlabchina.cn/2018/01/23/Thinking-in-Java-第十五章-泛型/&via=http://matlabchina.cn" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://matlabchina.cn/2018/01/23/Thinking-in-Java-第十五章-泛型/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACt0lEQVR42u3awY7iMBAEUP7/pxlpTyOhsFXtNMPh+RQliPgFKW2q/XjE4/lvvB7/PvM6Xq8m3/l8Ox4bAw8PD2809XunePXNyfn3M6wfAR4eHt4aLykGyas8n9D7h5If/8eCh4eH96e8k9d3/j3nc8DDw8P7Nt6sVCR3PAlE8PDw8D7PS8KIvADMHtYsGr4ta8HDw8Nb6CJ9z/GH+nt4eHh4ZVd99lKeNc9ONihc3h0PDw9vgXfSyE/ew+fnZ1WgmBYeHh5eyUtezW2RaGPcvITUPwAeHh7eGm/WAHt/4zZWyItQ/pPg4eHhbfASUhsQJEFwnrjOyg8eHh7eNi9pwM8Wze1U2g0B0cPFw8PDW+blf/7z49liuk2jowYYHh4e3jGvXXHnwe691Nk88fDw8LZ5ySK4jX3bT7ahbZSs4OHh4S3wop1Zx7FsG0DkV+udEXh4eHgHvDaMmC2yZ8vl2+6Fh4eHt8A72Wg1i1nzDQFt8FFvusLDw8MrebMn8SxHi0xKUXQGDw8Pb403+5Ofb4rKG2Oz4Pjy83h4eHgLvLtignbL1Owzs6gXDw8P715e1EA62BbQloHhFoGrnwQPDw9vgde2mk6uJkvqcyQeHh7eZ3j51qtZwZhFuu/PFDPHw8PDW+O1ray2nCSxwmwJHmUteHh4eDfx2uVs8jrOS0VbPOrSgoeHh7fMy1/TbaCQhwj5MjoqWnh4eHgLvJNicB7+5gHEbQMPDw/vmPcsR77YTUpL+7jrdhoeHh7eAu/8Nnk5aUvCSesLDw8Pb5uXb5M6Dx3ymGM2Bzw8PLxP8mZL4XaBm0+xDUEuz+Dh4eH9Ke+kKZU3/mfh8uUjw8PDw/sa3qw8tBu5kt5WFEbg4eHhLfDaMGLW/k+KQRE05EtqPDw8vFt5Gy38Ns5oO3VH3Tw8PDy8Oe8HLw9K36yWNy4AAAAASUVORK5CYII=" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+
+
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = 'woops, lost connnection！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = 'bow, chaka bow boom!';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>
