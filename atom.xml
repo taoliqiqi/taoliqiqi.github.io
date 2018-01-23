@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://matlabchina.cn/"/>
-  <updated>2018-01-23T07:26:11.787Z</updated>
+  <updated>2018-01-23T14:05:21.486Z</updated>
   <id>http://matlabchina.cn/</id>
   
   <author>
@@ -17,11 +17,11 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>Thinking in Java 第十五章 泛型</title>
+    <title>Thinking in Java 第十五章 泛型(一)</title>
     <link href="http://matlabchina.cn/2018/01/23/Thinking-in-Java-%E7%AC%AC%E5%8D%81%E4%BA%94%E7%AB%A0-%E6%B3%9B%E5%9E%8B/"/>
     <id>http://matlabchina.cn/2018/01/23/Thinking-in-Java-第十五章-泛型/</id>
     <published>2018-01-23T02:04:08.000Z</published>
-    <updated>2018-01-23T07:26:11.787Z</updated>
+    <updated>2018-01-23T14:05:21.486Z</updated>
     
     <summary type="html">
     
