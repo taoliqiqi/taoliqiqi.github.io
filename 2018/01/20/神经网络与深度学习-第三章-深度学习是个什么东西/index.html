@@ -20,20 +20,21 @@
     
     
     <meta name="keywords" content="神经网络与深度学习">
-    <meta name="description" content="3.1 机器学习 几个基本概念：   机器学习：是很多种方法和模型的总称。 神经网络：是一种机器学习模型，可以说是目前最火的一种。 深度神经网络：就是层数比较多的神经网络。 深度学习：就是使用了深度神经网络的机器学习。">
+    <meta name="description" content="几个基本概念： 机器学习：是很多种方法和模型的总称。 神经网络：是一种机器学习模型，可以说是目前最火的一种。 深度神经网络：就是层数比较多的神经网络。 深度学习：就是使用了深度神经网络的机器学习。      3.1 机器学习监督学习概念：随时在旁边看着你学习，随时纠正你学习中的错误。对于错误学习给予惩罚，对正确学习给予奖励 所有训练数据包括：正确的训练集和错误的训练集。这两种训练集最好在数量上相等">
 <meta name="keywords" content="神经网络与深度学习">
 <meta property="og:type" content="article">
 <meta property="og:title" content="神经网络与深度学习 第三章 深度学习是个什么东西">
 <meta property="og:url" content="http://matlabchina.cn/2018/01/20/神经网络与深度学习-第三章-深度学习是个什么东西/index.html">
 <meta property="og:site_name" content="Quincey">
-<meta property="og:description" content="3.1 机器学习 几个基本概念：   机器学习：是很多种方法和模型的总称。 神经网络：是一种机器学习模型，可以说是目前最火的一种。 深度神经网络：就是层数比较多的神经网络。 深度学习：就是使用了深度神经网络的机器学习。">
+<meta property="og:description" content="几个基本概念： 机器学习：是很多种方法和模型的总称。 神经网络：是一种机器学习模型，可以说是目前最火的一种。 深度神经网络：就是层数比较多的神经网络。 深度学习：就是使用了深度神经网络的机器学习。      3.1 机器学习监督学习概念：随时在旁边看着你学习，随时纠正你学习中的错误。对于错误学习给予惩罚，对正确学习给予奖励 所有训练数据包括：正确的训练集和错误的训练集。这两种训练集最好在数量上相等">
 <meta property="og:locale" content="en">
-<meta property="og:image" content="http://matlabchina.cn/2018/01/20/神经网络与深度学习-第三章-深度学习是个什么东西/NN-ch3.1-1.png">
-<meta property="og:updated_time" content="2018-01-20T13:41:00.609Z">
+<meta property="og:image" content="http://cdn.matlabchina.cn/NNandDL/NN-ch3.1-1.png">
+<meta property="og:image" content="http://cdn.matlabchina.cn/NNandDL/NN-ch3.1-2.PNG">
+<meta property="og:updated_time" content="2018-01-30T10:18:01.623Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="神经网络与深度学习 第三章 深度学习是个什么东西">
-<meta name="twitter:description" content="3.1 机器学习 几个基本概念：   机器学习：是很多种方法和模型的总称。 神经网络：是一种机器学习模型，可以说是目前最火的一种。 深度神经网络：就是层数比较多的神经网络。 深度学习：就是使用了深度神经网络的机器学习。">
-<meta name="twitter:image" content="http://matlabchina.cn/2018/01/20/神经网络与深度学习-第三章-深度学习是个什么东西/NN-ch3.1-1.png">
+<meta name="twitter:description" content="几个基本概念： 机器学习：是很多种方法和模型的总称。 神经网络：是一种机器学习模型，可以说是目前最火的一种。 深度神经网络：就是层数比较多的神经网络。 深度学习：就是使用了深度神经网络的机器学习。      3.1 机器学习监督学习概念：随时在旁边看着你学习，随时纠正你学习中的错误。对于错误学习给予惩罚，对正确学习给予奖励 所有训练数据包括：正确的训练集和错误的训练集。这两种训练集最好在数量上相等">
+<meta name="twitter:image" content="http://cdn.matlabchina.cn/NNandDL/NN-ch3.1-1.png">
     
         <link rel="alternate" type="application/atom+xml" title="Quincey" href="/atom.xml">
     
@@ -175,7 +176,7 @@
     <aside class="post-widget">
         <nav class="post-toc-wrap" id="post-toc">
             <h4>TOC</h4>
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#3-1-机器学习"><span class="post-toc-number">1.</span> <span class="post-toc-text">3.1 机器学习</span></a></li></ol>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#几个基本概念："><span class="post-toc-number">1.</span> <span class="post-toc-text">几个基本概念：</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#3-1-机器学习"><span class="post-toc-number"></span> <span class="post-toc-text">3.1 机器学习</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#监督学习"><span class="post-toc-number">1.</span> <span class="post-toc-text">监督学习</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#非监督学习"><span class="post-toc-number">2.</span> <span class="post-toc-text">非监督学习</span></a></li></ol>
         </nav>
     </aside>
     
@@ -200,25 +201,28 @@
 
         </div>
         <div class="post-content" id="post-content" itemprop="postContent">
-            <h2 id="3-1-机器学习"><a href="#3-1-机器学习" class="headerlink" title="3.1 机器学习"></a>3.1 机器学习</h2><ol>
-<li>几个基本概念：</li>
-</ol>
-<ul>
+            <h3 id="几个基本概念："><a href="#几个基本概念：" class="headerlink" title="几个基本概念："></a>几个基本概念：</h3><ul>
 <li>机器学习：是很多种方法和模型的总称。</li>
 <li>神经网络：是<strong>一种机器学习模型</strong>，可以说是目前最火的一种。</li>
 <li>深度神经网络：就是层数比较多的神经网络。</li>
 <li><p>深度学习：就是使用了深度神经网络的机器学习。</p>
-<p>  <img src="NN-ch3.1-1.png" alt="ch3.1-1"></p>
+<p>  <img src="http://cdn.matlabchina.cn/NNandDL/NN-ch3.1-1.png" alt="ch3.1-1"></p>
 </li>
 </ul>
-
+<h2 id="3-1-机器学习"><a href="#3-1-机器学习" class="headerlink" title="3.1 机器学习"></a>3.1 机器学习</h2><h3 id="监督学习"><a href="#监督学习" class="headerlink" title="监督学习"></a>监督学习</h3><p>概念：随时在旁边看着你学习，随时纠正你学习中的错误。<strong>对于错误学习给予惩罚，对正确学习给予奖励</strong></p>
+<p>所有训练数据包括：<strong>正确的训练集</strong>和<strong>错误的训练集</strong>。这两种训练集最好在数量上相等，并且样本数量够全。接下来，将训练这些数据并将识别或预测结果与实际的人为标定过的“训练数据”做比较<br>    <img src="http://cdn.matlabchina.cn/NNandDL/NN-ch3.1-2.PNG" alt="ch3.1-2"></p>
+<h3 id="非监督学习"><a href="#非监督学习" class="headerlink" title="非监督学习"></a>非监督学习</h3><p>概念：没有人为标定好的训练数据，没有告诉模型哪些数据是正确的，哪些是不正确的。</p>
+<p>常见的应用场景：关联规则的学习和聚类<br>将苹果和香蕉混在一起，模型自己去做聚类学习，有可能学习出来很多种类别，除了特征相差较大的苹果和香蕉两种不同的水果外，还能发现某些苹果和香蕉的特殊品种，这种发现是由算法自己找出的。</p>
+<p>非监督学习的常见算法包括Apriori算法和K-Means算法</p>
+<pre><code>![ch3.1-3](http://cdn.matlabchina.cn/NNandDL/NN-ch3.1-3.PNG)
+</code></pre>
         </div>
 
         <blockquote class="post-copyright">
     <div class="content">
         
 <span class="post-time">
-    Last updated: <time datetime="2018-01-20T13:41:00.609Z" itemprop="dateUpdated">2018-01-20 21:41:00</time>
+    Last updated: <time datetime="2018-01-30T10:18:01.623Z" itemprop="dateUpdated">2018-01-30 18:18:01</time>
 </span><br>
 
 
@@ -495,23 +499,6 @@ MathJax.Hub.Queue(function() {
 <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
 
-
-<script>
-(function() {
-    var OriginTitile = document.title, titleTime;
-    document.addEventListener('visibilitychange', function() {
-        if (document.hidden) {
-            document.title = 'woops, lost connnection！';
-            clearTimeout(titleTime);
-        } else {
-            document.title = 'bow, chaka bow boom!';
-            titleTime = setTimeout(function() {
-                document.title = OriginTitile;
-            },2000);
-        }
-    });
-})();
-</script>
 
 
 

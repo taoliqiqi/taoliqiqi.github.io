@@ -486,23 +486,6 @@ MathJax.Hub.Queue(function() {
 
 
 
-<script>
-(function() {
-    var OriginTitile = document.title, titleTime;
-    document.addEventListener('visibilitychange', function() {
-        if (document.hidden) {
-            document.title = 'woops, lost connnection！';
-            clearTimeout(titleTime);
-        } else {
-            document.title = 'bow, chaka bow boom!';
-            titleTime = setTimeout(function() {
-                document.title = OriginTitile;
-            },2000);
-        }
-    });
-})();
-</script>
-
 
 
 </body>
