@@ -41,7 +41,7 @@
 <meta property="og:image" content="http://project.jumper.matlabchina.cn/split_img.png">
 <meta property="og:image" content="http://project.jumper.matlabchina.cn/link_img.png">
 <meta property="og:image" content="http://project.jumper.matlabchina.cn/score.jpg">
-<meta property="og:updated_time" content="2018-01-30T05:40:44.976Z">
+<meta property="og:updated_time" content="2018-01-30T05:41:40.168Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Python script for Wechat Jumper">
 <meta name="twitter:description" content="Use python to control Android devices How adb works Connect the Android Device with ADB Wrapping ADB command with Python   Image Process Get the solider’s postion Get the next stop’s target position">
@@ -249,8 +249,11 @@
 <li>enable developer mode in your android device</li>
 <li>connect android device with your compuer via usb</li>
 <li><p>connect android adb client with adb server:<br>run <code>adb devices</code>, if the device is listed like this，that means you have made it to connect your android devices to adb server:</p>
-<pre><code><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">        C:\Users\k5tsed&gt;adb devices</span><br><span class="line">        List of devices attached</span><br><span class="line">        b03db687        device</span><br><span class="line">        ```  </span><br><span class="line">    <span class="keyword">else</span>, you shoud check this: [adb怎么连接手机](https://jingyan.baidu.com/article/ce09321b5b76642bff858f31.html)</span><br><span class="line"></span><br><span class="line">Now, you have finished connecting android device with adb server, you can run something adb <span class="built_in">command</span> to control your android devices. For example, you can scrap your screenshot picture with the below <span class="built_in">command</span>:</span><br><span class="line"></span><br><span class="line">```shell</span><br><span class="line">C:\Users\k5d&gt;adb shell screencap /sdcard/screen.png</span><br><span class="line"></span><br><span class="line">C:\Users\k5d&gt;adb pull /sdcard/screen.png D:/screen.png</span><br><span class="line">2878 KB/s (333666 bytes <span class="keyword">in</span> 0.113s)</span><br></pre></td></tr></table></figure>
-</code></pre><p>you can see there is a sceenshot picture in your disk.</p>
+<pre><code><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">C:\Users\k5tsed&gt;adb devices</span><br><span class="line">List of devices attached</span><br><span class="line">b03db687        device</span><br></pre></td></tr></table></figure>
+</code></pre><p>else, you shoud check this: <a href="https://jingyan.baidu.com/article/ce09321b5b76642bff858f31.html" target="_blank" rel="noopener">adb怎么连接手机</a></p>
+<p>Now, you have finished connecting android device with adb server, you can run something adb command to control your android devices. For example, you can scrap your screenshot picture with the below command:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">C:\Users\k5d&gt;adb shell screencap /sdcard/screen.png</span><br><span class="line"></span><br><span class="line">C:\Users\k5d&gt;adb pull /sdcard/screen.png D:/screen.png</span><br><span class="line">2878 KB/s (333666 bytes in 0.113s)</span><br></pre></td></tr></table></figure>
+<p>you can see there is a sceenshot picture in your disk.</p>
 <p><img src="http://project.jumper.matlabchina.cn/jumper002.png" alt="jumper002"></p>
 <p>For more adb command, you can check this: <a href="https://github.com/mzlogin/awesome-adb/blob/master/README.en.md" target="_blank" rel="noopener">Android adb command</a>. But these two commands are enough for us to implement the our cheating program.</p>
 </li>
@@ -367,7 +370,7 @@
     <div class="content">
         
 <span class="post-time">
-    Last updated: <time datetime="2018-01-30T05:40:44.976Z" itemprop="dateUpdated">2018-01-30 13:40:44</time>
+    Last updated: <time datetime="2018-01-30T05:41:40.168Z" itemprop="dateUpdated">2018-01-30 13:41:40</time>
 </span><br>
 
 
