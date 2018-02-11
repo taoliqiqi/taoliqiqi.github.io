@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    <title>http-chapter1 | 小碎嘴子 | mind in mind</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="">
+    <meta name="description" content="1.1 使用HTTP协议访问Web                                                                                             image              Web浏览器从Web服务器端获取文件资源(resource)，从而显示Web页面。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="http-chapter1">
+<meta property="og:url" content="http://taoliqiqi.github.io/2018/02/11/http-chapter1/index.html">
+<meta property="og:site_name" content="小碎嘴子">
+<meta property="og:description" content="1.1 使用HTTP协议访问Web                                                                                             image              Web浏览器从Web服务器端获取文件资源(resource)，从而显示Web页面。">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="d:/hexo/blog/source/_posts/http图解.png">
+<meta property="og:image" content="d:/hexo/blog/source/_posts/Capture2.JPG">
+<meta property="og:updated_time" content="2018-02-11T06:34:49.006Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="http-chapter1">
+<meta name="twitter:description" content="1.1 使用HTTP协议访问Web                                                                                             image              Web浏览器从Web服务器端获取文件资源(resource)，从而显示Web页面。">
+<meta name="twitter:image" content="d:/hexo/blog/source/_posts/http图解.png">
+    
+        <link rel="alternate" type="application/atom+xml" title="小碎嘴子" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/logo.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">Penny</h5>
+          <a href="mailto:bananatao23@outlook.com" title="bananatao23@outlook.com" class="mail">bananatao23@outlook.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                Penny
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/taoliqiqi" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">http-chapter1</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Search">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">http-chapter1</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2018-02-11T06:27:04.000Z" itemprop="datePublished" class="page-time">
+  2018-02-11
+</time>
+
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#1-1-使用HTTP协议访问Web"><span class="post-toc-number">1.</span> <span class="post-toc-text">1.1 使用HTTP协议访问Web</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#1-2-TCP-IP协议"><span class="post-toc-number">2.</span> <span class="post-toc-text">1.2 TCP/IP协议</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#1-2-1-TCP-IP的分层管理"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">1.2.1 TCP/IP的分层管理</span></a></li></ol></li></ol>
+        </nav>
+    </aside>
+    
+<article id="post-http-chapter1"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">http-chapter1</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2018-02-11 14:27:04" datetime="2018-02-11T06:27:04.000Z"  itemprop="datePublished">2018-02-11</time>
+
+            
+
+
+            
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h1 id="1-1-使用HTTP协议访问Web"><a href="#1-1-使用HTTP协议访问Web" class="headerlink" title="1.1 使用HTTP协议访问Web"></a>1.1 使用HTTP协议访问Web</h1><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="D:\hexo\blog\source\_posts\http图解.png" alt="image" title="">
+                </div>
+                <div class="image-caption">image</div>
+            </figure>
+<p>Web浏览器从<strong>Web服务器端</strong>获取文件资源<code>(resource)</code>，从而显示Web页面。<br><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="D:\hexo\blog\source\_posts\Capture2.JPG" alt="image" title="">
+                </div>
+                <div class="image-caption">image</div>
+            </figure><br>通过<strong>发送请求</strong>获取服务器资源的Web浏览器等，都可称为<strong>客户端(client)</strong>。</p>
+<blockquote>
+<p><strong>一些定义</strong></p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">HTTP（HyperText Transfer Protocol) 超文本传输协议</span><br><span class="line">HTML（HyperText Markup Language) 超文本标记语言</span><br><span class="line">WWW（World Wide Web) 万维网</span><br><span class="line">URL（Uniform Resource Locator) 统一资源定位符</span><br></pre></td></tr></table></figure>
+<h1 id="1-2-TCP-IP协议"><a href="#1-2-TCP-IP协议" class="headerlink" title="1.2 TCP/IP协议"></a>1.2 TCP/IP协议</h1><blockquote>
+<p>定义</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">TCP/IP 是互联网相关的各类协议族的总称。</span><br><span class="line"></span><br><span class="line">HTTP 属于它内部的一个子集。</span><br><span class="line"></span><br><span class="line">Protocol:计算机与网络设备相互通信的规则，称为协议。</span><br></pre></td></tr></table></figure>
+<h2 id="1-2-1-TCP-IP的分层管理"><a href="#1-2-1-TCP-IP的分层管理" class="headerlink" title="1.2.1 TCP/IP的分层管理"></a>1.2.1 TCP/IP的分层管理</h2><p>TCP/IP 协议族按层次分别分为以下 4层：<strong>应用层</strong>、<strong>传输层</strong>、<strong>网络层</strong>和<strong>数据链路层</strong>。</p>
+<p><strong>应用层</strong>：决定了向用户提供应用服务时通信的活动。<code>FTP（File
+Transfer Protocol，文件传输协议），DNS（Domain Name System，域名系统），HTTP协议</code>。</p>
+<p><strong>传输层</strong>：提供处于网络连接中的两台计算机之间的数据传输。<code>TCP（Transmission Control Protocol，传输控制协议）和 UDP（User Data Protocol，用户数据报协议）</code>。</p>
+<p><strong>网络层</strong>：处理在网络上流动的数据包（网络传输的最小数据单位）。该层规定了通过怎样的路径（所谓的<strong>传输路线</strong>）到达对方计算机，并把数据包传送给对方。</p>
+<p><strong>数据链路层</strong>：处理连接网络的<strong>硬件部分</strong>。包括控制操作系统、硬件的设备驱动、NIC（Network Interface Card，网络适配器，即网卡），及光纤等物理可见部分（还包括连接器等一切传输媒介）。</p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    Last updated: <time datetime="2018-02-11T06:34:49.006Z" itemprop="dateUpdated">2018-02-11 14:34:49</time>
+</span><br>
+
+
+        
+    </div>
+    <footer>
+        <a href="http://taoliqiqi.github.io">
+            <img src="/img/logo.jpg" alt="Penny">
+            Penny
+        </a>
+    </footer>
+</blockquote>
+
+        
+
+
+        <div class="post-footer">
+            
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://taoliqiqi.github.io/2018/02/11/http-chapter1/&title=《http-chapter1》 — 小碎嘴子&pic=http://taoliqiqi.github.io/img/logo.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://taoliqiqi.github.io/2018/02/11/http-chapter1/&title=《http-chapter1》 — 小碎嘴子&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://taoliqiqi.github.io/2018/02/11/http-chapter1/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《http-chapter1》 — 小碎嘴子&url=http://taoliqiqi.github.io/2018/02/11/http-chapter1/&via=http://taoliqiqi.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://taoliqiqi.github.io/2018/02/11/http-chapter1/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between flex-row-reverse">
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2017/11/21/hello-world/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">Hello Hexo</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>This blog is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>Penny &copy; 2017 - 2018</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://taoliqiqi.github.io/2018/02/11/http-chapter1/&title=《http-chapter1》 — 小碎嘴子&pic=http://taoliqiqi.github.io/img/logo.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://taoliqiqi.github.io/2018/02/11/http-chapter1/&title=《http-chapter1》 — 小碎嘴子&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://taoliqiqi.github.io/2018/02/11/http-chapter1/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《http-chapter1》 — 小碎嘴子&url=http://taoliqiqi.github.io/2018/02/11/http-chapter1/&via=http://taoliqiqi.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://taoliqiqi.github.io/2018/02/11/http-chapter1/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACI0lEQVR42u3aQW7DMAwF0dz/0u62QBt5PqkEMDVaBY5j62VBkCJfL7yuP4vf//sKuYc8v7hkyJDxWMa1XOQF5Dp5Mv/2nzfKkCHjAAbZREqqBdn1E95elyFDhow3G+Kw2tZlyJAh4xMMst30fhkyZMjgRSwBrNNB8u3Ha3EZMmQ8kMFP3b//+SP9DRkyZDyKcYVrnZyloXbbrmTIkDGawQMc31Daztw1zCFDhoyTGbuK2zQBjQfFZMiQMZrRCak8jHZaBUHTVIYMGeMYtSGJWqqXDpMFe5MhQ8ZoRtrC3DU80S+GZciQcQ6jFv7SUnMduDe0FmTIkDGawX/Ag+kaxjeavlGGDBlTGcS3q8QlvPToTYYMGScweDwmj+ZpIm+dBmmiDBkyDmDwEa5a4cobojzoy5Ah4xxGbe2CpWVzcVxMhgwZD2eQW2vDELz0TYczUOSWIUPGCEY6NsE7hv2EL/iDZMiQMZrB5xZqB2f9EndDbitDhowRDG7lbcs0NNdC/00RK0OGjKGMfsDtDIfx+Hlz3CZDhoyhDJKu1YZc954O3gRcGTJkjGNc4epsl5fKxaRQhgwZQxm10/X0EenrO0mnDBkypjJ4kE2LzLQYbrVFZciQcQAjDXy8oOUBtNVYlSFDhgwQcNPBi7RMvaHKkCFDRthQrB2ZpS3PbamhDBkyHsLgzYA0vJIkshbiZciQcQ6jc7jPi1ve2qyNo8mQIWMo4wcZe/oIE/PlLwAAAABJRU5ErkJggg==" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

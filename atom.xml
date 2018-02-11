@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://taoliqiqi.github.io/"/>
-  <updated>2018-02-11T05:56:32.949Z</updated>
+  <updated>2018-02-11T06:34:49.006Z</updated>
   <id>http://taoliqiqi.github.io/</id>
   
   <author>
@@ -17,11 +17,11 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>test</title>
-    <link href="http://taoliqiqi.github.io/2018/02/11/test/"/>
-    <id>http://taoliqiqi.github.io/2018/02/11/test/</id>
-    <published>2018-02-11T05:50:49.000Z</published>
-    <updated>2018-02-11T05:56:32.949Z</updated>
+    <title>http-chapter1</title>
+    <link href="http://taoliqiqi.github.io/2018/02/11/http-chapter1/"/>
+    <id>http://taoliqiqi.github.io/2018/02/11/http-chapter1/</id>
+    <published>2018-02-11T06:27:04.000Z</published>
+    <updated>2018-02-11T06:34:49.006Z</updated>
     
     <summary type="html">
     
@@ -29,8 +29,7 @@
       
         
         
-          &lt;h1 id=&quot;1-UI-flow&quot;&gt;&lt;a href=&quot;#1-UI-flow&quot; class=&quot;headerlink&quot; title=&quot;1.UI flow&quot;&gt;&lt;/a&gt;1.UI flow&lt;/h1&gt;&lt;blockquote&gt;
-&lt;p&gt;This picture shows how the
+          &lt;h1 id=&quot;1-1-使用HTTP协议访问Web&quot;&gt;&lt;a href=&quot;#1-1-使用HTTP协议访问Web&quot; class=&quot;headerlink&quot; title=&quot;1.1 使用HTTP协议访问Web&quot;&gt;&lt;/a&gt;1.1 使用HTTP协议访问Web&lt;/h1&gt;&lt;figure
         
       
     
