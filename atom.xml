@@ -30,7 +30,9 @@
         
         
           &lt;h1 id=&quot;1-UI-flow&quot;&gt;&lt;a href=&quot;#1-UI-flow&quot; class=&quot;headerlink&quot; title=&quot;1.UI flow&quot;&gt;&lt;/a&gt;1.UI flow&lt;/h1&gt;&lt;blockquote&gt;
-&lt;p&gt;This picture shows how the
+&lt;p&gt;This picture shows how the report will dispaly in our UI after customer start a request.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&quot;Overview&quot;&gt;&lt;a href=&quot;#Overview&quot; class=&quot;headerlink&quot; title=&quot;Overview&quot;&gt;&lt;/a&gt;Overview&lt;/h2&gt;&lt;img
         
       
     
@@ -52,7 +54,7 @@
       
         
         
-          &lt;p&gt;Welcome to &lt;a href=&quot;https://hexo.io/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Hexo&lt;/a&gt;! This is your very first post. Check &lt;a
+          &lt;p&gt;Welcome to &lt;a href=&quot;https://hexo.io/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Hexo&lt;/a&gt;! This is your very first post. Check &lt;a href=&quot;https://hexo.io/docs/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;documentation&lt;/a&gt; for more info. If you get any problems when using Hexo, you can find the answer in &lt;a href=&quot;https://hexo.io/docs/troubleshooting.html&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;troubleshooting&lt;/a&gt; or you can ask me on &lt;a href=&quot;https://github.com/hexojs/hexo/issues&quot; target=&quot;_blank&quot;
         
       
     
