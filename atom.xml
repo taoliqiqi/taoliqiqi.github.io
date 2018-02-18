@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://taoliqiqi.github.io/"/>
-  <updated>2018-02-11T06:44:53.641Z</updated>
+  <updated>2018-02-18T07:25:12.103Z</updated>
   <id>http://taoliqiqi.github.io/</id>
   
   <author>
@@ -17,11 +17,37 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>angular-ZERO</title>
+    <link href="http://taoliqiqi.github.io/2018/02/18/angular-ZERO/"/>
+    <id>http://taoliqiqi.github.io/2018/02/18/angular-ZERO/</id>
+    <published>2018-02-18T03:05:08.000Z</published>
+    <updated>2018-02-18T07:25:12.103Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h1 id=&quot;1-Input-reference&quot;&gt;&lt;a href=&quot;#1-Input-reference&quot; class=&quot;headerlink&quot; title=&quot;1.Input reference&quot;&gt;&lt;/a&gt;1.Input
+        
+      
+    
+    </summary>
+    
+      <category term="Angular" scheme="http://taoliqiqi.github.io/categories/Angular/"/>
+    
+    
+      <category term="angular" scheme="http://taoliqiqi.github.io/tags/angular/"/>
+    
+  </entry>
+  
+  <entry>
     <title>http-chapter1</title>
     <link href="http://taoliqiqi.github.io/2018/02/11/http-chapter1/"/>
     <id>http://taoliqiqi.github.io/2018/02/11/http-chapter1/</id>
     <published>2018-02-11T06:27:04.000Z</published>
-    <updated>2018-02-11T06:44:53.641Z</updated>
+    <updated>2018-02-18T03:17:41.011Z</updated>
     
     <summary type="html">
     
@@ -35,6 +61,10 @@
     
     </summary>
     
+      <category term="Http" scheme="http://taoliqiqi.github.io/categories/Http/"/>
+    
+    
+      <category term="http" scheme="http://taoliqiqi.github.io/tags/http/"/>
     
   </entry>
   

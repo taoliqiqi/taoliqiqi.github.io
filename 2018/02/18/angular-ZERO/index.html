@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    <title>angular-ZERO | 小碎嘴子 | Take the sourest lemon that life has to offer and turn it into something resembling lemonade.</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="angular">
+    <meta name="description" content="1.Input reference这里引用的是input对象 ，我们如果想传递input的值，可以用usernameRef.value ，然后就可以把 onClick() 方法改成 onClick(usernameRef.value) 12&amp;lt;input #usernameRef type=&amp;quot;text&amp;quot;&amp;gt;&amp;lt;button (click)=&amp;quot;onClick">
+<meta name="keywords" content="angular">
+<meta property="og:type" content="article">
+<meta property="og:title" content="angular-ZERO">
+<meta property="og:url" content="http://taoliqiqi.github.io/2018/02/18/angular-ZERO/index.html">
+<meta property="og:site_name" content="小碎嘴子">
+<meta property="og:description" content="1.Input reference这里引用的是input对象 ，我们如果想传递input的值，可以用usernameRef.value ，然后就可以把 onClick() 方法改成 onClick(usernameRef.value) 12&amp;lt;input #usernameRef type=&amp;quot;text&amp;quot;&amp;gt;&amp;lt;button (click)=&amp;quot;onClick">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="https://penny-1256097328.cos.ap-beijing.myqcloud.com/WX20180218-121431%402x.png">
+<meta property="og:updated_time" content="2018-02-18T07:25:12.103Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="angular-ZERO">
+<meta name="twitter:description" content="1.Input reference这里引用的是input对象 ，我们如果想传递input的值，可以用usernameRef.value ，然后就可以把 onClick() 方法改成 onClick(usernameRef.value) 12&amp;lt;input #usernameRef type=&amp;quot;text&amp;quot;&amp;gt;&amp;lt;button (click)=&amp;quot;onClick">
+<meta name="twitter:image" content="https://penny-1256097328.cos.ap-beijing.myqcloud.com/WX20180218-121431%402x.png">
+    
+        <link rel="alternate" type="application/atom+xml" title="小碎嘴子" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/logo.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">Penny</h5>
+          <a href="mailto:bananatao23@outlook.com" title="bananatao23@outlook.com" class="mail">bananatao23@outlook.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                Penny
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/taoliqiqi" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">angular-ZERO</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Search">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">angular-ZERO</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2018-02-18T03:05:08.000Z" itemprop="datePublished" class="page-time">
+  2018-02-18
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Angular/">Angular</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#1-Input-reference"><span class="post-toc-number">1.</span> <span class="post-toc-text">1.Input reference</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#2-Dependency-Inject-Service"><span class="post-toc-number">2.</span> <span class="post-toc-text">2.Dependency Inject Service</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#3-数据绑定"><span class="post-toc-number">3.</span> <span class="post-toc-text">3.数据绑定</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#4-建立模拟web服务和异步操作"><span class="post-toc-number">4.</span> <span class="post-toc-text">4.建立模拟web服务和异步操作</span></a></li></ol>
+        </nav>
+    </aside>
+    
+<article id="post-angular-ZERO"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">angular-ZERO</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2018-02-18 11:05:08" datetime="2018-02-18T03:05:08.000Z"  itemprop="datePublished">2018-02-18</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Angular/">Angular</a></li></ul>
+
+
+
+            
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h1 id="1-Input-reference"><a href="#1-Input-reference" class="headerlink" title="1.Input reference"></a>1.Input reference</h1><p>这里<strong>引用的是input对象</strong> ，我们如果想传递<strong>input的值</strong>，可以用<code>usernameRef.value</code> ，然后就可以把 <code>onClick()</code> 方法改成 <code>onClick(usernameRef.value)</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;input #usernameRef type=&quot;text&quot;&gt;</span><br><span class="line">&lt;button (click)=&quot;onClick(usernameRef.value)&quot;&gt;Login&lt;/button&gt;</span><br></pre></td></tr></table></figure>
+<h1 id="2-Dependency-Inject-Service"><a href="#2-Dependency-Inject-Service" class="headerlink" title="2.Dependency Inject Service"></a>2.Dependency Inject Service</h1><p>如果不使用 <strong>DI（依赖性注入)</strong> 的时候，我们自然的想法是这样的，在 <code>login.component.ts</code> 中 import <strong>引入</strong> <code>AuthService</code>，在构造中 <strong>初始化</strong> <code>service</code> ，在 <code>onClick</code> 中 <strong>调用</strong> <code>service</code> 。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; Component, OnInit &#125; <span class="keyword">from</span> <span class="string">'@angular/core'</span>;</span><br><span class="line"><span class="comment">//引入AuthService</span></span><br><span class="line"><span class="keyword">import</span> &#123; AuthService &#125; <span class="keyword">from</span> <span class="string">'../core/auth.service'</span>;</span><br><span class="line"></span><br><span class="line">@Component(&#123;</span><br><span class="line">  selector: <span class="string">'app-login'</span>,</span><br><span class="line">  template: <span class="string">`</span></span><br><span class="line"><span class="string">    &lt;div&gt;</span></span><br><span class="line"><span class="string">      &lt;input #usernameRef type="text"&gt;</span></span><br><span class="line"><span class="string">      &lt;input #passwordRef type="password"&gt;</span></span><br><span class="line"><span class="string">      &lt;button (click)="onClick(usernameRef.value, passwordRef.value)"&gt;Login&lt;/button&gt;</span></span><br><span class="line"><span class="string">    &lt;/div&gt;</span></span><br><span class="line"><span class="string">  `</span>,</span><br><span class="line">  styles: []</span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">export</span> <span class="class"><span class="keyword">class</span> <span class="title">LoginComponent</span> <span class="title">implements</span> <span class="title">OnInit</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="comment">//声明成员变量，其类型为AuthService</span></span><br><span class="line">  service: AuthService;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">constructor</span>() &#123;</span><br><span class="line">    <span class="keyword">this</span>.service = <span class="keyword">new</span> AuthService();</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  ngOnInit() &#123;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  onClick(username, password) &#123;</span><br><span class="line">    <span class="comment">//调用service的方法</span></span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'auth result is: '</span> + <span class="keyword">this</span>.service.loginWithCredentials(username, password));</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这么做呢也可以跑起来，但存在几个问题：</p>
+<ol>
+<li><p>由于实例化是在组件中进行的，意味着我们如果更改service的构造函数的话，组件也需要更改。</p>
+</li>
+<li><p>如果我们以后需要开发、测试和生产环境配置不同的AuthService，以这种方式实现会非常不方便。</p>
+</li>
+</ol>
+<p><strong>使用依赖注入</strong></p>
+<ol>
+<li>使用 <strong>import</strong> (<code>providers:[AuthService]</code>)</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; Component, OnInit &#125; <span class="keyword">from</span> <span class="string">'@angular/core'</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; AuthService &#125; <span class="keyword">from</span> <span class="string">'../core/auth.service'</span>;</span><br><span class="line"></span><br><span class="line">@Component(&#123;</span><br><span class="line">  selector: <span class="string">'app-login'</span>,</span><br><span class="line">  template: <span class="string">`</span></span><br><span class="line"><span class="string">    &lt;div&gt;</span></span><br><span class="line"><span class="string">      &lt;input #usernameRef type="text"&gt;</span></span><br><span class="line"><span class="string">      &lt;input #passwordRef type="password"&gt;</span></span><br><span class="line"><span class="string">      &lt;button (click)="onClick(usernameRef.value, passwordRef.value)"&gt;Login&lt;/button&gt;</span></span><br><span class="line"><span class="string">    &lt;/div&gt;</span></span><br><span class="line"><span class="string">  `</span>,</span><br><span class="line">  styles: [],</span><br><span class="line">  <span class="comment">//在providers中配置AuthService</span></span><br><span class="line">  providers:[AuthService]</span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">export</span> <span class="class"><span class="keyword">class</span> <span class="title">LoginComponent</span> <span class="title">implements</span> <span class="title">OnInit</span> </span>&#123;</span><br><span class="line">  <span class="comment">//在构造函数中将AuthService示例注入到成员变量service中</span></span><br><span class="line">  <span class="comment">//而且我们不需要显式声明成员变量service了</span></span><br><span class="line">  <span class="keyword">constructor</span>(private service: AuthService) &#123;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  ngOnInit() &#123;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  onClick(username, password) &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'auth result is: '</span> + <span class="keyword">this</span>.service.loginWithCredentials(username, password));</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol>
+<li>不<strong>import</strong> service</li>
+</ol>
+<p>In <code>app.module.ts</code></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">providers: [</span><br><span class="line">    &#123;<span class="attr">provide</span>: <span class="string">'auth'</span>,  <span class="attr">useClass</span>: AuthService&#125;</span><br><span class="line">    ]</span><br></pre></td></tr></table></figure>
+<p>In <code>login.component.ts</code></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">constructor</span>(@Inject('auth') private service) &#123;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<h1 id="3-数据绑定"><a href="#3-数据绑定" class="headerlink" title="3.数据绑定"></a>3.数据绑定</h1><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://penny-1256097328.cos.ap-beijing.myqcloud.com/WX20180218-121431%402x.png" alt="image" title="">
+                </div>
+                <div class="image-caption">image</div>
+            </figure>
+<h1 id="4-建立模拟web服务和异步操作"><a href="#4-建立模拟web服务和异步操作" class="headerlink" title="4.建立模拟web服务和异步操作"></a>4.建立模拟web服务和异步操作</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install --save angular-in-memory-web-api</span><br></pre></td></tr></table></figure>
+<p>创建<code>src\app\todo\todo-data.ts</code></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; InMemoryDbService &#125; <span class="keyword">from</span> <span class="string">'angular-in-memory-web-api'</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; Todo &#125; <span class="keyword">from</span> <span class="string">'./todo.model'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="class"><span class="keyword">class</span> <span class="title">InMemoryTodoDbService</span> <span class="title">implements</span> <span class="title">InMemoryDbService</span> </span>&#123;</span><br><span class="line">  createDb() &#123;</span><br><span class="line">    <span class="keyword">let</span> todos: Todo[] = [</span><br><span class="line">      &#123;<span class="attr">id</span>: <span class="string">"f823b191-7799-438d-8d78-fcb1e468fc78"</span>, <span class="attr">desc</span>: <span class="string">'Getting up'</span>, <span class="attr">completed</span>: <span class="literal">true</span>&#125;,</span><br><span class="line">      &#123;<span class="attr">id</span>: <span class="string">"c316a3bf-b053-71f9-18a3-0073c7ee3b76"</span>, <span class="attr">desc</span>: <span class="string">'Go to school'</span>, <span class="attr">completed</span>: <span class="literal">false</span>&#125;</span><br><span class="line">    ];</span><br><span class="line">    <span class="keyword">return</span> &#123;todos&#125;;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    Last updated: <time datetime="2018-02-18T07:25:12.103Z" itemprop="dateUpdated">2018-02-18 15:25:12</time>
+</span><br>
+
+
+        
+    </div>
+    <footer>
+        <a href="http://taoliqiqi.github.io">
+            <img src="/img/logo.jpg" alt="Penny">
+            Penny
+        </a>
+    </footer>
+</blockquote>
+
+        
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/angular/">angular</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://taoliqiqi.github.io/2018/02/18/angular-ZERO/&title=《angular-ZERO》 — 小碎嘴子&pic=http://taoliqiqi.github.io/img/logo.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://taoliqiqi.github.io/2018/02/18/angular-ZERO/&title=《angular-ZERO》 — 小碎嘴子&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://taoliqiqi.github.io/2018/02/18/angular-ZERO/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《angular-ZERO》 — 小碎嘴子&url=http://taoliqiqi.github.io/2018/02/18/angular-ZERO/&via=http://taoliqiqi.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://taoliqiqi.github.io/2018/02/18/angular-ZERO/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between flex-row-reverse">
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2018/02/11/http-chapter1/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">http-chapter1</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+
+
+</div>
+
+        <footer class="footer">
+    <!-- <div class="top">
+        
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>This blog is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</span>
+        </p>
+    </div> -->
+    <div class="bottom">
+        <p><span>Penny &copy; 2017 - 2018</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://taoliqiqi.github.io/2018/02/18/angular-ZERO/&title=《angular-ZERO》 — 小碎嘴子&pic=http://taoliqiqi.github.io/img/logo.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://taoliqiqi.github.io/2018/02/18/angular-ZERO/&title=《angular-ZERO》 — 小碎嘴子&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://taoliqiqi.github.io/2018/02/18/angular-ZERO/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《angular-ZERO》 — 小碎嘴子&url=http://taoliqiqi.github.io/2018/02/18/angular-ZERO/&via=http://taoliqiqi.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://taoliqiqi.github.io/2018/02/18/angular-ZERO/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACLklEQVR42u3azW6DQAxF4bz/S9NNF5FI6bk2RBrPYVU1BObLwvLf64Wv4+16/8/5nvP95++Sb72euGTIkLEs47i8/rqHHJffnz7/A1WGDBkbMEgoJBGv8wPx98qQIUMGedz1oa9TvTTgypAhQ0bKqL0yTRxlyJAho5bA1VJA8rSv1uIyZMhYkMG77t//+5H5hgwZMpZiHOFVS+lIiKwND36/JUOGjNGMtOl/3T4jLTY+2kyXP2TIkDGbUQt5xdeA0UL6HBkyZMxmkMZZpz7mIbXTpJMhQ8ZsBh8xch5PIjuhVoYMGbsxOosR6SvT5DItp2XIkLEDg7fGOp/yMNpasJAhQ8YIRj8h64dRUtb+85PJkCFjNCNtjaUlZW2QUGy3yZAhYygjPWinocbL1LiRJ0OGjNGM/uM6yxm8xEU/jQwZMoYy+DoFL1avD5EWwPHOiAwZMsYx0kPXClpSmt67jiZDhozZDH5oElg7GStfIJMhQ8YODJ7q8QXWWsOOsG9ot8mQIWNxBgmUHMOPmA4vP7xXhgwZGzN4kpeWu4TdGg/IkCFjKKM21EyPxcecwYhChgwZQxlHeNXabTVwMJaQIUPGaEZ/qNkJwZ3hRBqmZciQsTqj1vDigfK5VQ8ZMmTsxkgD311rYWmqF09iZciQsT2Djwru/TToAsqQIWNjBk8Ha8scpLV3Q2ooQ4aMpRikiE0P0VnzigcPMmTIGM3gpSMJi08sWPD0UYYMGeMYP/fZslBuJlHkAAAAAElFTkSuQmCC" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+
+
+
+
+
+
+
+
+</body>
+</html>
