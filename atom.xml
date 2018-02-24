@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://taoliqiqi.github.io/"/>
-  <updated>2018-02-24T05:51:33.902Z</updated>
+  <updated>2018-02-18T08:54:15.566Z</updated>
   <id>http://taoliqiqi.github.io/</id>
   
   <author>
@@ -15,20 +15,6 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
-  
-  <entry>
-    <title>Angular 2.x 从0到1</title>
-    <link href="http://taoliqiqi.github.io/2018/02/24/Angular-2-x-%E4%BB%8E0%E5%88%B01/"/>
-    <id>http://taoliqiqi.github.io/2018/02/24/Angular-2-x-从0到1/</id>
-    <published>2018-02-24T05:51:33.000Z</published>
-    <updated>2018-02-24T05:51:33.902Z</updated>
-    
-    <summary type="html">
-    
-    </summary>
-    
-    
-  </entry>
   
   <entry>
     <title>angular-ZERO</title>
