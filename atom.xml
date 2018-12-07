@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://taoliqiqi.github.io/"/>
-  <updated>2018-02-18T08:54:15.566Z</updated>
+  <updated>2018-12-03T02:57:10.127Z</updated>
   <id>http://taoliqiqi.github.io/</id>
   
   <author>
@@ -15,6 +15,32 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Javascript数据类型</title>
+    <link href="http://taoliqiqi.github.io/2018/12/03/jsdata1/"/>
+    <id>http://taoliqiqi.github.io/2018/12/03/jsdata1/</id>
+    <published>2018-12-03T01:27:04.000Z</published>
+    <updated>2018-12-03T02:57:10.127Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h2 id=&quot;1-区分大小写&quot;&gt;&lt;a href=&quot;#1-区分大小写&quot; class=&quot;headerlink&quot;
+        
+      
+    
+    </summary>
+    
+      <category term="js" scheme="http://taoliqiqi.github.io/categories/js/"/>
+    
+    
+      <category term="js" scheme="http://taoliqiqi.github.io/tags/js/"/>
+    
+  </entry>
   
   <entry>
     <title>angular-ZERO</title>
