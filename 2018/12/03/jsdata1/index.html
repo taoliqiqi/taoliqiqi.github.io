@@ -28,7 +28,7 @@
 <meta property="og:site_name" content="What&#39;s the story?">
 <meta property="og:description" content="1.区分大小写 Html/css不区分大小写，Html.data属性，名字会自动转小写，类似 JQuery.data() 方法  2.变量 var定义 局部变量：不可被删除；变量可被提前；不用var 全局变量（window一个属性）：可被删除（对象的属性可以被删除）；不可提前（属性是无序的）  3.数据类型 基础数据类型 原始数据类型/不可改变数据类型对象 复杂数据类型/可变数据类型、可使用属性、">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2018-12-07T07:00:15.669Z">
+<meta property="og:updated_time" content="2018-12-14T07:03:54.840Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Javascript数据类型">
 <meta name="twitter:description" content="1.区分大小写 Html/css不区分大小写，Html.data属性，名字会自动转小写，类似 JQuery.data() 方法  2.变量 var定义 局部变量：不可被删除；变量可被提前；不用var 全局变量（window一个属性）：可被删除（对象的属性可以被删除）；不可提前（属性是无序的）  3.数据类型 基础数据类型 原始数据类型/不可改变数据类型对象 复杂数据类型/可变数据类型、可使用属性、">
@@ -159,7 +159,7 @@
     <aside class="post-widget">
         <nav class="post-toc-wrap" id="post-toc">
             <h4>TOC</h4>
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#1-区分大小写"><span class="post-toc-number">1.</span> <span class="post-toc-text">1.区分大小写</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#2-变量"><span class="post-toc-number">2.</span> <span class="post-toc-text">2.变量</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#3-数据类型"><span class="post-toc-number">3.</span> <span class="post-toc-text">3.数据类型</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#4-typeof"><span class="post-toc-number">4.</span> <span class="post-toc-text">4. typeof</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#5-undefined、null、NaN"><span class="post-toc-number">5.</span> <span class="post-toc-text">5.undefined、null、NaN</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#6-Boolean"><span class="post-toc-number">6.</span> <span class="post-toc-text">6.Boolean</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#7-Number"><span class="post-toc-number">7.</span> <span class="post-toc-text">7.Number</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#8-数值转换"><span class="post-toc-number">8.</span> <span class="post-toc-text">8.数值转换</span></a></li></ol>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#1-区分大小写"><span class="post-toc-number">1.</span> <span class="post-toc-text">1.区分大小写</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#2-变量"><span class="post-toc-number">2.</span> <span class="post-toc-text">2.变量</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#3-数据类型"><span class="post-toc-number">3.</span> <span class="post-toc-text">3.数据类型</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#4-typeof"><span class="post-toc-number">4.</span> <span class="post-toc-text">4. typeof</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#5-undefined、null、NaN"><span class="post-toc-number">5.</span> <span class="post-toc-text">5.undefined、null、NaN</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#6-Boolean"><span class="post-toc-number">6.</span> <span class="post-toc-text">6.Boolean</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#7-Number"><span class="post-toc-number">7.</span> <span class="post-toc-text">7.Number</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#8-数值转换"><span class="post-toc-number">8.</span> <span class="post-toc-text">8.数值转换</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#9-String"><span class="post-toc-number">9.</span> <span class="post-toc-text">9.String</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#10-Object"><span class="post-toc-number">10.</span> <span class="post-toc-text">10.Object</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#基础数据类型转为object"><span class="post-toc-number">10.1.</span> <span class="post-toc-text">基础数据类型转为object</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#创建对象的方法"><span class="post-toc-number">10.2.</span> <span class="post-toc-text">创建对象的方法</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#属性查询"><span class="post-toc-number">10.3.</span> <span class="post-toc-text">属性查询</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#11-表达式"><span class="post-toc-number">11.</span> <span class="post-toc-text">11. 表达式</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#12-一元操作符"><span class="post-toc-number">12.</span> <span class="post-toc-text">12.一元操作符</span></a></li></ol>
         </nav>
     </aside>
     
@@ -207,6 +207,117 @@
 <h2 id="8-数值转换"><a href="#8-数值转换" class="headerlink" title="8.数值转换"></a>8.数值转换</h2><blockquote>
 <p>几种特殊数据转换：<br><code>Number(undefined) -&gt; NaN</code><br><code>Number(null) -&gt; 0</code><br><code>Number(&quot;&quot;) -&gt; 0</code><br><code>Number([]) -&gt; 0</code><br><code>Number({}) -&gt; NaN</code><br><strong>Number()</strong> 适用任何类型<br><strong>parseInt()</strong> 适用于字符串<br><strong>parseFloat()</strong> 适用于字符串<br>在使用parseInt(), parseFloat()，尽量使用“10”做第二个参数，代表<strong>传进来</strong>的第一个参数是用什么表示的。</p>
 </blockquote>
+<h2 id="9-String"><a href="#9-String" class="headerlink" title="9.String"></a>9.String</h2><blockquote>
+<p><strong>转义字符</strong> 长度1；\u03a3 长度1<br><strong>string()</strong> 适用于任何类型</p>
+</blockquote>
+<html><table class="tg"><tr><td class="tg-3xi5" rowspan="5">toString()</td><td class="tg-c6of">undefined, null没有该方法</td></tr><tr><td class="tg-c6of">number.toString(2~16的参数)转为对应进制的数字</td></tr><tr><td class="tg-c6of">number,bool,string,object都有该方法</td></tr></table></html>
+
+
+<p><strong>Number(),Boolean(),String()相同点</strong> </p>
+<table>
+<thead>
+<tr>
+<th>Number(),Boolean(),String()</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>都有同名函数，首字母大写</td>
+<td></td>
+</tr>
+<tr>
+<td>可转换任意数据类型</td>
+<td></td>
+</tr>
+<tr>
+<td>得到的结果都和自己对应</td>
+<td></td>
+</tr>
+<tr>
+<td>结果分成两类（对象传到String()里面，转换出带object的字符串</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>String()</th>
+<th>new String()</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>原生类型，一种内建函数</td>
+<td>转出object</td>
+</tr>
+</tbody>
+</table>
+<p><strong>valueOf</strong> 适用于Boolean,Number,String,Object</p>
+<h2 id="10-Object"><a href="#10-Object" class="headerlink" title="10.Object"></a>10.Object</h2><blockquote>
+<p>各种属性构成的无序集合，由键-值（包括<strong>普通数据</strong>、<strong>对象</strong>、<strong>方法</strong>）对组成</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>原始数据类型</th>
+<th>对象</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>无属性</td>
+<td>有属性</td>
+</tr>
+<tr>
+<td>无方法</td>
+<td>有方法</td>
+</tr>
+<tr>
+<td>不可改变</td>
+<td>可改变</td>
+</tr>
+<tr>
+<td>比较值</td>
+<td>比较引用</td>
+</tr>
+</tbody>
+</table>
+<html><table class="tg"><tr><td class="tg-3xi5" rowspan="5">对象分类</td><td class="tg-c6of">内部对象（17个）：常用对象（8个：bool,string,number,数组,Date,function,object,正则），错误对象，内置对象（Math,Global,Json：可不使用new)</td></tr><tr><td class="tg-c6of">数组对象（用得较多的是window,document)</td></tr><tr><td class="tg-c6of">自定义对象</td></tr></table></html>
+
+<h3 id="基础数据类型转为object"><a href="#基础数据类型转为object" class="headerlink" title="基础数据类型转为object"></a>基础数据类型转为object</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">bool -&gt; object <span class="comment">// &#123;'原始值'： true&#125;</span></span><br><span class="line">number -&gt; object <span class="comment">// &#123;'原始值' ： 数字&#125;</span></span><br><span class="line">string -&gt; object <span class="comment">//  &#123;</span></span><br><span class="line">    <span class="string">'原始值'</span> ：<span class="string">'abc'</span>,</span><br><span class="line">    <span class="string">'length'</span>：<span class="number">3</span>,</span><br><span class="line">    <span class="string">'0'</span>: <span class="string">'a'</span>,</span><br><span class="line">    <span class="string">'1'</span>: <span class="string">'b'</span>,</span><br><span class="line">    <span class="string">'2'</span>: <span class="string">'c'</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="literal">undefined</span>/<span class="literal">null</span> -&gt; object <span class="comment">// &#123;&#125; （但是不能使用对象的方法）</span></span><br><span class="line"><span class="keyword">new</span> <span class="built_in">Object</span>(<span class="literal">undefined</span>) <span class="comment">// &#123;&#125;</span></span><br><span class="line"><span class="keyword">new</span> <span class="built_in">Object</span>(<span class="literal">null</span>)  <span class="comment">// &#123;&#125; (现在浏览器不报错，但是实际是不能转化)</span></span><br></pre></td></tr></table></figure>
+<h3 id="创建对象的方法"><a href="#创建对象的方法" class="headerlink" title="创建对象的方法"></a>创建对象的方法</h3><ol>
+<li><p>对象直接量</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> obj = &#123;</span><br><span class="line">    a: <span class="number">123</span>,</span><br><span class="line">    b: <span class="string">"hello"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>new Object() （括号可省略，不推荐这么使用）</p>
+</li>
+<li>create方法（ES5）</li>
+</ol>
+<h3 id="属性查询"><a href="#属性查询" class="headerlink" title="属性查询"></a>属性查询</h3><p><code>obj.key</code> &lt;=&gt; <code>obj[key]</code></p>
+<ol>
+<li>先计算obj是否<code>undefined</code>或者<code>null</code>，是的话报错</li>
+<li>先计算obj是否对象，不是，转对象</li>
+<li>是对象后，若是<code>.</code>操作，把<code>.</code>后属性对应的值返回；若是<code>[]</code>操作，先计算括号内内容，转字符串，然后返回字符串的值</li>
+<li>找不到值，返回<code>undefined</code></li>
+</ol>
+<p><strong><code>object -&gt; 数字</code> 先valueOf(), 再toString()；</strong></p>
+<p><strong><code>object -&gt; 字符串</code> 先toString(), 再valueOf()</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[]（转换）-&gt;数字（先valueOf()) -&gt; [](再toString()) -&gt; <span class="string">""</span> (再转数字) -&gt; <span class="number">0</span></span><br><span class="line">&#123;&#125;（转换）-&gt;数字（先valueOf()) -&gt; &#123;&#125;(再toString()) -&gt; <span class="string">"[object object]"</span> (再转数字) -&gt; <span class="literal">NaN</span></span><br><span class="line">object -&gt; bool <span class="comment">//全是true</span></span><br><span class="line"><span class="built_in">Array</span> -&gt; toString() <span class="comment">// 逗号组合项的字符串</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> -&gt; <span class="title">toString</span>(<span class="params"></span>) //源代码</span></span><br><span class="line"><span class="function">日期 -&gt; <span class="title">toString</span>(<span class="params"></span>) //日期时间组合字符串</span></span><br><span class="line"><span class="function"><span class="title">valueOf</span>(<span class="params"></span>): 有原始值，返回值；无原始值，返回<span class="title">object</span>本身（<span class="title">Date</span>除外，返回至1970年以来的毫秒数）</span></span><br></pre></td></tr></table></figure>
+<h2 id="11-表达式"><a href="#11-表达式" class="headerlink" title="11. 表达式"></a>11. 表达式</h2><blockquote>
+<p><code>1+1</code> 两个1是表达式， + 是操作符</p>
+</blockquote>
+<ol>
+<li>原始表达式 <strong>常量、变量、直接量、关键字</strong></li>
+<li>初始化表达式 <strong>对象、数组</strong></li>
+<li>函数表达式</li>
+<li>函数调用表达式</li>
+<li>属性访问表达式 <strong>. []</strong></li>
+<li>new对象创建表达式</li>
+</ol>
+<h2 id="12-一元操作符"><a href="#12-一元操作符" class="headerlink" title="12.一元操作符"></a>12.一元操作符</h2><blockquote>
+<p>只能操作一个值的操作符</p>
+</blockquote>
 
         </div>
 
@@ -214,7 +325,7 @@
     <div class="content">
         
 <span class="post-time">
-    Last updated: <time datetime="2018-12-07T07:00:15.669Z" itemprop="dateUpdated">2018-12-07 15:00:15</time>
+    Last updated: <time datetime="2018-12-14T07:03:54.840Z" itemprop="dateUpdated">2018-12-14 15:03:54</time>
 </span><br>
 
 
@@ -288,7 +399,14 @@
     </div>
 
     
-<nav class="post-nav flex-row flex-justify-between flex-row-reverse">
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2018/12/14/async/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">Javascript数据类型</h4>
+      </a>
+    </div>
   
 
   
