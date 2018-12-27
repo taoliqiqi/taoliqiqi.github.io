@@ -28,7 +28,7 @@
 <meta property="og:site_name" content="What&#39;s the story?">
 <meta property="og:description" content="1. 表达式表达式 JS中的短语。（不一定有副作用） 语句 JS中的命令，会发生一些事情。（一定有副作用） 副作用 对某些变量进行修改。（++/–/= 改变了作用对象） 2. 语句以分号结束  表达式语句：++, --, =, +=, delete(只删属性，不删变量)函数调用表达式 复合语句/空语句：   复合语句：语句块（大括号加内容），如果没有大括号，只处理第一句。只有函数作用域，没有块级作">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2018-12-27T03:08:51.696Z">
+<meta property="og:updated_time" content="2018-12-27T03:16:40.712Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Javascript表达式">
 <meta name="twitter:description" content="1. 表达式表达式 JS中的短语。（不一定有副作用） 语句 JS中的命令，会发生一些事情。（一定有副作用） 副作用 对某些变量进行修改。（++/–/= 改变了作用对象） 2. 语句以分号结束  表达式语句：++, --, =, +=, delete(只删属性，不删变量)函数调用表达式 复合语句/空语句：   复合语句：语句块（大括号加内容），如果没有大括号，只处理第一句。只有函数作用域，没有块级作">
@@ -197,6 +197,7 @@
 </ol>
 <blockquote>
 <p>用var声明变量</p>
+</blockquote>
 <ul>
 <li>变量作用范围是声明这个变量的函数中（for/if中定义的变量可跳出使用）</li>
 <li>不能用delete删除；函数结束后由垃圾回收机制回收</li>
@@ -204,19 +205,20 @@
 <li>使用逗号操作符可同时定义多个变量</li>
 <li>变量声明提前：把变量的名字提升到顶部</li>
 </ul>
-</blockquote>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">alert(a);</span><br><span class="line"><span class="keyword">var</span> a = <span class="number">1</span>; <span class="comment">// undefined</span></span><br><span class="line">等价于</span><br><span class="line"><span class="keyword">var</span> a;</span><br><span class="line">alert(a);</span><br><span class="line">a = <span class="number">1</span>;</span><br></pre></td></tr></table></figure>
 <blockquote>
 <p>function name(){} 与变量</p>
+</blockquote>
 <ul>
 <li>相同点：不能用delete删除，声明提前</li>
 <li>不同点：变量是名字提前，函数是名字加内容整体提前</li>
 </ul>
+<blockquote>
 <p>匿名函数：var a = runction(){} 与有名函数</p>
+</blockquote>
 <ul>
 <li>基本没区别。唯一一个，有名函数会整体提前，匿名函数只把名字提前，操作还在代码位置</li>
 </ul>
-</blockquote>
 <p><strong>尽量不要在if/for/while中定义函数</strong></p>
 <ol>
 <li>流程控制语句</li>
@@ -228,7 +230,7 @@
     <div class="content">
         
 <span class="post-time">
-    Last updated: <time datetime="2018-12-27T03:08:51.696Z" itemprop="dateUpdated">2018-12-27 11:08:51</time>
+    Last updated: <time datetime="2018-12-27T03:16:40.712Z" itemprop="dateUpdated">2018-12-27 11:16:40</time>
 </span><br>
 
 
