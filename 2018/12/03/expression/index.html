@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    <title>Javascript表达式 | What&#39;s the story? | Take the sourest lemon that life has to offer and turn it into something resembling lemonade.</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="js">
+    <meta name="description" content="1. 表达式表达式 JS中的短语。（不一定有副作用） 语句 JS中的命令，会发生一些事情。（一定有副作用） 副作用 对某些变量进行修改。（++/–/= 改变了作用对象） 2. 语句以分号结束  表达式语句：++, --, =, +=, delete(只删属性，不删变量)函数调用表达式 复合语句/空语句：   复合语句：语句块（大括号加内容），如果没有大括号，只处理第一句。只有函数作用域，没有块级作">
+<meta name="keywords" content="js">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Javascript表达式">
+<meta property="og:url" content="http://taoliqiqi.github.io/2018/12/03/expression/index.html">
+<meta property="og:site_name" content="What&#39;s the story?">
+<meta property="og:description" content="1. 表达式表达式 JS中的短语。（不一定有副作用） 语句 JS中的命令，会发生一些事情。（一定有副作用） 副作用 对某些变量进行修改。（++/–/= 改变了作用对象） 2. 语句以分号结束  表达式语句：++, --, =, +=, delete(只删属性，不删变量)函数调用表达式 复合语句/空语句：   复合语句：语句块（大括号加内容），如果没有大括号，只处理第一句。只有函数作用域，没有块级作">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2018-12-27T03:00:16.713Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Javascript表达式">
+<meta name="twitter:description" content="1. 表达式表达式 JS中的短语。（不一定有副作用） 语句 JS中的命令，会发生一些事情。（一定有副作用） 副作用 对某些变量进行修改。（++/–/= 改变了作用对象） 2. 语句以分号结束  表达式语句：++, --, =, +=, delete(只删属性，不删变量)函数调用表达式 复合语句/空语句：   复合语句：语句块（大括号加内容），如果没有大括号，只处理第一句。只有函数作用域，没有块级作">
+    
+        <link rel="alternate" type="application/atom+xml" title="What&#39;s the story?" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/logo.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">Penny</h5>
+          <a href="mailto:bananatao23@outlook.com" title="bananatao23@outlook.com" class="mail">bananatao23@outlook.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                Penny
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/taoliqiqi" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">Javascript表达式</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Search">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">Javascript表达式</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2018-12-03T01:27:04.000Z" itemprop="datePublished" class="page-time">
+  2018-12-03
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/js/">js</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#1-表达式"><span class="post-toc-number">1.</span> <span class="post-toc-text">1. 表达式</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#2-语句"><span class="post-toc-number">2.</span> <span class="post-toc-text">2. 语句</span></a></li></ol>
+        </nav>
+    </aside>
+    
+<article id="post-expression"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">Javascript表达式</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2018-12-03 09:27:04" datetime="2018-12-03T01:27:04.000Z"  itemprop="datePublished">2018-12-03</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/js/">js</a></li></ul>
+
+
+
+            
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h2 id="1-表达式"><a href="#1-表达式" class="headerlink" title="1. 表达式"></a>1. 表达式</h2><p><strong>表达式</strong> JS中的短语。（不一定有副作用）</p>
+<p><strong>语句</strong> JS中的命令，会发生一些事情。（一定有副作用）</p>
+<p><strong>副作用</strong> 对某些变量进行修改。（++/–/= 改变了作用对象）</p>
+<h2 id="2-语句"><a href="#2-语句" class="headerlink" title="2. 语句"></a>2. 语句</h2><p><strong>以分号结束</strong></p>
+<ol>
+<li><strong>表达式语句</strong>：<code>++, --, =, +=, delete(只删属性，不删变量)</code>函数调用表达式</li>
+<li><strong>复合语句/空语句</strong>：</li>
+</ol>
+<ul>
+<li>复合语句：语句块（大括号加内容），如果没有大括号，只处理第一句。只有函数作用域，没有块级作用域。大括号结尾可不用分号。</li>
+<li>空语句：只有一个分号。作用：大括号后的分号会当做空语句（所以大括号后写不写分号都行）；块的开头，避免别人代码的结尾没有分号；循环中：for/while需要执行的已经执行完。</li>
+</ul>
+<ol>
+<li><strong>声明语句</strong>：声明变量/函数</li>
+</ol>
+<blockquote>
+<p>用var声明变量</p>
+<ul>
+<li>变量作用范围是声明这个变量的函数中（for/if中定义的变量可跳出使用）</li>
+<li>不能用delete删除；函数结束后由垃圾回收机制回收</li>
+<li>可以不设置初始值，默认undefined</li>
+<li>使用逗号操作符可同时定义多个变量</li>
+<li>变量声明提前：把变量的名字提升到顶部</li>
+</ul>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">alert(a);</span><br><span class="line"><span class="keyword">var</span> a = <span class="number">1</span>; <span class="comment">// undefined</span></span><br><span class="line">等价于</span><br><span class="line"><span class="keyword">var</span> a;</span><br><span class="line">alert(a);</span><br><span class="line">a = <span class="number">1</span>;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>function name(){} 与变量</p>
+<ul>
+<li>相同点：不能用delete删除，声明提前</li>
+<li>不同点：变量是名字提前，函数是名字加内容整体提前</li>
+</ul>
+<p>匿名函数：var a = runction(){} 与有名函数</p>
+<ul>
+<li>基本没区别。唯一一个，有名函数会整体提前，匿名函数只把名字提前，操作还在代码位置</li>
+</ul>
+</blockquote>
+<p><strong>尽量不要在if/for/while中定义函数</strong></p>
+<ol>
+<li>流程控制语句</li>
+</ol>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    Last updated: <time datetime="2018-12-27T03:00:16.713Z" itemprop="dateUpdated">2018-12-27 11:00:16</time>
+</span><br>
+
+
+        
+    </div>
+    <footer>
+        <a href="http://taoliqiqi.github.io">
+            <img src="/img/logo.jpg" alt="Penny">
+            Penny
+        </a>
+    </footer>
+</blockquote>
+
+        
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://taoliqiqi.github.io/2018/12/03/expression/&title=《Javascript表达式》 — What's the story?&pic=http://taoliqiqi.github.io/img/logo.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://taoliqiqi.github.io/2018/12/03/expression/&title=《Javascript表达式》 — What's the story?&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://taoliqiqi.github.io/2018/12/03/expression/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Javascript表达式》 — What's the story?&url=http://taoliqiqi.github.io/2018/12/03/expression/&via=http://taoliqiqi.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://taoliqiqi.github.io/2018/12/03/expression/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2018/12/14/async/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">8张图看清 async、await 和 promise 的执行顺序</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2018/12/03/jsdata1/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">Javascript数据类型</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+
+
+</div>
+
+        <footer class="footer">
+    <!-- <div class="top">
+        
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>This blog is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</span>
+        </p>
+    </div> -->
+    <div class="bottom">
+        <p><span>Penny &copy; 2017 - 2018</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://taoliqiqi.github.io/2018/12/03/expression/&title=《Javascript表达式》 — What's the story?&pic=http://taoliqiqi.github.io/img/logo.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://taoliqiqi.github.io/2018/12/03/expression/&title=《Javascript表达式》 — What's the story?&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://taoliqiqi.github.io/2018/12/03/expression/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Javascript表达式》 — What's the story?&url=http://taoliqiqi.github.io/2018/12/03/expression/&via=http://taoliqiqi.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://taoliqiqi.github.io/2018/12/03/expression/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACJUlEQVR42u3aQY6DMAwF0N7/0sx2pKrwfwKVmrysKjolPBYeO/brFa/j33q/0n77fudPu9y8MDAwfpZxnK7zDdpfHfHKnw0DA2MfRhIKz3+VI89/e77vx+sYGBgYZfCd+UsMDAyMbwbc5BGTKxgYGBh5MXlvaTpzbIeBgbEbIz91//7nR/obGBgYP8U4ynVv0XvbU2FgYCzNyAPcTCE6lly2wx8YGBirMtrt80Ox5IHG9oryVgwMjIUY84MUbbLYNi+LdBMDA2NpRj7uMDYK1rZLZ0I2BgbGeoz2OD5vPbYvqA3iF0UsBgbGQoypJOyBwa82fL/y2hoDA2MJRt6GnAc/8QowMDBWZSSHX22TcqbBmQ95fJwZwcDAWJTRdgPbcbE2f6vTRAwMjA0YyUqSv3bMa2ykLKqhMTAwlmO04e+ub+c/X/Q3MDAwFmLMl6x5wTlTxA7+38DAwPhxxtjYxPwQxlgL4SJNxMDA2IAxA0sO3erOavCaMDAwMPLWZn6H5LGSO1/MjGBgYCzKaG83NiSRr7phgIGBsQEj2XIsaI4VuvmpGgYGxtqMo1xPHKjlgb5ICjEwMBZitInaTPI3c7hWHLphYGAsymgL0Xxgoi1W24CLgYGxGyMPfMmVtqkwVsQOToJgYGBswxhL/tqwHg2EYWBgYMQDGWPthOSeSeMBAwNjB0beDJgJr/lQRZJ6YmBg7MMYOxQbOyBLHqJlY2BgLM34A4ovDyyffzC+AAAAAElFTkSuQmCC" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

@@ -28,7 +28,7 @@
 <meta property="og:site_name" content="What&#39;s the story?">
 <meta property="og:description" content="1.区分大小写 Html/css不区分大小写，Html.data属性，名字会自动转小写，类似 JQuery.data() 方法  2.变量 var定义 局部变量：不可被删除；变量可被提前；不用var 全局变量（window一个属性）：可被删除（对象的属性可以被删除）；不可提前（属性是无序的）  3.数据类型 基础数据类型 原始数据类型/不可改变数据类型对象 复杂数据类型/可变数据类型、可使用属性、">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2018-12-27T01:58:22.421Z">
+<meta property="og:updated_time" content="2018-12-27T03:02:08.348Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Javascript数据类型">
 <meta name="twitter:description" content="1.区分大小写 Html/css不区分大小写，Html.data属性，名字会自动转小写，类似 JQuery.data() 方法  2.变量 var定义 局部变量：不可被删除；变量可被提前；不用var 全局变量（window一个属性）：可被删除（对象的属性可以被删除）；不可提前（属性是无序的）  3.数据类型 基础数据类型 原始数据类型/不可改变数据类型对象 复杂数据类型/可变数据类型、可使用属性、">
@@ -345,8 +345,8 @@
 <p><strong>逻辑非</strong> 把内容转为布尔值，取反</p>
 <p><strong>逻辑与&amp;&amp;</strong> 相当于“如果。。。并且。。。”，用于判断语句；返回值并不一定是布尔；当第一个操作数为true，有可能返回第二个操作数</p>
 <p><strong>逻辑或||</strong> 相当于“如果不。。。那么。。。”，用于赋值<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">a &amp;&amp; b || c <span class="comment">//如果a，那么b，否则c （if else)</span></span><br><span class="line"><span class="comment">// a?b:c</span></span><br></pre></td></tr></table></figure></p>
-<p><table class="tg"><br>  <tr><br>    <th class="tg-c6of"></th><br>    <th class="tg-3xi5">&amp;&amp;</th><br>    <th class="tg-3xi5">||</th><br>  </tr><br>  <tr><br>    <td class="tg-c6of">相同点</td><br>    <td class="tg-c6of" colspan="2">返回值是运行到的表达式的返回值</td><br>  </tr><br>  <tr>    <td class="tg-3xi5" rowspan="5">不同点</td><br>    <td class="tg-c6of">判断前面条件是否为true</td><br>    <td class="tg-c6of">返回值比较重要，用于赋值</td><br>  </tr><br></table><br></p>
-<p>==typeof、void、delete也是一元操作符，不是函数==</p>
+<p><table class="tg"><tr><th class="tg-c6of"></th><th class="tg-3xi5">&amp;&amp;</th><th class="tg-3xi5">||</th></tr><tr><td class="tg-c6of">相同点</td><td class="tg-c6of" colspan="2">返回值是运行到的表达式的返回值</td></tr><tr><td class="tg-3xi5" rowspan="5">不同点</td><td class="tg-c6of">判断前面条件是否为true</td><td class="tg-c6of">返回值比较重要，用于赋值</td></tr></table></p>
+<p><strong>typeof、void、delete也是一元操作符，不是函数</strong></p>
 <h2 id="13-乘性操作符"><a href="#13-乘性操作符" class="headerlink" title="13. 乘性操作符"></a>13. 乘性操作符</h2><p><code>*，除，模运算</code></p>
 <blockquote>
 <p>模运算，结果不一定是整数；当参与运算中涉及小数，需先转整数，再运算</p>
@@ -388,7 +388,7 @@
 </ul>
 <p><strong>{}</strong></p>
 <p>除了代表对象，也代表代码区域<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&#123;<span class="attr">a</span>:<span class="number">1</span>&#125; + <span class="number">1</span> <span class="comment">// 1</span></span><br><span class="line"><span class="comment">//&#123;&#125;在前，JS解析时会认为是一段代码结束，直接变成“+1”，得到1</span></span><br></pre></td></tr></table></figure></p>
-<p>```javascript<br>[]+{} // “[object object]”<br>{}+[] // 0 (相当于+[])</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[]+&#123;&#125; <span class="comment">// "[object object]"</span></span><br><span class="line">&#123;&#125;+[] <span class="comment">// 0 (相当于+[])</span></span><br></pre></td></tr></table></figure>
 
         </div>
 
@@ -396,7 +396,7 @@
     <div class="content">
         
 <span class="post-time">
-    Last updated: <time datetime="2018-12-27T01:58:22.421Z" itemprop="dateUpdated">2018-12-27 09:58:22</time>
+    Last updated: <time datetime="2018-12-27T03:02:08.348Z" itemprop="dateUpdated">2018-12-27 11:02:08</time>
 </span><br>
 
 
@@ -473,9 +473,9 @@
 <nav class="post-nav flex-row flex-justify-between">
   
     <div class="waves-block waves-effect prev">
-      <a href="/2018/12/14/async/" id="post-prev" class="post-nav-link">
+      <a href="/2018/12/03/expression/" id="post-prev" class="post-nav-link">
         <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
-        <h4 class="title">8张图看清 async、await 和 promise 的执行顺序</h4>
+        <h4 class="title">Javascript表达式</h4>
       </a>
     </div>
   
